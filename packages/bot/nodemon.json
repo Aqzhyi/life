@@ -1,0 +1,5 @@
+{
+  "verbose": true,
+  "ignore": ["*.test.tsx", "fixtures/*"],
+  "ext": "js,jsx,ts,tsx"
+}
