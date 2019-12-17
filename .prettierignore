@@ -1,0 +1,4 @@
+# 假資料
+__mocks__
+# 透過 css modules 自動產生的 typing 檔案。 參考 npm:typed-scss-modules
+*.scss.d.ts
