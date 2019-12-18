@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "bottender dev",
+    "predev": "tsc",
+    "dev": "concurrently --names 'ts,bot' 'tsc -w' 'bottender dev'",
     "lint": "eslint .",
     "start": "bottender start",
     "test": "jest"
@@ -15,6 +16,7 @@
     "@types/node": "^12.12.19",
     "@typescript-eslint/eslint-plugin": "^2.6.0",
     "@typescript-eslint/parser": "^2.6.0",
+    "concurrently": "^5.0.2",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.2",
