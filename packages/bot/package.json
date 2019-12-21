@@ -10,7 +10,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "bottender": "^1.0.5"
+    "bottender": "^1.0.5",
+    "dayjs": "^1.8.18",
+    "delay": "^4.3.0"
   },
   "devDependencies": {
     "@types/node": "^12.12.21",
