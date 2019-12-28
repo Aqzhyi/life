@@ -2,7 +2,7 @@ import { LineContext } from 'bottender'
 import delay from 'delay'
 import day from 'dayjs'
 
-export default async function App(context: LineContext) {
+export default async function App(context: LineContext): Promise<unknown> {
   const speakingUser = await context.getUserProfile()
   const speakingText: string = context.event.message.text.trim()
   if (
@@ -28,14 +28,14 @@ export default async function App(context: LineContext) {
       orderArray.reverse() &&
       orderArray.join(' ')
 
-    if (!pendingText.match(/\d+[smh]/i)) {
+    if (!/\d+[smh]/i.exec(pendingText)) {
       await context.sendText('日期格式不正確，請輸入例如 3m 30m 1h')
       return
     }
 
     const pending = [
-      (pendingText.match(/\d+/i) || [])[0],
-      (pendingText.match(/[smh]/i) || [])[0],
+      (/\d+/i.exec(pendingText) || [])[0],
+      (/[smh]/i.exec(pendingText) || [])[0],
     ] as Pending
 
     const nowDate = day()
