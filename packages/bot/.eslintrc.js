@@ -19,7 +19,18 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  rules: {},
+  rules: {
+    // 提升可靠性，但沒有也沒關係。
+    '@typescript-eslint/no-explicit-any': 'off',
+    // 提升可靠性，但沒有也沒關係。
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    // 提升可靠性，但沒有也沒關係。
+    '@typescript-eslint/require-await': 'off',
+    // 適當的 unused-vars 幫助我們快速理解有哪些可用的參數
+    '@typescript-eslint/no-unused-vars': 'off',
+    // 分號由 prettier 解決
+    '@typescript-eslint/member-delimiter-style': 'off',
+  },
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
