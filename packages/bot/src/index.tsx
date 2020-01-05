@@ -4,6 +4,8 @@ import day, { UnitType } from 'dayjs'
 import delay from 'delay'
 import { Action, Client, Event, Props } from 'bottender/dist/types'
 
+type DefaultsAction = Action<Client, Event>
+
 const parseTimeFormatted = (inputString: string) => {
   const pending = [
     (/\d+/i.exec(inputString) || [])[0],
@@ -59,20 +61,20 @@ const RemindCommand = async (
     const delaySecond = Number(remindAtTime.diff(nowTime).toString())
 
     await context.sendText(
-      `好的，我會在 ${remindAtTime.format('MM月DD hh時mm分ss秒')} 提醒你`,
+      `好，我會在 ${remindAtTime.format('MM月DD hh時mm分ss秒')} 提醒你`,
     )
 
-    delay(delaySecond).finally(async () => {
-      await context.sendText(`提醒 @${speakingUser.displayName}：${remindText}`)
+    await delay(delaySecond).finally(async () => {
+      await context.pushText(`提醒 @${speakingUser.displayName}：${remindText}`)
     })
   }
 
-  return props.next
+  return props?.next
 }
 
 export default async function App(context: LineContext): Promise<unknown> {
   return router([
     text(/help/, SayRemindFormatHelpCommand),
-    text(/^[$＄]提醒我[\s\S]*$/i, RemindCommand as Action<Client, Event>),
+    text(/^[$＄]提醒我[\s\S]*$/i, RemindCommand as DefaultsAction),
   ])
 }
