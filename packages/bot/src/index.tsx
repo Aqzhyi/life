@@ -1,22 +1,43 @@
-import { LineContext } from 'bottender'
+import { chain, LineContext } from 'bottender'
+import { router, text } from 'bottender/dist/router'
+import day, { UnitType } from 'dayjs'
 import delay from 'delay'
-import day from 'dayjs'
+import { Action, Client, Event, Props } from 'bottender/dist/types'
 
-export default async function App(context: LineContext): Promise<unknown> {
+const parseTimeFormatted = (inputString: string) => {
+  const pending = [
+    (/\d+/i.exec(inputString) || [])[0],
+    (/[smh]/i.exec(inputString) || [])[0],
+  ] as [string, UnitType]
+
+  const nowTime = day()
+  const remindAtTime = day().add(Number(pending[0]), pending[1])
+
+  return {
+    nowTime,
+    remindAtTime,
+  }
+}
+
+const SayRemindFormatHelpCommand: Action<Client, Event> = async (
+  context,
+  props,
+) => {
+  await context.sendText('試試看指令：$提醒我 記得要吸貓 15m')
+  return props?.next
+}
+
+const RemindCommand = async (
+  context: LineContext,
+  props: Props<Client, Event>,
+) => {
   const speakingUser = await context.getUserProfile()
   const speakingText: string = context.event.message.text.trim()
-  if (
-    speakingUser &&
-    context.event.isText &&
-    speakingText.startsWith('/remind')
-  ) {
-    type Pending = [string, 's' | 'm' | 'h']
+  if (speakingUser) {
     const orderArray = speakingText.split(' ')
 
     if (orderArray.length < 3) {
-      await context.sendText(
-        '/remind 指令不正確，請輸入例如 /remind 提醒我 要計得買水 30m',
-      )
+      await context.sendText('指令不正確，請輸入例如： $提醒我 要記得買水 30m')
       return
     }
 
@@ -29,30 +50,29 @@ export default async function App(context: LineContext): Promise<unknown> {
       orderArray.join(' ')
 
     if (!/\d+[smh]/i.exec(pendingText)) {
-      await context.sendText('日期格式不正確，請輸入例如 3m 30m 1h')
+      await context.sendText('日期格式不正確，請輸入例如 3m 30m 1h 3s')
       return
     }
 
-    const pending = [
-      (/\d+/i.exec(pendingText) || [])[0],
-      (/[smh]/i.exec(pendingText) || [])[0],
-    ] as Pending
+    const { nowTime, remindAtTime } = parseTimeFormatted(pendingText)
 
-    const nowDate = day()
-    const pendingDate = day().add(Number(pending[0]), pending[1])
+    const delaySecond = Number(remindAtTime.diff(nowTime).toString())
 
-    const delaySeconds = Number(pendingDate.diff(nowDate).toString())
-
-    // FIXME: sendText() 會 batch send
     await context.sendText(
-      // FIXME: '@Vice 阿轟 老胡 好我會在 12月21 08時55分06秒 提醒你' ＠不到
-      `@${speakingUser.displayName} 好我會在 ${pendingDate.format(
-        'MM月DD hh時mm分ss秒',
-      )} 提醒你`,
+      `好的，我會在 ${remindAtTime.format('MM月DD hh時mm分ss秒')} 提醒你`,
     )
 
-    await delay(delaySeconds)
-
-    await context.sendText(`提醒 @${speakingUser.displayName}：${remindText}`)
+    delay(delaySecond).finally(async () => {
+      await context.sendText(`提醒 @${speakingUser.displayName}：${remindText}`)
+    })
   }
+
+  return props.next
+}
+
+export default async function App(context: LineContext): Promise<unknown> {
+  return router([
+    text(/help/, SayRemindFormatHelpCommand),
+    text(/^[$＄]提醒我[\s\S]*$/i, RemindCommand as Action<Client, Event>),
+  ])
 }
