@@ -2,6 +2,7 @@ import { LineContext } from 'bottender'
 import { Props, Client, Event, Action } from 'bottender/dist/types'
 import { parseTimeFormatted } from '../utils/parseTimeFormatted'
 import delay from 'delay'
+import { remindState } from '../store/remindState'
 
 export const RemindCommand = async (
   context: LineContext,
@@ -45,6 +46,11 @@ export const RemindCommand = async (
 
     delay(delaySecond).finally(async () => {
       await context.pushText(`提醒 @${speakingUser.displayName}：${remindText}`)
+    })
+
+    remindState.add(context, {
+      remindAt: remindAt.toISOString(),
+      remindText,
     })
   }
 
