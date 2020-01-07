@@ -26,6 +26,13 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'off',
     // 分號由 prettier 解決
     '@typescript-eslint/member-delimiter-style': 'off',
+    // 誤用 return promise 之規則
+    '@typescript-eslint/no-misused-promises': [
+      'error',
+      {
+        checksVoidReturn: false,
+      },
+    ],
   },
   overrides: [
     {
