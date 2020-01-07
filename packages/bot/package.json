@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "npm run dev:webpack",
-    "dev": "concurrently --names 'ts,bot' 'npm run dev:webpack -- --watch' 'bottender dev'",
-    "dev:webpack": "TS_NODE_PROJECT=\"tsconfig-webpack.json\" webpack",
+    "predev": "npm run build:src",
+    "dev": "concurrently --names 'ts,bot' 'npm run build:src -- --watch' 'bottender dev'",
+    "build:src": "TS_NODE_PROJECT=\"tsconfig-webpack.json\" webpack",
     "lint": "eslint .",
     "start": "bottender start",
     "test": "jest"
