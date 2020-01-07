@@ -2,9 +2,9 @@ import { LineContext } from 'bottender'
 import { Props, Client, Event, Action } from 'bottender/dist/types'
 import { parseTimeFormatted } from '../utils/parseTimeFormatted'
 import delay from 'delay'
-import { remindState } from '../store/remindState'
+import { remindState } from '../store/state.remind'
 
-export const RemindCommand = async (
+export const MakeRemind = async (
   context: LineContext,
   props: Props<Client, Event>,
 ) => {
