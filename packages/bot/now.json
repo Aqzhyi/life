@@ -1,0 +1,8 @@
+{
+  "build": {
+    "env": {
+      "LINE_ACCESS_TOKEN": "@line_access_token",
+      "LINE_CHANNEL_SECRET": "@line_channel_secret"
+    }
+  }
+}

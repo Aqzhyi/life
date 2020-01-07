@@ -5,6 +5,7 @@
   "scripts": {
     "predev": "npm run build:src",
     "dev": "concurrently --names 'ts,bot' 'npm run build:src -- --watch' 'bottender dev'",
+    "build": "npm run build:src",
     "build:src": "TS_NODE_PROJECT=\"tsconfig-webpack.json\" webpack",
     "lint": "eslint .",
     "start": "bottender start",
