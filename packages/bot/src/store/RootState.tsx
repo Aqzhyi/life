@@ -1,5 +1,2 @@
-import { RemindState } from './state.remind'
-
-export interface RootState {
-  reminds: RemindState[]
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface RootState {}
