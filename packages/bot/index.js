@@ -1,1 +1,1 @@
-module.exports = require('./dist/bundle.jsx').default
+module.exports = require('./dist/index.bundle.jsx').default

@@ -1,8 +1,29 @@
 {
-  "build": {
-    "env": {
-      "LINE_ACCESS_TOKEN": "@line_access_token",
-      "LINE_CHANNEL_SECRET": "@line_channel_secret"
+  "name": "attempt14",
+  "version": 2,
+  "builds": [
+    {
+      "src": "dist/server.bundle.jsx",
+      "use": "@now/node",
+      "config": {
+        "includeFiles": ["bottender.config.js", "dist/index.bundle.jsx"],
+        "bundle": true
+      }
     }
+  ],
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "dist/server.bundle.jsx"
+    }
+  ],
+  "env": {
+    "LINE_ACCESS_TOKEN": "@line_access_token",
+    "LINE_CHANNEL_SECRET": "@line_channel_secret",
+    "BNET_CLIENT_ID": "@bnet_client_id",
+    "BNET_CLIENT_SECRET": "@bnet_client_secret",
+    "TWITCH_CLIENT_ID": "@twitch_client_id",
+    "GOOGLE_ANALYTICS_UA_ID": "@google_analytics_ua_id",
+    "DEBUG": "bottender*,messaging-api*"
   }
 }
