@@ -3,11 +3,18 @@ import { Context } from 'bottender'
 import { produce } from 'immer'
 
 /**
+ * Typed state
+ */
+export const getState = (context: Context<any, any>) => {
+  return context.state as RootState
+}
+
+/**
  * Set state in mutable way
  */
 export const setState = (
   context: Context<any, any>,
-  state: Partial<RootState> | ((rootState: Partial<RootState>) => void),
+  state: (rootState: Partial<RootState>) => void,
 ): ReturnType<typeof context.setState> => {
   if (typeof state === 'function') {
     const getStateByCallback = produce(state)
