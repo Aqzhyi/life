@@ -4,6 +4,9 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 
 const configration: Configuration = {
   target: 'node',
+  stats: {
+    warnings: false,
+  },
   /** TODO: cheap-module-eval-source-map is no suit for production */
   devtool: 'cheap-module-eval-source-map',
   mode: 'development',
