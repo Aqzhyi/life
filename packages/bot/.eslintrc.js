@@ -38,14 +38,12 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx'],
       parserOptions: {
-        extraFileExtensions: ['.ts', '.tsx'],
         project: './tsconfig.json',
       },
     },
     {
       files: ['webpack.config.ts'],
       parserOptions: {
-        extraFileExtensions: ['.ts', '.tsx'],
         project: './tsconfig-webpack.json',
       },
     },
