@@ -12,12 +12,16 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.19.1",
     "bottender": "^1.1.0",
     "dayjs": "^1.8.18",
     "debug": "^4.1.1",
     "delay": "^4.3.0",
+    "humps": "^2.0.1",
     "immer": "^5.1.0",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "ow": "^0.15.0",
+    "universal-analytics": "^0.4.20"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
@@ -25,8 +29,10 @@
     "@babel/plugin-proposal-optional-chaining": "^7.8.3",
     "@babel/preset-env": "^7.7.7",
     "@types/debug": "^4.1.5",
+    "@types/humps": "^1.1.2",
     "@types/lodash": "^4.14.149",
     "@types/node": "^12.12.24",
+    "@types/universal-analytics": "^0.4.3",
     "@types/webpack": "^4.41.2",
     "@typescript-eslint/eslint-plugin": "^2.16.0",
     "@typescript-eslint/parser": "^2.16.0",
