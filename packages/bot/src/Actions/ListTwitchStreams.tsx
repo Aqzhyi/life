@@ -34,6 +34,7 @@ export const QueryWar3rStreams = async (
         return right.viewerCount - left.viewerCount
       })
       .map(item => {
+        const urlId = /live_user_(.*?)-/i.exec(item.thumbnailUrl)
         return {
           type: 'box',
           layout: 'horizontal',
@@ -52,8 +53,8 @@ export const QueryWar3rStreams = async (
               type: 'button',
               action: {
                 type: 'uri',
-                label: '直播中',
-                uri: `https://www.twitch.tv/${item.userName}`,
+                label: urlId?.[1] ? '直播中' : '查詢錯誤',
+                uri: `https://www.twitch.tv/${urlId?.[1]}`,
               },
             },
           ],
