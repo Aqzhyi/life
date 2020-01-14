@@ -1,6 +1,6 @@
 import { GameID } from './enums/GameID'
 import { axiosAPI } from './axiosAPI'
-import { StreamRemote } from './resources/Stream'
+import { StreamRemote } from './resources/StreamRemote'
 import { LanguageParam } from './enums/LanguageParam'
 
 export const twitchAPI = {

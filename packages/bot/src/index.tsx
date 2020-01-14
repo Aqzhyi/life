@@ -1,4 +1,4 @@
-import { QueryWar3rStreams } from './Actions/ListTwitchStreams'
+import { QueryWar3rStreams } from './Actions/QueryWar3rStreams'
 import { LineContext } from 'bottender'
 import { router, text } from 'bottender/dist/router'
 
