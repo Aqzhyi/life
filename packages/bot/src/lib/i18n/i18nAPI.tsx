@@ -36,7 +36,12 @@ export const i18nAPI = {
       resources,
     })
   },
-  t: (key: I18nKeys, options?: any) => {
+  t: <T extends I18nKeys>(
+    key: T,
+    options?: T extends 'validate/支援文字'
+      ? { text: string; list: string }
+      : undefined,
+  ) => {
     return i18next.t(key, options)
   },
 }
