@@ -9,7 +9,7 @@
     "predeploy:prod": "npm t",
     "deploy:prod": "npm run build:src && now --prod",
     "predev": "npm run build:src",
-    "dev": "concurrently --names 'ts,bot' 'npm run dev:watch' 'bottender dev'",
+    "dev": "npm run dev:watch",
     "dev:console": "bottender start --console",
     "dev:watch": "npm run build:src -- --watch",
     "build:src": "TS_NODE_PROJECT=\"tsconfig-webpack.json\" webpack",
