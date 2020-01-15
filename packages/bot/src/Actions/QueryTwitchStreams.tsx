@@ -16,7 +16,6 @@ export const QueryTwitchStreams = async (
     match?: { groups?: { targetGame?: TargetGame } }
   },
 ) => {
-  await i18nAPI.init()
   const defaultsGameId: TargetGame = '魔獸'
   const targetGame = props.match?.groups?.targetGame
 
