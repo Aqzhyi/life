@@ -1,9 +1,21 @@
+const path = require('path')
+const { jestPreset } = require('ts-jest')
+
 module.exports = {
   testEnvironment: 'node',
-  moduleFileExtensions: ['js'],
+  transform: {
+    /** 👇 { '^.+\\.tsx?$': 'ts-jest' } */
+    ...jestPreset.transform,
+    /** 👇 make babel-plugins works on jest */
+    '^.+\\.tsx?$': 'babel-jest',
+  },
+  moduleFileExtensions: ['js', 'ts', 'tsx'],
+  moduleNameMapper: {
+    '@\\/(.*)': path.resolve(__dirname, '$1'),
+  },
   transformIgnorePatterns: ['/node_modules/'],
   testMatch: [
-    '<rootDir>/**/__tests__/**/*.js',
-    '<rootDir>/**/*.{spec,test}.js',
+    '<rootDir>/**/__tests__/**/*.[tj]s?(x)',
+    '<rootDir>/**/*.{spec,test}.[tj]s?(x)',
   ],
-};
+}
