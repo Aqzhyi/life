@@ -14,7 +14,7 @@ export const QueryWar3rStreams = async (
     visitor
       .event({
         ec: 'linebot',
-        ea: '查詢.魔獸爭霸3.正在直播頻道',
+        ea: '魔獸爭霸3.查詢.正在直播頻道',
         el: JSON.stringify({
           functionName: QueryWar3rStreams.name,
           userDisplayName: user?.displayName,
