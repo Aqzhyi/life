@@ -5,10 +5,12 @@ import { LineContext, LineEvent } from 'bottender'
 import { Client, Props } from 'bottender/dist/types'
 import { visitor } from '../lib/google-analytics/gaAPI'
 
-export const QueryWar3rStreams = async (
+export const QueryTwitchStreams = async (
   context: LineContext,
   props: Props<Client, LineEvent>,
 ) => {
+  const game = new Map([['魔獸', []]])
+
   try {
     const user = await context.getUserProfile()
     visitor
@@ -16,7 +18,7 @@ export const QueryWar3rStreams = async (
         ec: 'linebot',
         ea: '魔獸爭霸3.查詢.正在直播頻道',
         el: JSON.stringify({
-          functionName: QueryWar3rStreams.name,
+          functionName: QueryTwitchStreams.name,
           userDisplayName: user?.displayName,
           userProfile: user,
         }),
