@@ -48,20 +48,22 @@ export const QueryWar3rStreams = async (
               align: 'center',
               gravity: 'center',
               size: 'xs',
+              flex: 6,
             },
             {
               type: 'button',
               action: {
                 type: 'uri',
-                label: urlId?.[1] ? '直播中' : '查詢錯誤',
+                label: urlId?.[1] ? '🔴' : '💥',
                 uri: `https://www.twitch.tv/${urlId?.[1]}`,
               },
+              flex: 2,
             },
           ],
         }
       })
 
-    await context.sendFlex('Warcraft III Streams', {
+    await context.sendFlex('查詢.魔獸爭霸3.正在直播頻道', {
       type: 'bubble',
       body: {
         type: 'box',
