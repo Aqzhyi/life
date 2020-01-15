@@ -5,18 +5,7 @@
   },
   "eslint.alwaysShowStatus": true,
   "eslint.enable": true,
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    {
-      "autoFix": true,
-      "language": "typescript"
-    },
-    {
-      "autoFix": true,
-      "language": "typescriptreact"
-    }
-  ],
+  "eslint.validate": ["javascript", "javascriptreact"],
   "prettier.requireConfig": true,
   "typescript.tsdk": "node_modules/typescript/lib"
 }
