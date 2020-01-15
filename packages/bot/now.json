@@ -1,9 +1,9 @@
 {
-  "name": "attempt14",
+  "name": "warcraft3r",
   "version": 2,
   "builds": [
     {
-      "src": "dist/server.bundle.jsx",
+      "src": "src/server.tsx",
       "use": "@now/node",
       "config": {
         "includeFiles": ["bottender.config.js", "dist/index.bundle.jsx"],
@@ -14,7 +14,7 @@
   "routes": [
     {
       "src": "/.*",
-      "dest": "dist/server.bundle.jsx"
+      "dest": "src/server.tsx"
     }
   ],
   "env": {
@@ -24,6 +24,6 @@
     "BNET_CLIENT_SECRET": "@bnet_client_secret",
     "TWITCH_CLIENT_ID": "@twitch_client_id",
     "GOOGLE_ANALYTICS_UA_ID": "@google_analytics_ua_id",
-    "DEBUG": "bottender*,messaging-api*"
+    "DEBUG": "bottender*,-messaging-api*,-bottender:session*-bottender:response"
   }
 }
