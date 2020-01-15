@@ -1,3 +1,12 @@
+# [0.2.0](https://github.com/hilezi/life/compare/v0.1.0...v0.2.0) (2020-01-15)
+
+
+### Features
+
+* **bot:** 查詢直播功能，現在可以查詢「星海」或「魔獸」，預設「魔獸」 ([474dde6](https://github.com/hilezi/life/commit/474dde6ec35cc08d57e3ac58d254d47f37b0f98c))
+
+
+
 # 0.1.0 (2020-01-15)
 
 
