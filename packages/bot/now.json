@@ -28,7 +28,8 @@
     "BNET_CLIENT_SECRET": "@bnet_client_secret",
     "TWITCH_CLIENT_ID": "@twitch_client_id",
     "GOOGLE_ANALYTICS_UA_ID": "@google_analytics_ua_id",
-    "DEBUG": "bottender*,-messaging-api*,-bottender:session*-bottender:response",
-    "DEBUG_I18N": "0"
+    "DEBUG": "w3r*",
+    "DEBUG_I18N": "0",
+    "DEBUG_PRIVATE_KEEP": "bottender*,-messaging-api*,-bottender:session*-bottender:response"
   }
 }

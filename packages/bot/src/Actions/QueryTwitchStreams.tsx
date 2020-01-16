@@ -6,6 +6,7 @@ import { Client, Props } from 'bottender/dist/types'
 import { visitor } from '../lib/google-analytics/gaAPI'
 import ow from 'ow'
 import { i18nAPI } from '../lib/i18n/i18nAPI'
+import { debugAPI } from '../lib/debug/debugAPI'
 
 const TARGET_GAME_CONFIG = [
   [
@@ -75,10 +76,13 @@ export const QueryTwitchStreams = async (
   },
 ) => {
   context.sendText(i18nAPI.t('tip/正在查詢'))
+  const debug = debugAPI.bot.extend(QueryTwitchStreams.name)
   const defaultsGameId: TargetGame = '魔獸'
   const targetGame = props.match?.groups?.targetGame?.toLowerCase() as
     | TargetGame
     | undefined
+
+  debug(`用戶 input:${targetGame}`)
 
   let gameId: GameID | undefined
   let gameTitle: string | undefined
@@ -95,6 +99,9 @@ export const QueryTwitchStreams = async (
 
     targetGameDefine = [...targetGameDefine, ...gameMatchTexts]
   }
+
+  debug(`系統 targetGameDefine:${targetGameDefine}`)
+  debug(`系統 gameId:${gameId} title:${gameTitle}`)
 
   try {
     targetGame &&
@@ -222,7 +229,11 @@ export const QueryTwitchStreams = async (
         ],
       },
     })
+
+    const sendUsers = response.data.map(item => item.userName).join(',')
+    debug(`回應 ${sendUsers}`)
   } catch (error) {
+    debug(`錯誤 ${error.message}`)
     await context.sendText(error.message)
   }
 
