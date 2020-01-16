@@ -1,8 +1,10 @@
 [![](https://img.shields.io/badge/CHANGELOG-conventional%20changelog-informational)](./CHANGELOG.md)
 
-# Line Bot
+# 讓你輕鬆查詢 Twitch 正在直播的 LINE BOT 機器人
 
-<img src="./public/assets/2020-01-16-00-46-08.png" height="480" />
+> https://www.notion.so/hilezi/d7ac6acf3ee94029a245be3df3c9f5fe
+
+<img src="./public/IMG_9431.png" height="480" />
 
 # development
 
