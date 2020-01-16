@@ -1,6 +1,7 @@
 import { Configuration } from 'webpack'
 import path from 'path'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
+import Dotenv from 'dotenv-webpack'
 
 const configration: Configuration = {
   target: 'node',
@@ -49,7 +50,13 @@ const configration: Configuration = {
       },
     ],
   },
-  plugins: [new CleanWebpackPlugin()],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new Dotenv({
+      defaults: false,
+      systemvars: true,
+    }),
+  ],
 }
 
 export default configration

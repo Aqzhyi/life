@@ -6,8 +6,8 @@
   },
   "private": true,
   "scripts": {
-    "deploy": "npm t && npm run build:src && now",
-    "deploy:prod": "npm t && npm run build:src && now --prod",
+    "deploy": "NODE_ENV=production npm t && npm run build:src && now",
+    "deploy:prod": "NODE_ENV=production npm t && npm run build:src && now --prod",
     "dev": "npm run build:src && npm run dev:watch",
     "dev:console": "DEBUG=w3r* bottender start --console",
     "dev:watch": "npm run build:src -- --watch",
@@ -60,6 +60,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "concurrently": "^5.0.2",
     "conventional-changelog": "^3.1.18",
+    "dotenv-webpack": "^1.7.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-loader": "^3.0.3",
