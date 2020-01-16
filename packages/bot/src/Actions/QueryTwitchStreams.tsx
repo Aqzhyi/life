@@ -230,8 +230,21 @@ export const QueryTwitchStreams = async (
 
     const sendUsers = response.data.map(item => item.userName).join(',')
     debug(`回應 ${sendUsers}`)
+    gaAPI.send({
+      ec: 'linebot',
+      ea: `${gameTitle}/查詢/正在直播頻道/回應`,
+      el: sendUsers,
+    })
   } catch (error) {
     debug(`錯誤 ${error.message}`)
+    gaAPI.send({
+      ec: 'linebot',
+      ea: `${gameTitle}/查詢/正在直播頻道/錯誤`,
+      el: JSON.stringify({
+        errorMessage: error.message,
+      }),
+    })
+
     await context.sendText(error.message)
   }
 
