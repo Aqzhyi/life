@@ -127,7 +127,8 @@ export const QueryTwitchStreams = async (
           errorMessage: error.message,
         }),
       })
-      throw new Error(i18nAPI.t('error/系統內部錯誤'))
+      await context.sendText(i18nAPI.t('error/系統內部錯誤'))
+      return
     }
     if (!gameId || !gameTitle) return
 
