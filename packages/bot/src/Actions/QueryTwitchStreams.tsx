@@ -7,8 +7,66 @@ import { visitor } from '../lib/google-analytics/gaAPI'
 import ow from 'ow'
 import { i18nAPI } from '../lib/i18n/i18nAPI'
 
-const defineTargetGame = ['魔獸', 'wc3', '星海', 'sc2'] as const
-type TargetGame = typeof defineTargetGame[number]
+const TARGET_GAME_CONFIG = [
+  [
+    { gameId: GameID.minecraft, text: () => i18nAPI.t('game/minecraft') },
+    'minecraft',
+    '創世神',
+    '我的創世神',
+  ],
+  [
+    { gameId: GameID.starcraft2, text: () => i18nAPI.t('game/sc2') },
+    'sc',
+    'sc2',
+    '星海',
+  ],
+  [
+    {
+      gameId: GameID.callOfDutyModernWarfare,
+      text: () => i18nAPI.t('game/cod'),
+    },
+    'cod',
+    '決勝時刻',
+    '現代戰爭',
+  ],
+  [
+    { gameId: GameID.leagueOfLegends, text: () => i18nAPI.t('game/lol') },
+    'lol',
+    '英雄',
+    '英雄聯盟',
+  ],
+  [
+    { gameId: GameID.warcraft3, text: () => i18nAPI.t('game/wc3') },
+    'wc',
+    'wc3',
+    '魔獸',
+    '魔獸爭霸',
+  ],
+
+  // WOW
+  [
+    {
+      gameId: GameID.worldOfWarcraft,
+      text: () => i18nAPI.t('game/wow'),
+    },
+    '魔獸世界',
+    'wow',
+  ],
+
+  // 鬥陣
+  [
+    {
+      gameId: GameID.overwatch,
+      text: () => i18nAPI.t('game/overwatch'),
+    },
+    'overwatch',
+    'ow',
+    '鬥陣',
+    '鬥陣特攻',
+  ],
+] as const
+
+type TargetGame = Exclude<typeof TARGET_GAME_CONFIG[number][number], object>
 
 export const QueryTwitchStreams = async (
   context: LineContext,
@@ -16,35 +74,56 @@ export const QueryTwitchStreams = async (
     match?: { groups?: { targetGame?: TargetGame } }
   },
 ) => {
+  context.sendText(i18nAPI.t('tip/正在查詢'))
   const defaultsGameId: TargetGame = '魔獸'
-  const targetGame = props.match?.groups?.targetGame
+  const targetGame = props.match?.groups?.targetGame?.toLowerCase() as
+    | TargetGame
+    | undefined
 
-  const gameId = new Map<TargetGame, GameID>([
-    ['魔獸', GameID.warcraft3],
-    ['wc3', GameID.warcraft3],
-    ['星海', GameID.starcraft2],
-    ['sc2', GameID.starcraft2],
-  ]).get(targetGame || defaultsGameId)!
+  let gameId: GameID | undefined
+  let gameTitle: string | undefined
+  let targetGameDefine: TargetGame[] = []
 
-  const gameTitle = new Map([
-    ['魔獸', i18nAPI.t('game/wc3')],
-    ['wc3', i18nAPI.t('game/wc3')],
-    ['星海', i18nAPI.t('game/sc2')],
-    ['sc2', i18nAPI.t('game/sc2')],
-  ]).get(targetGame || defaultsGameId)!
+  for (const gameConfigs of TARGET_GAME_CONFIG) {
+    const [gameConfig, ...gameMatchTexts] = gameConfigs
+    const foo = new Set(gameMatchTexts)
+
+    if (foo.has(targetGame || defaultsGameId)) {
+      gameId = gameConfig.gameId
+      gameTitle = gameConfig.text()
+    }
+
+    targetGameDefine = [...targetGameDefine, ...gameMatchTexts]
+  }
 
   try {
     targetGame &&
       ow(
         targetGame,
         ow.string.validate(value => ({
-          validator: defineTargetGame.includes(value as TargetGame),
+          validator: targetGameDefine.includes(value as TargetGame),
           message: i18nAPI.t('validate/支援文字', {
             text: targetGame,
-            list: JSON.stringify(defineTargetGame),
+            list: JSON.stringify(targetGameDefine),
           }),
         })),
       )
+
+    try {
+      ow(!gameId || !gameTitle, ow.boolean.false)
+    } catch (error) {
+      visitor
+        .event({
+          ec: 'linebot',
+          ea: `${gameTitle}/查詢/正在直播頻道/錯誤`,
+          el: JSON.stringify({
+            errorMessage: error.message,
+          }),
+        })
+        .send()
+      throw new Error(i18nAPI.t('error/系統內部錯誤'))
+    }
+    if (!gameId || !gameTitle) return
 
     const user = await context.getUserProfile()
     visitor
@@ -127,7 +206,13 @@ export const QueryTwitchStreams = async (
               },
               {
                 type: 'text',
-                text: '指令 -> $直播 {魔獸/星海/預設:魔獸}',
+                text: '指令 -> $直播 {遊戲:預設魔獸}',
+                size: 'xs',
+                margin: 'xl',
+              },
+              {
+                type: 'text',
+                text: '{遊戲} -> WOW/LOL/COD/OW/魔獸/星海/創世神',
                 size: 'xs',
                 margin: 'xl',
               },
