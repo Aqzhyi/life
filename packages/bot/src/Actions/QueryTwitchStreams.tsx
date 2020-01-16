@@ -3,7 +3,7 @@ import { LanguageParam } from '../lib/twitch/enums/LanguageParam'
 import { twitchAPI } from '../lib/twitch/twitchAPI'
 import { LineContext, LineEvent } from 'bottender'
 import { Client, Props } from 'bottender/dist/types'
-import { visitor } from '../lib/google-analytics/gaAPI'
+import { gaAPI } from '../lib/google-analytics/gaAPI'
 import ow from 'ow'
 import { i18nAPI } from '../lib/i18n/i18nAPI'
 import { debugAPI } from '../lib/debug/debugAPI'
@@ -119,33 +119,30 @@ export const QueryTwitchStreams = async (
     try {
       ow(!gameId || !gameTitle, ow.boolean.false)
     } catch (error) {
-      visitor
-        .event({
-          ec: 'linebot',
-          ea: `${gameTitle}/查詢/正在直播頻道/錯誤`,
-          el: JSON.stringify({
-            context: `!gameId || !gameTitle`,
-            errorMessage: error.message,
-          }),
-        })
-        .send()
+      gaAPI.send({
+        ec: 'linebot',
+        ea: `${gameTitle}/查詢/正在直播頻道/錯誤`,
+        el: JSON.stringify({
+          context: `!gameId || !gameTitle`,
+          errorMessage: error.message,
+        }),
+      })
       throw new Error(i18nAPI.t('error/系統內部錯誤'))
     }
     if (!gameId || !gameTitle) return
 
     const user = await context.getUserProfile()
-    visitor
-      .event({
-        ec: 'linebot',
-        ea: `${gameTitle}/查詢/正在直播頻道`,
-        el: JSON.stringify({
-          functionName: QueryTwitchStreams.name,
-          userDisplayName: user?.displayName,
-          userProfile: user,
-        }),
-        ev: 10,
-      })
-      .send()
+
+    gaAPI.send({
+      ec: 'linebot',
+      ea: `${gameTitle}/查詢/正在直播頻道`,
+      el: JSON.stringify({
+        functionName: QueryTwitchStreams.name,
+        userDisplayName: user?.displayName,
+        userProfile: user,
+      }),
+      ev: 10,
+    })
 
     const response = await twitchAPI.getStreams({
       gameId,
