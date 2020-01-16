@@ -11,8 +11,10 @@ import { debugAPI } from '../lib/debug/debugAPI'
 const TARGET_GAME_CONFIG = [
   [
     { gameId: GameID.minecraft, text: () => i18nAPI.t('game/minecraft') },
+    'mc',
     'minecraft',
     '創世神',
+    '我的世界',
     '我的創世神',
   ],
   [
