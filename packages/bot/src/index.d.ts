@@ -11,5 +11,8 @@ declare namespace NodeJS {
 
     /** 台灣星盟電子競技情報網 */
     GOOGLE_ANALYTICS_UA_ID: string
+
+    /** i18next debug */
+    DEBUG_I18N: '0' | '1'
   }
 }

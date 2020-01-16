@@ -32,7 +32,7 @@ export const i18nAPI = {
     return i18next.init({
       lng: 'tw',
       fallbackLng: ['tw', 'en'],
-      debug: process.env.NODE_ENV !== 'production',
+      debug: process.env.DEBUG_I18N === '1',
       resources,
     })
   },
