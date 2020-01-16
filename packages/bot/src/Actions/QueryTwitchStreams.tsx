@@ -244,14 +244,16 @@ export const QueryTwitchStreams = async (
                 margin: 'lg',
               },
               {
+                color: '#999999',
                 type: 'text',
-                text: '指令 -> $直播 {遊戲:預設魔獸}',
+                text: '指令: $直播{遊戲中或英名稱}',
                 size: 'xs',
                 margin: 'xl',
               },
               {
+                color: '#999999',
                 type: 'text',
-                text: '{遊戲} -> WOW/LOL/COD/OW/魔獸/星海/創世神',
+                text: '例如: $直播聊天、$直播魔獸、$直播LOL',
                 size: 'xs',
                 margin: 'xl',
               },
