@@ -6,9 +6,13 @@ const resources: {
       'error/系統內部錯誤': string
       'game/chatting': string
       'game/cod': string
+      'game/csgo': string
+      'game/dota2': string
+      'game/hearthstone': string
       'game/lol': string
       'game/minecraft': string
       'game/overwatch': string
+      'game/poe': string
       'game/sc2': string
       'game/wc3': string
       'game/wow': string
@@ -23,9 +27,13 @@ const resources: {
         '系統內部錯誤，如果你願意，可以通知開發者：hilezi.chen@gmail.com',
       'game/chatting': '純聊天',
       'game/cod': '決勝時刻16：現代戰爭',
+      'game/csgo': '絕對武力：全球攻勢',
+      'game/dota2': 'Dota 2',
+      'game/hearthstone': '爐石戰記',
       'game/lol': '英雄聯盟',
       'game/minecraft': '創世神',
       'game/overwatch': '鬥陣特攻',
+      'game/poe': '流亡黯道',
       'game/sc2': '星海爭霸2',
       'game/wc3': '魔獸爭霸3',
       'game/wow': '魔獸世界',

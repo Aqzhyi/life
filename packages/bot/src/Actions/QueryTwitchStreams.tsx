@@ -57,6 +57,47 @@ const TARGET_GAME_CONFIG = [
     '鬥陣',
     '鬥陣特攻',
   ],
+  [
+    { gameId: GameID.justChatting, text: () => i18nAPI.t('game/chatting') },
+    '聊天',
+    'chat',
+  ],
+  [
+    {
+      gameId: GameID.counterStrikeGlobalOffensive,
+      text: () => i18nAPI.t('game/csgo'),
+    },
+    'cs',
+    'csgo',
+    'cs:go',
+    '絕對武力',
+  ],
+  [
+    {
+      gameId: GameID.Hearthstone,
+      text: () => i18nAPI.t('game/hearthstone'),
+    },
+    'hearthstone',
+    'hs',
+    '爐石',
+    '爐石戰記',
+  ],
+  [
+    {
+      gameId: GameID.pathOfExile,
+      text: () => i18nAPI.t('game/poe'),
+    },
+    'poe',
+    '流亡黯道',
+  ],
+  [
+    {
+      gameId: GameID.Dota2,
+      text: () => i18nAPI.t('game/dota2'),
+    },
+    'dota',
+    'dota2',
+  ],
 ] as const
 
 type TargetGame = Exclude<typeof TARGET_GAME_CONFIG[number][number], object>
