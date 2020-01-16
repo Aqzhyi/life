@@ -45,23 +45,13 @@ const TARGET_GAME_CONFIG = [
     '魔獸',
     '魔獸爭霸',
   ],
-
-  // WOW
   [
-    {
-      gameId: GameID.worldOfWarcraft,
-      text: () => i18nAPI.t('game/wow'),
-    },
+    { gameId: GameID.worldOfWarcraft, text: () => i18nAPI.t('game/wow') },
     '魔獸世界',
     'wow',
   ],
-
-  // 鬥陣
   [
-    {
-      gameId: GameID.overwatch,
-      text: () => i18nAPI.t('game/overwatch'),
-    },
+    { gameId: GameID.overwatch, text: () => i18nAPI.t('game/overwatch') },
     'overwatch',
     'ow',
     '鬥陣',
