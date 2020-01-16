@@ -12,7 +12,6 @@ const configration: Configuration = {
   mode: 'development',
   entry: {
     index: path.resolve(__dirname, 'src/index'),
-    server: path.resolve(__dirname, 'src/server'),
   },
   output: {
     filename: '[name].bundle.jsx',
@@ -42,6 +41,9 @@ const configration: Configuration = {
           },
           {
             loader: 'ts-loader',
+            options: {
+              configFile: path.resolve(__dirname, 'tsconfig.src.json'),
+            },
           },
         ],
       },

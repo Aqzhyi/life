@@ -1,3 +1,6 @@
+# next.js build
+.next
+
 # session
 .sessions/*.json
 

@@ -3,18 +3,22 @@
   "version": 2,
   "builds": [
     {
-      "src": "src/server.tsx",
+      "src": "server/bot-server.ts",
       "use": "@now/node",
       "config": {
         "includeFiles": ["bottender.config.js", "dist/index.bundle.jsx"],
         "bundle": true
       }
+    },
+    {
+      "src": "package.json",
+      "use": "@now/next"
     }
   ],
   "routes": [
     {
-      "src": "/.*",
-      "dest": "src/server.tsx"
+      "src": "/webhooks/.*",
+      "dest": "server/bot-server.ts"
     }
   ],
   "env": {

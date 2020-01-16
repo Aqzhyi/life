@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "allowUmdGlobalAccess": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
@@ -14,11 +15,13 @@
     "noUnusedParameters": false,
     "outDir": "./dist",
     "resolveJsonModule": true,
-    "rootDir": "./src",
+    "rootDir": ".",
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "allowJs": true,
+    "noEmit": true
   },
   "exclude": ["**/__tests__", "**/*.{spec,test}.tsx"],
   "include": ["src/**/*"],

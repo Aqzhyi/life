@@ -1,16 +1,11 @@
 import bodyParser from 'body-parser'
-import express from 'express'
 import { bottender } from 'bottender'
+import express from 'express'
 
-const app = bottender({
-  dev: process.env.NODE_ENV !== 'production',
-})
+const isProd = process.env.NODE_ENV === 'production'
 
-const port = Number(process.env.PORT) || 5000
-
+const app = bottender({ dev: !isProd })
 const handle = app.getRequestHandler()
-
-console.info(`🔥 starting server on port: 5000`)
 
 app.prepare().then(() => {
   const server = express()
@@ -23,16 +18,12 @@ app.prepare().then(() => {
     }),
   )
 
-  server.get('/', (req, res) => {
-    res.send('works!!')
-  })
-
   server.all('*', (req, res) => {
     return handle(req, res)
   })
 
-  server.listen(port, err => {
+  server.listen(5000, err => {
     if (err) throw err
-    console.log(`> Ready on http://localhost:${port}`)
+    console.log(`> bottender Server Ready on http://localhost:${5000}`)
   })
 })
