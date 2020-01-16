@@ -172,8 +172,8 @@ export const QueryTwitchStreams = async (
       ea: `${gameTitle}/查詢/正在直播頻道`,
       el: JSON.stringify({
         functionName: QueryTwitchStreams.name,
-        userDisplayName: user?.displayName,
-        userProfile: user,
+        displayName: user?.displayName,
+        statusMessage: user?.statusMessage,
       }),
       ev: 10,
     })
