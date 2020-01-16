@@ -117,6 +117,7 @@ export const QueryTwitchStreams = async (
           ec: 'linebot',
           ea: `${gameTitle}/查詢/正在直播頻道/錯誤`,
           el: JSON.stringify({
+            context: `!gameId || !gameTitle`,
             errorMessage: error.message,
           }),
         })
