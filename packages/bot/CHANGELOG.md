@@ -1,3 +1,17 @@
+# [0.3.0](https://github.com/hilezi/life/compare/v0.2.0...v0.3.0) (2020-01-16)
+
+
+### Bug Fixes
+
+* **bot:** 修復查詢直播，驗證文字錯誤的提示訊息 ([ae4502a](https://github.com/hilezi/life/commit/ae4502a33dd493d0bd1ca3b6f412dafabd7d5028))
+
+
+### Features
+
+* **bot:** 直播查詢功能現在也可以查詢「魔獸世界」「英雄聯盟」「現代戰爭」「我的創世神」「鬥陣特攻」 ([1c30cbc](https://github.com/hilezi/life/commit/1c30cbc84876d33658943350dc07d06c82d597b4))
+
+
+
 # [0.2.0](https://github.com/hilezi/life/compare/v0.1.0...v0.2.0) (2020-01-15)
 
 
