@@ -9,6 +9,7 @@ import { twitchAPI } from '../lib/twitch/twitchAPI'
 import { twitchGameSelector } from '../selectors/twitchGameSelector'
 import ow from 'ow'
 import replaceStrings from 'replace-string'
+import { isKeywordSelector } from '../selectors/isKeywordSelector'
 
 export const QueryTwitchStreams: LineAction<WithGroupProps<{
   inputKeyword: GameKeyword
@@ -34,7 +35,7 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
       ow(
         inputKeyword,
         ow.string.validate(value => ({
-          validator: GAME_KEYWORDS.includes(value as GameKeyword),
+          validator: isKeywordSelector(value),
           message: i18nAPI.t('validate/支援文字', {
             text: inputKeyword,
             list: replaceStrings(JSON.stringify(GAME_KEYWORDS), '"', ' '),
