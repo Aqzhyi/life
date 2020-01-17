@@ -14,7 +14,6 @@ import { isKeywordSelector } from '../selectors/isKeywordSelector'
 export const QueryTwitchStreams: LineAction<WithGroupProps<{
   inputKeyword: GameKeyword
 }>> = async (context, props) => {
-  context.sendText(i18nAPI.t('tip/正在查詢'))
   const debug = debugAPI.bot.extend(QueryTwitchStreams.name)
   const defaultsKeyword: GameKeyword = '魔獸'
   const inputKeyword = props.match?.groups?.inputKeyword?.toLowerCase() as
