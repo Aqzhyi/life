@@ -1,3 +1,14 @@
+# [0.4.0](https://github.com/hilezi/life/compare/v0.3.0...v0.4.0) (2020-01-17)
+
+
+### Features
+
+* **bot:** 回應任意「\$」開頭的訊息，提供基本訊息提示 ([4b755ed](https://github.com/hilezi/life/commit/4b755ed04bcb50d538964f50fb63226a1986e0eb))
+* **bot:** 增加「我的創世神」關鍵字 ([bcd3f3a](https://github.com/hilezi/life/commit/bcd3f3ab0be256895bfbcd675ffea336c36094eb))
+* **bot:** 查詢直播功能，增加查詢「爐石」「聊天」「CSGO」「流亡黯道」「dota」 ([931128f](https://github.com/hilezi/life/commit/931128f11e19293124bbde8c16e09769000830cb))
+
+
+
 # [0.3.0](https://github.com/hilezi/life/compare/v0.2.0...v0.3.0) (2020-01-16)
 
 
