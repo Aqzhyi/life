@@ -9,6 +9,7 @@ import { i18nAPI } from '../lib/i18n/i18nAPI'
 import { debugAPI } from '../lib/debug/debugAPI'
 import { GAME_KEYWORDS, GameKeyword } from '../constants/GAME_CONFIGS'
 import { twitchGameSelector } from '../selector/twitchGameSelector'
+import replaceStrings from 'replace-string'
 
 export const QueryTwitchStreams = async (
   context: LineContext,
@@ -40,7 +41,7 @@ export const QueryTwitchStreams = async (
           validator: GAME_KEYWORDS.includes(value as GameKeyword),
           message: i18nAPI.t('validate/支援文字', {
             text: inputKeyword,
-            list: JSON.stringify(GAME_KEYWORDS),
+            list: replaceStrings(JSON.stringify(GAME_KEYWORDS), '"', ' '),
           }),
         })),
       )
