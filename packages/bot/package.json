@@ -6,8 +6,8 @@
   },
   "private": true,
   "scripts": {
-    "deploy": "NODE_ENV=production npm t && npm run build:src && now",
-    "deploy:prod": "NODE_ENV=production npm t && npm run build:src && now --prod",
+    "deploy": "npm t && npm run build:src && now",
+    "deploy:prod": "npm t && npm run build:src && now --prod",
     "dev": "npm run build:src && npm run dev:watch",
     "dev:console": "DEBUG=w3r* bottender start --console",
     "dev:watch": "npm run build:src -- --watch",

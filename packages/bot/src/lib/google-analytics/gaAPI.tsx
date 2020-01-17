@@ -8,8 +8,6 @@ export const gaAPI = {
     const debug = debugAPI.ga.extend(gaAPI.send.name)
     debug(`${JSON.stringify(event)}`)
 
-    if (process.env.NODE_ENV === 'production') {
-      visitor.event(event).send()
-    }
+    visitor.event(event).send()
   },
 }
