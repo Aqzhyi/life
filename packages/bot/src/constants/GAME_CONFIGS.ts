@@ -1,5 +1,6 @@
 import { GameID } from '../lib/twitch/enums/GameID'
 import { i18nAPI } from '../lib/i18n/i18nAPI'
+import { expectType } from '../lib/tsd/expectType'
 
 /**
  * 設定哪些遊戲和其關鍵字
@@ -100,6 +101,16 @@ export const GAME_CONFIGS = [
 
 /** 用來匹配遊戲的關鍵字 */
 export type GameKeyword = Exclude<typeof GAME_CONFIGS[number][number], object>
+
+// 測試 type GameKeyword 必須是遊戲關鍵字
+expectType<GameKeyword[]>([
+  '魔獸爭霸',
+  'lol',
+  '英雄聯盟',
+  '鬥陣特攻',
+  '魔獸世界',
+  'wow',
+])
 
 export const GAME_KEYWORDS: GameKeyword[] = GAME_CONFIGS.reduce(
   (current, item, text) => {
