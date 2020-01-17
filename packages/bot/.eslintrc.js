@@ -1,3 +1,5 @@
+// Consider running ESLint debug
+// npx eslint --debug /Users/pleasurazy/git/life/packages/bot/.eslintrc.js
 module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'prettier'],
