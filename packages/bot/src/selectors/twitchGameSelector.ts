@@ -1,4 +1,4 @@
-import { GAME_CONFIGS, GameKeyword } from '../constants/GAME_CONFIGS'
+import { GAME_CONFIGS, GameKeyword } from '../configs/GAME_CONFIGS'
 import { GameID } from '../lib/twitch/enums/GameID'
 
 export const twitchGameSelector = (

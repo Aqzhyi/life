@@ -1,4 +1,4 @@
-import { QueryTwitchStreamsText } from '../constants/texts'
+import { QueryTwitchStreamsText } from '../configs/texts'
 
 describe('查詢直播指令', () => {
   it('指令正規: [$＄!！]$(直播|live)', () => {
