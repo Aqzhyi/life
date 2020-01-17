@@ -1,10 +1,6 @@
-import { LineContext, LineEvent } from 'bottender'
-import { Client, Props } from 'bottender/dist/types'
+import { LineAction } from '../lib/bottender-toolkit/types'
 
-export const SayHelloWorld = async (
-  context: LineContext,
-  props: Props<Client, LineEvent>,
-) => {
+export const SayHelloWorld: LineAction = async (context, props) => {
   await context.sendText('歡迎使用 查詢 Twitch 直播')
   await context.sendText('你可以試著輸入指令 $直播[遊戲]，例如：')
   await context.sendText('$直播英雄')

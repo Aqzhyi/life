@@ -1,22 +1,18 @@
+import { GAME_KEYWORDS, GameKeyword } from '../constants/GAME_CONFIGS'
+import { LineAction, WithGroupProps } from '../lib/bottender-toolkit/types'
+import { debugAPI } from '../lib/debug/debugAPI'
+import { gaAPI } from '../lib/google-analytics/gaAPI'
+import { i18nAPI } from '../lib/i18n/i18nAPI'
 import { GameID } from '../lib/twitch/enums/GameID'
 import { LanguageParam } from '../lib/twitch/enums/LanguageParam'
 import { twitchAPI } from '../lib/twitch/twitchAPI'
-import { LineContext, LineEvent } from 'bottender'
-import { Client, Props } from 'bottender/dist/types'
-import { gaAPI } from '../lib/google-analytics/gaAPI'
-import ow from 'ow'
-import { i18nAPI } from '../lib/i18n/i18nAPI'
-import { debugAPI } from '../lib/debug/debugAPI'
-import { GAME_KEYWORDS, GameKeyword } from '../constants/GAME_CONFIGS'
 import { twitchGameSelector } from '../selector/twitchGameSelector'
+import ow from 'ow'
 import replaceStrings from 'replace-string'
 
-export const QueryTwitchStreams = async (
-  context: LineContext,
-  props: Props<Client, LineEvent> & {
-    match?: { groups?: { inputKeyword?: GameKeyword } }
-  },
-) => {
+export const QueryTwitchStreams: LineAction<WithGroupProps<{
+  inputKeyword: GameKeyword
+}>> = async (context, props) => {
   context.sendText(i18nAPI.t('tip/正在查詢'))
   const debug = debugAPI.bot.extend(QueryTwitchStreams.name)
   const defaultsKeyword: GameKeyword = '魔獸'

@@ -1,13 +1,9 @@
-import { LineContext, LineEvent } from 'bottender'
-import { Props, Client } from 'bottender/dist/types'
+import { LineAction, WithGroupProps } from '../lib/bottender-toolkit/types'
 import { gaAPI } from '../lib/google-analytics/gaAPI'
 
-export const RecordUserSaying = async (
-  context: LineContext,
-  props: Props<Client, LineEvent> & {
-    match?: { groups?: { text?: string } }
-  },
-) => {
+export const RecordUserSaying: LineAction<WithGroupProps<{
+  text: string
+}>> = async (context, props) => {
   const inputText = props.match?.groups?.text || ''
 
   gaAPI.send({
