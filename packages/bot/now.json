@@ -24,6 +24,8 @@
   "env": {
     "LINE_ACCESS_TOKEN": "@line_access_token",
     "LINE_CHANNEL_SECRET": "@line_channel_secret",
+    "LINE_ACCESS_TOKEN_BETA": "@line_access_token_beta",
+    "LINE_CHANNEL_SECRET_BETA": "@line_channel_secret_beta",
     "BNET_CLIENT_ID": "@bnet_client_id",
     "BNET_CLIENT_SECRET": "@bnet_client_secret",
     "TWITCH_CLIENT_ID": "@twitch_client_id",
