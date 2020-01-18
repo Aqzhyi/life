@@ -1,7 +1,7 @@
 import { QueryTwitchStreams } from '@/actions/QueryTwitchStreams'
 import { LineContext, chain } from 'bottender'
 import { router, text } from 'bottender/dist/router'
-import { QueryTwitchStreamsText } from '@/configs/texts'
+import { QueryTwitchStreamsText } from '@/configs/TEXT'
 import { i18nAPI } from '@/lib/i18n/i18nAPI'
 import { RecordUserSaying } from '@/actions/RecordUserSaying'
 import { SayHelloWorld } from '@/actions/SayHelloWorld'
