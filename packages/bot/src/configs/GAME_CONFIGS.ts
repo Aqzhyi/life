@@ -97,6 +97,14 @@ export const GAME_CONFIGS = [
     'dota',
     'dota2',
   ],
+  [
+    {
+      gameId: GameID.terraria,
+      text: () => i18nAPI.t('game/terraria'),
+    },
+    'terraria',
+    '泰拉瑞亞',
+  ],
 ] as const
 
 /** 用來匹配遊戲的關鍵字 */

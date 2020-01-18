@@ -14,6 +14,7 @@ const resources: {
       'game/overwatch': string
       'game/poe': string
       'game/sc2': string
+      'game/terraria': string
       'game/wc3': string
       'game/wow': string
       'text/觀看人數': string
@@ -37,6 +38,7 @@ const resources: {
       'game/overwatch': '鬥陣特攻',
       'game/poe': '流亡黯道',
       'game/sc2': '星海爭霸2',
+      'game/terraria': '泰拉瑞亞',
       'game/wc3': '魔獸爭霸3',
       'game/wow': '魔獸世界',
       'text/觀看人數': '人數: {{value}}',

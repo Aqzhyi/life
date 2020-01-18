@@ -9,6 +9,7 @@ export enum GameID {
   overwatch = '488552',
   pathOfExile = '29307',
   starcraft2 = '490422',
+  terraria = '31376',
   warcraft3 = '12924',
   worldOfWarcraft = '18122',
 }
