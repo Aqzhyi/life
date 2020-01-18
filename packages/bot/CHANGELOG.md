@@ -1,3 +1,12 @@
+# [0.5.0](https://github.com/hilezi/life/compare/v0.4.0...v0.5.0) (2020-01-18)
+
+
+### Features
+
+* **bot:** 查詢直播功能，訊息樣式改為 carousel 顯示更豐富的資訊，節省更多畫面空間 ([dc1c11b](https://github.com/hilezi/life/commit/dc1c11bb1f2e400e19549ff8a7d41175411eec2e))
+
+
+
 # [0.4.0](https://github.com/hilezi/life/compare/v0.3.0...v0.4.0) (2020-01-17)
 
 
