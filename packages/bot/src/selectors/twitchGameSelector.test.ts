@@ -1,5 +1,5 @@
-import { i18nAPI } from '../lib/i18n/i18nAPI'
-import { GameID } from '../lib/twitch/enums/GameID'
+import { i18nAPI } from '@/lib/i18n/i18nAPI'
+import { GameID } from '@/lib/twitch/enums/GameID'
 import { twitchGameSelector } from './twitchGameSelector'
 
 describe(twitchGameSelector.name, () => {

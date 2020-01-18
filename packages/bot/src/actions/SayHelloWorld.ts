@@ -1,4 +1,4 @@
-import { LineAction } from '../lib/bottender-toolkit/types'
+import { LineAction } from '@/lib/bottender-toolkit/types'
 
 export const SayHelloWorld: LineAction = async (context, props) => {
   await context.sendText('歡迎使用 查詢 Twitch 直播')

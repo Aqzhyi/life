@@ -1,5 +1,5 @@
-import { LineAction, WithGroupProps } from '../lib/bottender-toolkit/types'
-import { gaAPI } from '../lib/google-analytics/gaAPI'
+import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
+import { gaAPI } from '@/lib/google-analytics/gaAPI'
 
 export const RecordUserSaying: LineAction<WithGroupProps<{
   text: string

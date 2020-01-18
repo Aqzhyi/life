@@ -1,5 +1,5 @@
 import ua, { EventParams } from 'universal-analytics'
-import { debugAPI } from '../debug/debugAPI'
+import { debugAPI } from '@/lib/debug/debugAPI'
 
 const visitor = ua(process.env.GOOGLE_ANALYTICS_UA_ID)
 

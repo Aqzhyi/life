@@ -11,7 +11,7 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'ts', 'tsx'],
   moduleNameMapper: {
-    '@\\/(.*)': path.resolve(__dirname, '$1'),
+    '@\\/(.*)': path.resolve(__dirname, 'src/$1'),
   },
   transformIgnorePatterns: ['/node_modules/'],
   testMatch: [

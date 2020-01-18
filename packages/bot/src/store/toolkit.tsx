@@ -1,4 +1,4 @@
-import { RootState } from '../store/RootState'
+import { RootState } from '@/store/RootState'
 import { Context } from 'bottender'
 import { produce } from 'immer'
 

@@ -1,6 +1,6 @@
-import { GameID } from '../lib/twitch/enums/GameID'
-import { i18nAPI } from '../lib/i18n/i18nAPI'
-import { expectType } from '../lib/tsd/expectType'
+import { GameID } from '@/lib/twitch/enums/GameID'
+import { i18nAPI } from '@/lib/i18n/i18nAPI'
+import { expectType } from '@/lib/tsd/expectType'
 
 /**
  * 設定哪些遊戲和其關鍵字

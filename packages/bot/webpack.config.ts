@@ -2,6 +2,7 @@ import { Configuration } from 'webpack'
 import path from 'path'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import Dotenv from 'dotenv-webpack'
+import globby from 'globby'
 
 const configration: Configuration = {
   target: 'node',
@@ -20,6 +21,23 @@ const configration: Configuration = {
     path: path.resolve(__dirname, 'dist'),
   },
   resolve: {
+    /**
+     * going
+     *   @/actions: __dirname + src/actions
+     *   @/lib: __dirname + src/lib
+     *   ....
+     * and so on
+     */
+    alias: globby
+      .sync(['src/*'], {
+        expandDirectories: false,
+        onlyDirectories: true,
+      })
+      .reduce((alias, item) => {
+        const [, directory] = item.split('/')
+        alias[`@/${directory}`] = path.join(__dirname, item)
+        return alias
+      }, {}),
     extensions: ['.js', '.tsx', '.ts'],
   },
   module: {
