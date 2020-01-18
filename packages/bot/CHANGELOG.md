@@ -1,3 +1,14 @@
+# [0.6.0](https://github.com/hilezi/life/compare/v0.5.0...v0.6.0) (2020-01-18)
+
+
+### Features
+
+* **bot:** 指令不再使用錢字號，而使用驚嘆號，因錢字號會有歧義，例如群組有人在說錢的金額時，同時 twitch 也是使用驚嘆號 ([eef20f3](https://github.com/hilezi/life/commit/eef20f3d00a80a20fb72e3503c229f55ea0edebe))
+* **bot:** 查詢直播功能，新增查詢「泰拉瑞亞」 ([f9af43f](https://github.com/hilezi/life/commit/f9af43fab5065ba3e6167b204f64edc1af9268a4))
+* **bot:** 直接敲 BOT 對話，可以省略驚嘆號語法，並新增快速範本 ([0a3000c](https://github.com/hilezi/life/commit/0a3000c7c852bf3ecc2f70cc4f8bb28da258282e))
+
+
+
 # [0.5.0](https://github.com/hilezi/life/compare/v0.4.0...v0.5.0) (2020-01-18)
 
 
