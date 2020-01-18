@@ -18,13 +18,11 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
 }>> = async (context, props) => {
   const debug = debugAPI.bot.extend(QueryTwitchStreams.name)
   const defaultsKeyword: GameKeyword = '魔獸'
-  const inputKeyword = props.match?.groups?.inputKeyword?.toLowerCase() as
-    | GameKeyword
-    | undefined
+  const inputKeyword = props.match?.groups?.inputKeyword?.toLowerCase()
 
   debug(`用戶 input:${inputKeyword}`)
 
-  let game = twitchGameSelector(inputKeyword!)
+  let game = twitchGameSelector(inputKeyword as GameKeyword)
   let gameId: GameID | undefined = game?.id
   let gameTitle: string | undefined = game?.title
 
