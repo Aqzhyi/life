@@ -13,6 +13,7 @@ import { isKeywordSelector } from '@/selectors/isKeywordSelector'
 import dayjs from 'dayjs'
 import { chunk } from 'lodash'
 import { createCoverBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
+import { EventCategory } from '@/lib/google-analytics/EventCategory'
 
 export const QueryTwitchStreams: LineAction<WithGroupProps<{
   inputKeyword: GameKeyword
@@ -55,7 +56,7 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
       ow(!gameId || !gameTitle, ow.boolean.false)
     } catch (error) {
       gaAPI.send({
-        ec: 'linebot',
+        ec: EventCategory.LINEBOT,
         ea: `${gameTitle}/查詢/正在直播頻道/錯誤`,
         el: JSON.stringify({
           context: `!gameId || !gameTitle`,
@@ -70,7 +71,7 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
     const user = await context.getUserProfile()
 
     gaAPI.send({
-      ec: 'linebot',
+      ec: EventCategory.LINEBOT,
       ea: `${gameTitle}/查詢/正在直播頻道`,
       el: JSON.stringify({
         functionName: QueryTwitchStreams.name,
@@ -140,14 +141,14 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
       const sendUsers = response.data.map(item => item.userName).join(',')
       debug(`回應 ${sendUsers}`)
       gaAPI.send({
-        ec: 'linebot',
+        ec: EventCategory.LINEBOT,
         ea: `${gameTitle}/查詢/正在直播頻道/回應`,
         el: sendUsers,
         ev: sendUsers.length,
       })
     } else {
       gaAPI.send({
-        ec: 'linebot',
+        ec: EventCategory.LINEBOT,
         ea: `${gameTitle}/查詢/正在直播頻道/無結果`,
         el: gameTitle,
       })
@@ -156,7 +157,7 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
   } catch (error) {
     debug(`錯誤 ${error.message}`)
     gaAPI.send({
-      ec: 'linebot',
+      ec: EventCategory.LINEBOT,
       ea: `${gameTitle}/查詢/正在直播頻道/錯誤`,
       el: JSON.stringify({
         errorMessage: error.message,
