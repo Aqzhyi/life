@@ -12,6 +12,7 @@ import replaceStrings from 'replace-string'
 import { isKeywordSelector } from '@/selectors/isKeywordSelector'
 import dayjs from 'dayjs'
 import { chunk } from 'lodash'
+import { createCoverBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
 
 export const QueryTwitchStreams: LineAction<WithGroupProps<{
   inputKeyword: GameKeyword
@@ -96,7 +97,7 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
         }
 
         const siteLink = `https://www.twitch.tv/${urlId}`
-        const cover = replaceStrings(
+        const coverUrl = replaceStrings(
           replaceStrings(item.thumbnailUrl, '{width}', '640'),
           '{height}',
           '360',
@@ -110,78 +111,19 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
           value: dayjs(item.startedAt).format('HH:mm'),
         })
 
-        return {
-          type: 'bubble',
-          header: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: name,
-                size: 'xxl',
-              },
-              {
-                type: 'text',
-                text: title,
-                size: 'xs',
-                color: '#999999',
-              },
-              {
-                type: 'box',
-                layout: 'horizontal',
-                contents: [
-                  {
-                    type: 'text',
-                    text: viewerCount,
-                    size: 'sm',
-                    color: '#bbbbbb',
-                  },
-                  {
-                    type: 'text',
-                    text: startedAt,
-                    size: 'sm',
-                    color: '#bbbbbb',
-                  },
-                ],
-              },
-              {
-                type: 'separator',
-                margin: 'xxl',
-                color: '#cccccc',
-              },
-            ],
+        return createCoverBubble({
+          cover: {
+            imageUrl: coverUrl,
+            linkUrl: siteLink,
           },
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'image',
-                url: cover,
-                size: 'full',
-                aspectRatio: '16:9',
-                aspectMode: 'cover',
-              },
-            ],
-            action: {
-              type: 'uri',
-              label: 'action',
-              uri: siteLink,
-            },
+          footer: siteLink,
+          info: {
+            left: viewerCount,
+            right: startedAt,
           },
-          footer: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: siteLink,
-                color: '#bbbbbb',
-              },
-            ],
-          },
-        }
+          subTitle: title,
+          title: name,
+        })
       })
       .filter(item => typeof item === 'object')
 
