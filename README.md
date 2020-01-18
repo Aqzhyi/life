@@ -1,4 +1,4 @@
-[![](https://img.shields.io/badge/CHANGELOG-conventional%20changelog-informational)](./CHANGELOG.md)
+[![](https://img.shields.io/badge/CHANGELOG-conventional%20changelog-informational)](./packages/bot/CHANGELOG.md)
 
 # 讓你輕鬆查詢 Twitch 正在直播的 LINE BOT 機器人
 
