@@ -55,5 +55,9 @@ module.exports = {
         jest: true,
       },
     },
+    {
+      files: ['*.js'],
+      parser: 'babel-eslint',
+    },
   ],
 }
