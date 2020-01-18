@@ -16,6 +16,8 @@ const resources: {
       'game/sc2': string
       'game/wc3': string
       'game/wow': string
+      'text/觀看人數': string
+      'text/開播時間': string
       'tip/正在查詢': string
       'validate/支援文字': string
     }>
@@ -37,6 +39,8 @@ const resources: {
       'game/sc2': '星海爭霸2',
       'game/wc3': '魔獸爭霸3',
       'game/wow': '魔獸世界',
+      'text/觀看人數': '人數: {{value}}',
+      'text/開播時間': '開播於: {{value}}',
       'tip/正在查詢': '查詢中...',
       'validate/支援文字':
         '輸入的後輟「{{text}}」不在支援列表之中，必須是 {{- list}} 的其中一項',
@@ -65,6 +69,8 @@ export const i18nAPI = {
     key: T,
     options?: T extends 'validate/支援文字'
       ? { text: string; list: string }
+      : T extends 'text/觀看人數' | 'text/開播時間'
+      ? { value: string | number }
       : undefined,
   ) => {
     return i18next.t(key, options)

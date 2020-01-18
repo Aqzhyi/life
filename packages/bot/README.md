@@ -4,7 +4,7 @@
 
 > https://www.notion.so/hilezi/d7ac6acf3ee94029a245be3df3c9f5fe
 
-<img src="./public/IMG_9431.png" height="480" />
+<img src="./public/2020-01-18-07-46-41.png" height="480" />
 
 # development
 

@@ -10,6 +10,8 @@ import { twitchGameSelector } from '../selectors/twitchGameSelector'
 import ow from 'ow'
 import replaceStrings from 'replace-string'
 import { isKeywordSelector } from '../selectors/isKeywordSelector'
+import dayjs from 'dayjs'
+import { chunk } from 'lodash'
 
 export const QueryTwitchStreams: LineAction<WithGroupProps<{
   inputKeyword: GameKeyword
@@ -89,88 +91,128 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
         return right.viewerCount - left.viewerCount
       })
       .map(item => {
-        const urlId = /live_user_(.*?)-/i.exec(item.thumbnailUrl)
-        return {
-          type: 'box',
-          layout: 'horizontal',
-          margin: 'lg',
-          spacing: 'xs',
-          contents: [
-            {
-              type: 'text',
-              text: item.title,
-              color: '#555555',
-              align: 'center',
-              gravity: 'center',
-              size: 'xs',
-              flex: 6,
-            },
-            {
-              type: 'button',
-              action: {
-                type: 'uri',
-                label: urlId?.[1] ? '🔴' : '💥',
-                uri: `https://www.twitch.tv/${urlId?.[1]}`,
-              },
-              flex: 2,
-            },
-          ],
-        }
-      })
+        const urlId = /live_user_(.*?)-/i.exec(item.thumbnailUrl)?.[1]
 
-    await context.sendFlex(`${gameTitle}.查詢.正在直播頻道`, {
-      type: 'bubble',
-      body: {
-        type: 'box',
-        layout: 'vertical',
-        contents: [
-          {
+        if (!urlId) {
+          return
+        }
+
+        const siteLink = `https://www.twitch.tv/${urlId}`
+        const cover = replaceStrings(
+          replaceStrings(item.thumbnailUrl, '{width}', '640'),
+          '{height}',
+          '360',
+        )
+        const name = item.userName
+        const title = item.title
+        const viewerCount = i18nAPI.t('text/觀看人數', {
+          value: item.viewerCount,
+        })
+        const startedAt = i18nAPI.t('text/開播時間', {
+          value: dayjs(item.startedAt).format('HH:mm'),
+        })
+
+        return {
+          type: 'bubble',
+          header: {
             type: 'box',
             layout: 'vertical',
             contents: [
               {
                 type: 'text',
-                text: `${gameTitle}正在直播`,
-                weight: 'bold',
-                color: '#1DB446',
-                size: 'lg',
+                text: name,
+                size: 'xxl',
+              },
+              {
+                type: 'text',
+                text: title,
+                size: 'xs',
+                color: '#999999',
+              },
+              {
+                type: 'box',
+                layout: 'horizontal',
+                contents: [
+                  {
+                    type: 'text',
+                    text: viewerCount,
+                    size: 'sm',
+                    color: '#bbbbbb',
+                  },
+                  {
+                    type: 'text',
+                    text: startedAt,
+                    size: 'sm',
+                    color: '#bbbbbb',
+                  },
+                ],
               },
               {
                 type: 'separator',
-                margin: 'lg',
-              },
-              ...(flexContents as any),
-              {
-                type: 'separator',
-                margin: 'lg',
-              },
-              {
-                color: '#999999',
-                type: 'text',
-                text: '指令: $直播{遊戲中或英名稱}',
-                size: 'xs',
-                margin: 'xl',
-              },
-              {
-                color: '#999999',
-                type: 'text',
-                text: '例如: $直播聊天、$直播魔獸、$直播LOL',
-                size: 'xs',
-                margin: 'xl',
+                margin: 'xxl',
+                color: '#cccccc',
               },
             ],
           },
-        ],
-      },
-    })
+          body: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'image',
+                url: cover,
+                size: 'full',
+                aspectRatio: '16:9',
+                aspectMode: 'cover',
+              },
+            ],
+            action: {
+              type: 'uri',
+              label: 'action',
+              uri: siteLink,
+            },
+          },
+          footer: {
+            type: 'box',
+            layout: 'vertical',
+            contents: [
+              {
+                type: 'text',
+                text: siteLink,
+                color: '#bbbbbb',
+              },
+            ],
+          },
+        }
+      })
+      .filter(item => typeof item === 'object')
 
-    const sendUsers = response.data.map(item => item.userName).join(',')
-    debug(`回應 ${sendUsers}`)
-    gaAPI.send({
-      ec: 'linebot',
-      ea: `${gameTitle}/查詢/正在直播頻道/回應`,
-      el: sendUsers,
-    })
+    const splittedContents = chunk(flexContents, 10)
+
+    if (splittedContents.length) {
+      for (const contents of splittedContents) {
+        await context.sendFlex(`${gameTitle}.查詢.正在直播頻道`, {
+          type: 'carousel',
+          contents: [...(contents as any)],
+        })
+      }
+
+      const sendUsers = response.data.map(item => item.userName).join(',')
+      debug(`回應 ${sendUsers}`)
+      gaAPI.send({
+        ec: 'linebot',
+        ea: `${gameTitle}/查詢/正在直播頻道/回應`,
+        el: sendUsers,
+        ev: sendUsers.length,
+      })
+    } else {
+      gaAPI.send({
+        ec: 'linebot',
+        ea: `${gameTitle}/查詢/正在直播頻道/無結果`,
+        el: gameTitle,
+      })
+      await context.sendText(`查詢不到 ${gameTitle} 的中文直播頻道`)
+    }
   } catch (error) {
     debug(`錯誤 ${error.message}`)
     gaAPI.send({
