@@ -16,7 +16,18 @@ export const createCoverBubble = (options: {
 }) => {
   return {
     type: 'bubble',
-    header: {
+    hero: {
+      type: 'image',
+      url: options.cover.imageUrl,
+      size: 'full',
+      aspectRatio: '20:13',
+      aspectMode: 'cover',
+      action: {
+        type: 'uri',
+        uri: options.cover.linkUrl,
+      },
+    },
+    body: {
       type: 'box',
       layout: 'vertical',
       contents: [
@@ -55,24 +66,6 @@ export const createCoverBubble = (options: {
           color: '#cccccc',
         },
       ],
-    },
-    body: {
-      type: 'box',
-      layout: 'vertical',
-      contents: [
-        {
-          type: 'image',
-          url: options.cover.imageUrl,
-          size: 'full',
-          aspectRatio: '16:9',
-          aspectMode: 'cover',
-        },
-      ],
-      action: {
-        type: 'uri',
-        label: 'action',
-        uri: options.cover.linkUrl,
-      },
     },
     footer: {
       type: 'box',
