@@ -1,7 +1,7 @@
 import { createDirectlyText } from '@/utils/createDirectlyText'
 
 describe(createDirectlyText.name, () => {
-  it('可以加上，或不加上驚探號指令', () => {
+  it('指令名稱可以加上，或不加上驚探號前綴', () => {
     expect(createDirectlyText('直播').test('！直播魔獸')).toBe(true)
     expect(createDirectlyText('直播').test('!直播魔獸')).toBe(true)
   })
