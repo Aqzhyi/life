@@ -21,7 +21,7 @@ export const twitchAPI = {
   async getStreams(options: {
     /** Maximum number of objects to return. Maximum: 100. Default: 20. */
     first?: number
-    gameId: GameID
+    gameId: GameID | string
     language: LanguageParam
   }) {
     type Response = {
