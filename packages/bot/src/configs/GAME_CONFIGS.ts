@@ -15,6 +15,7 @@ export const GAME_CONFIGS = [
     '創世神',
     '我的世界',
     '我的創世神',
+    '麥塊',
   ],
   [
     { gameId: GameID.starcraft2, text: () => i18nAPI.t('game/sc2') },
