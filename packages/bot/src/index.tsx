@@ -12,7 +12,8 @@ export default async function App(context: LineContext): Promise<unknown> {
   await i18nAPI.init()
 
   const isMultiPeopleMessage: boolean =
-    context.event.rawEvent?.source?.type === 'group' && context.event.isText
+    ['group', 'room'].includes(context.event.rawEvent?.source?.type) &&
+    context.event.isText
 
   return router([
     text(
