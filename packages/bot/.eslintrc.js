@@ -35,6 +35,7 @@ module.exports = {
         checksVoidReturn: false,
       },
     ],
+    '@typescript-eslint/unbound-method': 'warn',
   },
   overrides: [
     {
