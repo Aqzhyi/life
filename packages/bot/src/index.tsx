@@ -11,9 +11,9 @@ import { createCommandText } from '@/utils/createCommandText'
 export default async function App(context: LineContext): Promise<unknown> {
   await i18nAPI.init()
 
-  const isMultiPeopleMessage: boolean =
-    ['group', 'room'].includes(context.event.rawEvent?.source?.type) &&
-    context.event.isText
+  const isMultiPeopleMessage: boolean = ['group', 'room'].includes(
+    context.event.source.type,
+  )
 
   return router([
     text(
