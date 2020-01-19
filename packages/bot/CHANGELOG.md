@@ -1,3 +1,12 @@
+# [0.7.0](https://github.com/hilezi/life/compare/v0.6.0...v0.7.0) (2020-01-19)
+
+
+### Features
+
+* **bot:** 查詢直播功能，現在可以輸入任意遊戲關鍵字，例如：[直播mindustry」「直播Fortnite」 ([91e3f5a](https://github.com/hilezi/life/commit/91e3f5a244bd953dee371d7a4908f8230a0c8508))
+
+
+
 # [0.6.0](https://github.com/hilezi/life/compare/v0.5.0...v0.6.0) (2020-01-18)
 
 
