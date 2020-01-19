@@ -59,10 +59,10 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
       gaAPI.send({
         ec: EventCategory.LINEBOT,
         ea: `${gameTitle}/查詢/正在直播頻道/錯誤`,
-        el: JSON.stringify({
+        el: {
           context: `!gameId || !gameTitle`,
           errorMessage: error.message,
-        }),
+        },
       })
       await context.sendText(i18nAPI.t('error/系統內部錯誤'))
       return
@@ -74,11 +74,11 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
     gaAPI.send({
       ec: EventCategory.LINEBOT,
       ea: `${gameTitle}/查詢/正在直播頻道`,
-      el: JSON.stringify({
+      el: {
         functionName: QueryTwitchStreams.name,
         displayName: user?.displayName,
         statusMessage: user?.statusMessage,
-      }),
+      },
       ev: 10,
     })
 
@@ -158,10 +158,10 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
     gaAPI.send({
       ec: EventCategory.LINEBOT,
       ea: `${inputKeyword}/查詢/正在直播頻道/錯誤`,
-      el: JSON.stringify({
+      el: {
         errorMessage: error.message,
         inputKeyword,
-      }),
+      },
     })
 
     await context.sendText(error.message)

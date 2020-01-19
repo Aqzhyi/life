@@ -25,18 +25,18 @@ axiosAPI.interceptors.response.use(response => {
   gaAPI.send({
     ec: EventCategory.API,
     ea: `使用/twitch${response.config.url}`,
-    el: JSON.stringify({
+    el: {
       config: response.config,
-    }),
+    },
   })
 
   if (response.status >= 400 && response.status < 500) {
     gaAPI.send({
       ec: EventCategory.API,
       ea: 'twitch/前端錯誤',
-      el: JSON.stringify({
+      el: {
         config: response.config,
-      }),
+      },
     })
   }
 
@@ -44,9 +44,9 @@ axiosAPI.interceptors.response.use(response => {
     gaAPI.send({
       ec: EventCategory.API,
       ea: 'twitch/後端錯誤',
-      el: JSON.stringify({
+      el: {
         config: response.config,
-      }),
+      },
     })
   }
 
