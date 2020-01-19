@@ -24,21 +24,17 @@ export const twitchAPI = {
     gameId: GameID
     language: LanguageParam
   }) {
-    try {
-      type Response = {
-        data: StreamRemote[]
-        pagination: {
-          cursor: string
-        }
+    type Response = {
+      data: StreamRemote[]
+      pagination: {
+        cursor: string
       }
-
-      const request = await axiosAPI.get<Response>('/streams', {
-        params: options,
-      })
-
-      return request.data
-    } catch (error) {
-      throw new Error(error.message)
     }
+
+    const request = await axiosAPI.get<Response>('/streams', {
+      params: options,
+    })
+
+    return request.data
   },
 }
