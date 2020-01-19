@@ -25,26 +25,25 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
   debug(`用戶 input:${inputKeyword}`)
 
   let game = twitchGameSelector(inputKeyword as GameKeyword)
-  let gameId: GameID | undefined = game?.id
+  let gameId: GameID | string | undefined = game?.id
   let gameTitle: string | undefined = game?.title
 
   debug(`系統 GAME_KEYWORDS:${GAME_KEYWORDS}`)
   debug(`系統 gameId:${gameId} gameTitle:${gameTitle}`)
 
   try {
-    inputKeyword &&
-      ow(
-        inputKeyword,
-        ow.string.validate(value => ({
-          validator: isKeywordSelector(value),
-          message: i18nAPI.t('validate/支援文字', {
-            text: inputKeyword,
-            list: replaceStrings(JSON.stringify(GAME_KEYWORDS), '"', ' '),
-          }),
-        })),
-      )
+    if (!gameId) {
+      const { data } = await twitchAPI.searchGame(inputKeyword || '')
 
-    if (!inputKeyword) {
+      if (data[0]?.id) {
+        gameId = data[0].id
+        gameTitle = gameTitle || data[0].name
+        debug(`系統 套用官方搜尋結果`)
+        debug(`系統 gameId:${gameId} gameTitle:${gameTitle}`)
+      }
+    }
+
+    if (!gameId) {
       game = twitchGameSelector(defaultsKeyword)
       gameId = game?.id
       gameTitle = game?.title
