@@ -19,17 +19,19 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
   inputKeyword: GameKeyword
 }>> = async (context, props) => {
   const debug = debugAPI.bot.extend(QueryTwitchStreams.name)
+  const debugSystem = debug.extend('系統')
+  const debugUser = debug.extend('用戶')
   const defaultsKeyword: GameKeyword = '魔獸'
   const inputKeyword = props.match?.groups?.inputKeyword?.toLowerCase()
 
-  debug(`用戶 input:${inputKeyword}`)
+  debugUser(`輸入:${inputKeyword}`)
 
   let game = twitchGameSelector(inputKeyword as GameKeyword)
   let gameId: GameID | string | undefined = game?.id
   let gameTitle: string | undefined = game?.title
 
-  debug(`系統 GAME_KEYWORDS:${GAME_KEYWORDS}`)
-  debug(`系統 gameId:${gameId} gameTitle:${gameTitle}`)
+  debugSystem(`GAME_KEYWORDS:${GAME_KEYWORDS}`)
+  debugSystem(`gameId:${gameId} gameTitle:${gameTitle}`)
 
   try {
     if (!gameId) {
@@ -38,8 +40,8 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
       if (data[0]?.id) {
         gameId = data[0].id
         gameTitle = gameTitle || data[0].name
-        debug(`系統 套用官方搜尋結果`)
-        debug(`系統 gameId:${gameId} gameTitle:${gameTitle}`)
+        debugSystem(`套用官方搜尋結果`)
+        debugSystem(`gameId:${gameId} gameTitle:${gameTitle}`)
       }
     }
 
@@ -47,8 +49,8 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
       game = twitchGameSelector(defaultsKeyword)
       gameId = game?.id
       gameTitle = game?.title
-      debug('系統 fallback 預設關鍵字')
-      debug(`系統 gameId:${gameId} gameTitle:${gameTitle}`)
+      debugSystem('套用預設關鍵字')
+      debugSystem(`gameId:${gameId} gameTitle:${gameTitle}`)
     }
 
     try {
@@ -138,7 +140,6 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
       }
 
       const sendUsers = response.data.map(item => item.userName).join(',')
-      debug(`回應 ${sendUsers}`)
       gaAPI.send({
         ec: EventCategory.LINEBOT,
         ea: `${gameTitle}/查詢/正在直播頻道/回應`,
@@ -154,12 +155,12 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
       await context.sendText(`查詢不到 ${gameTitle} 的中文直播頻道`)
     }
   } catch (error) {
-    debug(`錯誤 ${error.message}`)
     gaAPI.send({
       ec: EventCategory.LINEBOT,
-      ea: `${gameTitle}/查詢/正在直播頻道/錯誤`,
+      ea: `${inputKeyword}/查詢/正在直播頻道/錯誤`,
       el: JSON.stringify({
         errorMessage: error.message,
+        inputKeyword,
       }),
     })
 
