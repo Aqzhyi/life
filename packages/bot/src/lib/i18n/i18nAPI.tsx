@@ -45,7 +45,7 @@ const resources: {
       'text/開播時間': '開播於: {{value}}',
       'tip/正在查詢': '查詢中...',
       'validate/支援文字':
-        '輸入的後輟「{{text}}」不在支援列表之中，必須是 {{- list}} 的其中一項',
+        '似乎沒有一款遊戲，匹配到你輸入的遊戲名稱「{{text}}」',
     },
   },
   en: {
@@ -70,7 +70,7 @@ export const i18nAPI = {
   t: <T extends I18nKeys>(
     key: T,
     options?: T extends 'validate/支援文字'
-      ? { text: string; list: string }
+      ? { text: string }
       : T extends 'text/觀看人數' | 'text/開播時間'
       ? { value: string | number }
       : undefined,

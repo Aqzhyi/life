@@ -44,6 +44,13 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
       }
     }
 
+    if (!gameId && inputKeyword) {
+      await context.sendText(
+        i18nAPI.t('validate/支援文字', { text: inputKeyword }),
+      )
+      return
+    }
+
     if (!gameId) {
       game = twitchGameSelector(defaultsKeyword)
       gameId = game?.id
