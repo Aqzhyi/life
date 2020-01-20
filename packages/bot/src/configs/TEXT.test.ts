@@ -34,6 +34,9 @@ describe('指令正規', () => {
       expect(command.test('$直播OW')).toBe(false)
       expect(command.test('$直播 0f8071555f7d')).toBe(false)
 
+      expect(command.exec('!直播 jump king')?.groups?.inputKeyword).toBe(
+        'jump king',
+      )
       expect(command.exec('!直播英雄')?.groups?.inputKeyword).toBe('英雄')
       expect(command.exec('!直播dota')?.groups?.inputKeyword).toBe('dota')
       expect(command.exec('!直播星海')?.groups?.inputKeyword).toBe('星海')
