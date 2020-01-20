@@ -4,27 +4,30 @@
 export const createCoverBubble = (options: {
   title: string
   subTitle: string
-  info: {
-    left: string
-    right: string
+  info?: {
+    left?: string
+    right?: string
   }
-  cover: {
-    imageUrl: string
-    linkUrl: string
+  cover?: {
+    imageUrl?: string
+    linkUrl?: string
   }
-  footer: string
+  footer?: string
 }) => {
+  const defaultsImageUrl =
+    'https://twimage.daigobang.com/web/blog/0944f5bf5a5bc7b095157343fee62d7e.jpeg'
+
   return {
     type: 'bubble',
     hero: {
       type: 'image',
-      url: options.cover.imageUrl,
+      url: options?.cover?.imageUrl || defaultsImageUrl,
       size: 'full',
       aspectRatio: '20:13',
       aspectMode: 'cover',
       action: {
         type: 'uri',
-        uri: options.cover.linkUrl,
+        uri: options?.cover?.linkUrl || defaultsImageUrl,
       },
     },
     body: {
@@ -45,19 +48,21 @@ export const createCoverBubble = (options: {
         {
           type: 'box',
           layout: 'horizontal',
-          contents: [
-            {
+          contents: options.info && [
+            (options.info.left && {
               type: 'text',
               text: options.info.left,
               size: 'sm',
               color: '#bbbbbb',
-            },
-            {
+            }) ||
+              undefined,
+            (options.info.right && {
               type: 'text',
               text: options.info.right,
               size: 'sm',
               color: '#bbbbbb',
-            },
+            }) ||
+              undefined,
           ],
         },
         {
@@ -67,16 +72,18 @@ export const createCoverBubble = (options: {
         },
       ],
     },
-    footer: {
-      type: 'box',
-      layout: 'vertical',
-      contents: [
-        {
-          type: 'text',
-          text: options.footer,
-          color: '#bbbbbb',
-        },
-      ],
-    },
+    footer:
+      (options.footer && {
+        type: 'box',
+        layout: 'vertical',
+        contents: [
+          {
+            type: 'text',
+            text: options.footer,
+            color: '#bbbbbb',
+          },
+        ],
+      }) ||
+      undefined,
   }
 }
