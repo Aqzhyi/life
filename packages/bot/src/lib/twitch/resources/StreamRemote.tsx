@@ -8,7 +8,7 @@ export interface StreamRemote {
   /** e.g. `'lnclnerator'` */
   userName: string
   /** enum GameID */
-  gameId: GameID
+  gameId: GameID | string
   /** e.g. `'live'` */
   type: 'live' | string
   /** e.g. `'WAR3 REFORGED!  FFAs and Trying to Get Level 6 Heroes --- Weekend Replays !keyboard'` */

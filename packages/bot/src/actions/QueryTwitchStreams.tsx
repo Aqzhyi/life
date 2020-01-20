@@ -8,12 +8,11 @@ import { LanguageParam } from '@/lib/twitch/enums/LanguageParam'
 import { twitchAPI } from '@/lib/twitch/twitchAPI'
 import { twitchGameSelector } from '@/selectors/twitchGameSelector'
 import ow from 'ow'
-import replaceStrings from 'replace-string'
 import { isKeywordSelector } from '@/selectors/isKeywordSelector'
-import dayjs from 'dayjs'
 import { chunk } from 'lodash'
 import { createCoverBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
 import { EventCategory } from '@/lib/google-analytics/EventCategory'
+import { streamModelSelector } from '@/selectors/streamModelSelector'
 
 export const QueryTwitchStreams: LineAction<WithGroupProps<{
   inputKeyword: GameKeyword
@@ -91,42 +90,24 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
       .sort((left, right) => {
         return right.viewerCount - left.viewerCount
       })
-      .map(item => {
-        const urlId = /live_user_(.*?)-/i.exec(item.thumbnailUrl)?.[1]
-
-        if (!urlId) {
-          return
-        }
-
-        const siteLink = `https://www.twitch.tv/${urlId}`
-        const coverUrl = replaceStrings(
-          replaceStrings(item.thumbnailUrl, '{width}', '640'),
-          '{height}',
-          '360',
-        )
-        const name = item.userName
-        const title = item.title
-        const viewerCount = i18nAPI.t('text/觀看人數', {
-          value: item.viewerCount,
-        })
-        const startedAt = i18nAPI.t('text/開播時間', {
-          value: dayjs(item.startedAt).format('HH:mm'),
-        })
-
-        return createCoverBubble({
-          cover: {
-            imageUrl: coverUrl,
-            linkUrl: siteLink,
-          },
-          footer: siteLink,
-          info: {
-            left: viewerCount,
-            right: startedAt,
-          },
-          subTitle: title,
-          title: name,
-        })
-      })
+      .map(streamModelSelector)
+      .map(
+        item =>
+          item &&
+          createCoverBubble({
+            cover: {
+              imageUrl: item.coverUrl,
+              linkUrl: item.siteLink,
+            },
+            subTitle: item.title,
+            title: item.name,
+            info: {
+              left: item.viewerCount,
+              right: item.startedAt,
+            },
+            footer: item.siteLink,
+          }),
+      )
       .filter(item => typeof item === 'object')
 
     const splittedContents = chunk(flexContents, 10)
