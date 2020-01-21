@@ -1,3 +1,6 @@
+/**
+ * 適合快速建立 LINE Cover 組件
+ */
 export const createCover = (data: { imageUrl: string; actionUri?: string }) => {
   const object = {
     type: 'image',
