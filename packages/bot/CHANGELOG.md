@@ -1,3 +1,14 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [0.8.0](https://github.com/hilezi/life/compare/v0.7.0...v0.8.0) (2020-01-21)
+
+
+### Features
+
+* **bot:** 查詢直播功能，現在可使用關建字「！直播」可提供 Top Games 之遊戲按鈕，讓用戶點了就查詢 ([702f3b2](https://github.com/hilezi/life/commit/702f3b23ccce67c47ab226e8c6e5344b53dfe727))
+
 # [0.7.0](https://github.com/hilezi/life/compare/v0.6.0...v0.7.0) (2020-01-19)
 
 
@@ -73,6 +84,3 @@
 
 * **bot:** 現在可以使用指令「\$live」或「\$直播」來查詢魔獸爭霸3正在直播的中文頻道 ([b85d3aa](https://github.com/hilezi/life/commit/b85d3aa))
 * **bot:** 調整「查詢.魔獸爭霸3.正在直播頻道」訊息樣式，直播標題更加清楚 ([6da3473](https://github.com/hilezi/life/commit/6da3473))
-
-
-
