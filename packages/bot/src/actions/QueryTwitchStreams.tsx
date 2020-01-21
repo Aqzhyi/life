@@ -1,7 +1,6 @@
 import { GAME_KEYWORDS, GameKeyword } from '@/configs/GAME_CONFIGS'
 import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import { debugAPI } from '@/lib/debug/debugAPI'
-import { gaAPI } from '@/lib/google-analytics/gaAPI'
 import { i18nAPI } from '@/lib/i18n/i18nAPI'
 import { GameID } from '@/lib/twitch/enums/GameID'
 import { LanguageParam } from '@/lib/twitch/enums/LanguageParam'
@@ -11,8 +10,8 @@ import ow from 'ow'
 import { isKeywordSelector } from '@/selectors/isKeywordSelector'
 import { chunk } from 'lodash'
 import { createCoverBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
-import { EventCategory } from '@/lib/google-analytics/EventCategory'
 import { streamModelSelector } from '@/selectors/streamModelSelector'
+import { useQueryTwitchStreamGa } from '@/lib/google-analytics/events/queryTwitchStreamGa'
 
 export const QueryTwitchStreams: LineAction<WithGroupProps<{
   inputKeyword: GameKeyword
@@ -22,6 +21,7 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
   const debugUser = debug.extend('用戶')
   const defaultsKeyword: GameKeyword = '魔獸'
   const inputKeyword = props.match?.groups?.inputKeyword?.toLowerCase()
+  const queryTwitchStreamGa = useQueryTwitchStreamGa(context)
 
   debugUser(`輸入:${inputKeyword}`)
 
@@ -62,31 +62,17 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
     try {
       ow(!gameId || !gameTitle, ow.boolean.false)
     } catch (error) {
-      gaAPI.send({
-        ec: EventCategory.LINEBOT,
-        ea: `${gameTitle}/查詢/正在直播頻道/錯誤`,
-        el: {
-          context: `!gameId || !gameTitle`,
-          errorMessage: error.message,
-        },
+      queryTwitchStreamGa.onError({
+        gameTitle: inputKeyword || '',
+        context: `!gameId || !gameTitle`,
+        errorMessage: error.message,
       })
       await context.sendText(i18nAPI.t('error/系統內部錯誤'))
       return
     }
     if (!gameId || !gameTitle) return
 
-    const user = await context.getUserProfile()
-
-    gaAPI.send({
-      ec: EventCategory.LINEBOT,
-      ea: `${gameTitle}/查詢/正在直播頻道`,
-      el: {
-        functionName: QueryTwitchStreams.name,
-        displayName: user?.displayName,
-        statusMessage: user?.statusMessage,
-      },
-      ev: 10,
-    })
+    queryTwitchStreamGa.onQuery(gameTitle || inputKeyword || '')
 
     const response = await twitchAPI.getStreams({
       gameId,
@@ -121,37 +107,26 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
 
     if (splittedContents.length) {
       for (const contents of splittedContents) {
-        await context.sendFlex(`${gameTitle}.查詢.正在直播頻道`, {
+        await context.sendFlex(`${gameTitle}/查詢/正在直播頻道`, {
           type: 'carousel',
           contents: [...(contents as any)],
         })
       }
 
-      const sendUsers = response.data.map(item => item.userName).join(',')
-      gaAPI.send({
-        ec: EventCategory.LINEBOT,
-        ea: `${gameTitle}/查詢/正在直播頻道/回應`,
-        el: sendUsers,
-        ev: sendUsers.length,
-      })
+      queryTwitchStreamGa.onSentStreams(
+        gameTitle || inputKeyword || '',
+        response.data,
+      )
     } else {
-      gaAPI.send({
-        ec: EventCategory.LINEBOT,
-        ea: `${gameTitle}/查詢/正在直播頻道/無結果`,
-        el: gameTitle,
-      })
+      queryTwitchStreamGa.onNoResult(gameTitle || inputKeyword || '')
       await context.sendText(`查詢不到 ${gameTitle} 的中文直播頻道`)
     }
   } catch (error) {
-    gaAPI.send({
-      ec: EventCategory.LINEBOT,
-      ea: `${inputKeyword}/查詢/正在直播頻道/錯誤`,
-      el: {
-        errorMessage: error.message,
-        inputKeyword,
-      },
+    queryTwitchStreamGa.onError({
+      gameTitle: gameTitle || inputKeyword || '',
+      context: `inputKeyword=${inputKeyword}`,
+      errorMessage: error.message,
     })
-
     await context.sendText(error.message)
   }
 
