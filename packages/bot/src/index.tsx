@@ -16,19 +16,22 @@ export default async function App(context: LineContext): Promise<unknown> {
     context.event.source.type,
   )
 
-  return router([
-    text(createDirectlyText('(LA|ＬＡ)日曆'), QueryCalendarEvents as any),
-    text(
-      isMultiPeopleMessage
-        ? createCommandText(QueryTwitchStreamsText)
-        : createDirectlyText(QueryTwitchStreamsText),
-      QueryTwitchStreams as any,
-    ),
-    text(
-      isMultiPeopleMessage
-        ? createCommandText(`(?<text>[\\s\\S]+)`)
-        : createDirectlyText(`(?<text>[\\s\\S]+)`),
-      chain([RecordUserSaying as any, SayHelloWorld]),
-    ),
+  return chain([
+    RecordUserSaying as any,
+    router([
+      text(createDirectlyText('(LA|ＬＡ)日曆'), QueryCalendarEvents as any),
+      text(
+        isMultiPeopleMessage
+          ? createCommandText(QueryTwitchStreamsText)
+          : createDirectlyText(QueryTwitchStreamsText),
+        QueryTwitchStreams as any,
+      ),
+      text(
+        isMultiPeopleMessage
+          ? createCommandText(`(?<text>[\\s\\S]+)`)
+          : createDirectlyText(`(?<text>[\\s\\S]+)`),
+        SayHelloWorld as any,
+      ),
+    ]),
   ])
 }
