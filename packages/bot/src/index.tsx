@@ -8,6 +8,7 @@ import { SayHelloWorld } from '@/actions/SayHelloWorld'
 import { createDirectlyText } from '@/utils/createDirectlyText'
 import { createCommandText } from '@/utils/createCommandText'
 import { QueryCalendarEvents } from '@/actions/QueryCalendarEvents'
+import { ShowTwitchTopGamesButton } from '@/actions/ShowTwitchTopGamesButton'
 
 export default async function App(context: LineContext): Promise<unknown> {
   await i18nAPI.init()
@@ -19,6 +20,12 @@ export default async function App(context: LineContext): Promise<unknown> {
   return chain([
     RecordUserSaying as any,
     router([
+      text(
+        isMultiPeopleMessage
+          ? createCommandText('直播$')
+          : createDirectlyText('直播$'),
+        ShowTwitchTopGamesButton as any,
+      ),
       text(createDirectlyText('(LA|ＬＡ)日曆'), QueryCalendarEvents as any),
       text(
         isMultiPeopleMessage

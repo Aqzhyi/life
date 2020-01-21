@@ -3,6 +3,7 @@ import { axiosAPI } from './axiosAPI'
 import { StreamRemote } from './resources/StreamRemote'
 import { LanguageParam } from './enums/LanguageParam'
 import { GameRemote } from '@/lib/twitch/resources/GameRemote'
+import { twitchThumbnailUrlWith } from '@/selectors/twitchThumbnailUrlWith'
 
 export const twitchAPI = {
   async searchGame(name: string) {
@@ -17,6 +18,17 @@ export const twitchAPI = {
     })
 
     return request.data
+  },
+  async getTopGames() {
+    const request = await axiosAPI.get<{
+      data: GameRemote[]
+    }>('/games/top')
+
+    return request.data.data.map(item => ({
+      coverUrl: twitchThumbnailUrlWith('640x360', item.boxArtUrl),
+      id: item.id,
+      title: item.name,
+    }))
   },
   async getStreams(options: {
     /** Maximum number of objects to return. Maximum: 100. Default: 20. */

@@ -1,3 +1,5 @@
+import { createCover } from './createCover'
+
 /**
  * see createCoverBubble.jpg
  */
@@ -19,17 +21,9 @@ export const createCoverBubble = (options: {
 
   return {
     type: 'bubble',
-    hero: {
-      type: 'image',
-      url: options?.cover?.imageUrl || defaultsImageUrl,
-      size: 'full',
-      aspectRatio: '20:13',
-      aspectMode: 'cover',
-      action: {
-        type: 'uri',
-        uri: options?.cover?.linkUrl || defaultsImageUrl,
-      },
-    },
+    hero: createCover({
+      imageUrl: options.cover?.imageUrl || defaultsImageUrl,
+    }),
     body: {
       type: 'box',
       layout: 'vertical',
