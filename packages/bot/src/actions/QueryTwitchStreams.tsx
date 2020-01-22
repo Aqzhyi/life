@@ -33,12 +33,12 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
   debugSystem(`gameId:${gameId} gameTitle:${gameTitle}`)
 
   try {
-    if (!gameId) {
-      const { data } = await twitchAPI.searchGame(inputKeyword || '')
+    if (!gameId && inputKeyword) {
+      const data = await twitchAPI.helix.games.getGameByName(inputKeyword)
 
-      if (data[0]?.id) {
-        gameId = data[0].id
-        gameTitle = gameTitle || data[0].name
+      if (data?.id) {
+        gameId = data.id
+        gameTitle = gameTitle || data.name
         debugSystem(`套用官方搜尋結果`)
         debugSystem(`gameId:${gameId} gameTitle:${gameTitle}`)
       }
@@ -74,14 +74,14 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
 
     queryTwitchStreamGa.onQuery(gameTitle || inputKeyword || '')
 
-    const response = await twitchAPI.getStreams({
-      gameId,
+    const { data } = await twitchAPI.helix.streams.getStreams({
+      game: gameId,
       language: LanguageParam.zh,
     })
 
-    const flexContents = response.data
+    const flexContents = data
       .sort((left, right) => {
-        return right.viewerCount - left.viewerCount
+        return right.viewers - left.viewers
       })
       .map(streamModelSelector)
       .map(
@@ -113,10 +113,7 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
         })
       }
 
-      queryTwitchStreamGa.onSentStreams(
-        gameTitle || inputKeyword || '',
-        response.data,
-      )
+      queryTwitchStreamGa.onSentStreams(gameTitle || inputKeyword || '', data)
     } else {
       queryTwitchStreamGa.onNoResult(gameTitle || inputKeyword || '')
       await context.sendText(`查詢不到 ${gameTitle} 的中文直播頻道`)

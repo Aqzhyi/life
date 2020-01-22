@@ -25,7 +25,7 @@ export const ShowTwitchTopGamesButton: LineAction = async (context, props) => {
                 contents: [
                   {
                     type: 'text',
-                    text: item.title,
+                    text: item.name,
                     size: 'xxl',
                   },
                   {
@@ -47,7 +47,7 @@ export const ShowTwitchTopGamesButton: LineAction = async (context, props) => {
                     action: {
                       type: 'message',
                       label: '查看正在直播',
-                      text: `！直播${item.title}`,
+                      text: `！直播${item.name}`,
                     },
                   },
                 ],

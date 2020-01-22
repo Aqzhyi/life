@@ -20,6 +20,14 @@ const configration: Configuration = {
     libraryTarget: 'commonjs',
     path: path.resolve(__dirname, 'dist'),
   },
+  externals: [
+    function(context, request, callback) {
+      if (/^twitch$/.test(request)) {
+        return callback(null, 'commonjs ' + request)
+      }
+      callback(null, undefined)
+    },
+  ],
   resolve: {
     /**
      * going

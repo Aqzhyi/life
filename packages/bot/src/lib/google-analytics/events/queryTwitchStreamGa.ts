@@ -2,7 +2,7 @@ import { gaAPI } from '@/lib/google-analytics/gaAPI'
 import { EventCategory } from '@/lib/google-analytics/EventCategory'
 import { LineContext } from 'bottender'
 import { QueryTwitchStreams } from '@/actions/QueryTwitchStreams'
-import { StreamRemote } from '@/lib/twitch/resources/StreamRemote'
+import { HelixStream } from 'twitch'
 
 const NS = '/查詢/正在直播頻道'
 
@@ -23,8 +23,10 @@ export const useQueryTwitchStreamGa = (context: LineContext) => {
         })
       }
     },
-    onSentStreams: async (gameTitle: string, sentStreams: StreamRemote[]) => {
-      const sendUsersName = sentStreams.map(item => item.userName).join(',')
+    onSentStreams: async (gameTitle: string, sentStreams: HelixStream[]) => {
+      const sendUsersName = sentStreams
+        .map(item => item.userDisplayName)
+        .join(',')
       gaAPI.send({
         ec: EventCategory.LINEBOT,
         ea: `${gameTitle}${NS}/回應`,

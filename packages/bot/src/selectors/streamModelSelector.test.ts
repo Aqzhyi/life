@@ -1,25 +1,24 @@
 import { streamModelSelector } from '@/selectors/streamModelSelector'
-import { StreamRemote } from '@/lib/twitch/resources/StreamRemote'
 import { i18nAPI } from '@/lib/i18n/i18nAPI'
+import { HelixStream, HelixStreamType } from 'twitch'
 
 describe(streamModelSelector.name, () => {
-  let data: StreamRemote
+  let data: HelixStream
 
   beforeEach(() => {
     data = {
       id: '36713832096',
       userId: '22523901',
-      userName: 'lnclnerator',
+      userDisplayName: 'lnclnerator',
       gameId: '12924',
-      type: 'live',
+      type: HelixStreamType.Live,
       title: 'WAR3 REFORGED!  BIG FFAs! Weekend Replays Streams',
-      viewerCount: 44,
-      startedAt: '2020-01-20T08:01:46Z',
+      viewers: 44,
+      startDate: new Date('2020-01-20T08:01:46Z'),
       language: 'zh',
       thumbnailUrl:
         'https://static-cdn.jtvnw.net/previews-ttv/live_user_lnclnerator-{width}x{height}.jpg',
-      tagIds: ['74c92063-a389-4fd2-8460-b1bb82b04ec7'],
-    }
+    } as HelixStream
   })
 
   it('模型屬性', async () => {
