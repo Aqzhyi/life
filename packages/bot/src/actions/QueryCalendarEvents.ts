@@ -1,6 +1,6 @@
 import { LineAction } from '@/lib/bottender-toolkit/types'
 import { calendarAPI } from '@/lib/googleapis/calendarAPI'
-import { createCoverBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
+import { createStreamInfoBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
 import dayjs from 'dayjs'
 
 export const QueryCalendarEvents: LineAction = async (context, props) => {
@@ -19,12 +19,11 @@ export const QueryCalendarEvents: LineAction = async (context, props) => {
               item.start?.date || item.start?.dateTime || '',
             )
 
-            return createCoverBubble({
+            return createStreamInfoBubble({
               info: {
                 left: '活動資訊',
                 right: '日曆',
               },
-              footer: item.organizer?.displayName || '',
               subTitle: item.summary || '',
               title: eventDatetime.format('YYYY-MM-DD'),
             })

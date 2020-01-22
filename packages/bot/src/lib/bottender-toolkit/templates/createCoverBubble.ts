@@ -3,7 +3,7 @@ import { createCover } from './createCover'
 /**
  * see createCoverBubble.jpg
  */
-export const createCoverBubble = (options: {
+export const createStreamInfoBubble = (options: {
   title: string
   subTitle: string
   info?: {
@@ -14,7 +14,6 @@ export const createCoverBubble = (options: {
     imageUrl?: string
     linkUrl?: string
   }
-  footer?: string
 }) => {
   const defaultsImageUrl =
     'https://twimage.daigobang.com/web/blog/0944f5bf5a5bc7b095157343fee62d7e.jpeg'
@@ -59,25 +58,23 @@ export const createCoverBubble = (options: {
               undefined,
           ],
         },
+      ],
+    },
+    footer: {
+      type: 'box',
+      layout: 'vertical',
+      spacing: 'sm',
+      contents: [
         {
-          type: 'separator',
-          margin: 'xxl',
-          color: '#cccccc',
+          type: 'button',
+          style: 'primary',
+          action: {
+            type: 'uri',
+            label: '查看',
+            uri: options.cover?.linkUrl,
+          },
         },
       ],
     },
-    footer:
-      (options.footer && {
-        type: 'box',
-        layout: 'vertical',
-        contents: [
-          {
-            type: 'text',
-            text: options.footer,
-            color: '#bbbbbb',
-          },
-        ],
-      }) ||
-      undefined,
   }
 }

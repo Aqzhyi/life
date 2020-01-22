@@ -9,7 +9,7 @@ import { twitchGameSelector } from '@/selectors/twitchGameSelector'
 import ow from 'ow'
 import { isKeywordSelector } from '@/selectors/isKeywordSelector'
 import { chunk } from 'lodash'
-import { createCoverBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
+import { createStreamInfoBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
 import { streamModelSelector } from '@/selectors/streamModelSelector'
 import { useQueryTwitchStreamGa } from '@/lib/google-analytics/events/queryTwitchStreamGa'
 
@@ -87,7 +87,7 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
       .map(
         item =>
           item &&
-          createCoverBubble({
+          createStreamInfoBubble({
             cover: {
               imageUrl: item.coverUrl,
               linkUrl: item.siteLink,
@@ -98,7 +98,6 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
               left: item.viewerCount,
               right: item.startedAt,
             },
-            footer: item.siteLink,
           }),
       )
       .filter(item => typeof item === 'object')

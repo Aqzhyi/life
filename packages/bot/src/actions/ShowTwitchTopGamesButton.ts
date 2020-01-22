@@ -1,6 +1,6 @@
 import { LineAction } from '@/lib/bottender-toolkit/types'
 import { twitchAPI } from '@/lib/twitch/twitchAPI'
-import { createCoverBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
+import { createStreamInfoBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
 import { chunk } from 'lodash'
 import { createCover } from '@/lib/bottender-toolkit/templates/createCover'
 import { twitchUserStreamLink } from '@/selectors/twitchUserStreamLink'
