@@ -22,8 +22,8 @@ export default async function App(context: LineContext): Promise<unknown> {
     router([
       text(
         isMultiPeopleMessage
-          ? createCommandText('直播$')
-          : createDirectlyText('直播$'),
+          ? createCommandText('(直播|live)$')
+          : createDirectlyText('(直播|live)$'),
         ShowTwitchTopGamesButton as any,
       ),
       text(createDirectlyText('(LA|ＬＡ)日曆'), QueryCalendarEvents as any),
