@@ -6,8 +6,10 @@ declare namespace NodeJS {
     BNET_CLIENT_ID: string
     /** battle.net client_secret */
     BNET_CLIENT_SECRET: string
-    /** twitch.tv client_id */
+    /** twitch.tv */
     TWITCH_CLIENT_ID: string
+    /** twitch.tv */
+    TWITCH_CLIENT_SECRET: string
 
     /** 台灣星盟電子競技情報網 */
     GOOGLE_ANALYTICS_UA_ID: string
