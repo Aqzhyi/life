@@ -26,6 +26,10 @@ declare namespace NodeJS {
     /** Google Calendar */
     GOOGLE_ACCESS_TOKEN: string
 
+    FIREBASE_API_KEY: string
+    FIREBASE_APP_ID: string
+    FIREBASE_MEASUREMENT_ID: string
+
     /** i18next debug */
     DEBUG_I18N: '0' | '1'
   }

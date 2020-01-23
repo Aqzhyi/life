@@ -22,6 +22,9 @@ const configration: Configuration = {
   },
   externals: [
     function(context, request, callback) {
+      if (/^@?firebase(\/(.+))?/.test(request)) {
+        return callback(null, 'commonjs ' + request)
+      }
       if (/^twitch$/.test(request)) {
         return callback(null, 'commonjs ' + request)
       }
