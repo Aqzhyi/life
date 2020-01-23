@@ -10,33 +10,40 @@ import { createCommandText } from '@/utils/createCommandText'
 import { QueryCalendarEvents } from '@/actions/QueryCalendarEvents'
 import { ShowTwitchTopGamesButton } from '@/actions/ShowTwitchTopGamesButton'
 
-export default async function App(context: LineContext): Promise<unknown> {
-  await i18nAPI.init()
-
+/**
+ * 自動依「群組」或「私人」訊息，決定是否建立「！」驚嘆號關鍵字
+ */
+const createUniversalText = (
+  context: LineContext,
+  /** 此引數將傳入 RegExp 類別 */
+  matchText: string,
+) => {
   const isMultiPeopleMessage: boolean = ['group', 'room'].includes(
     context.event.source.type,
   )
+
+  return isMultiPeopleMessage
+    ? createCommandText(matchText)
+    : createDirectlyText(matchText)
+}
+
+export default async function App(context: LineContext): Promise<unknown> {
+  await i18nAPI.init()
 
   return chain([
     RecordUserSaying as any,
     router([
       text(
-        isMultiPeopleMessage
-          ? createCommandText('(直播|live)$')
-          : createDirectlyText('(直播|live)$'),
+        createUniversalText(context, '(直播|live)$'),
         ShowTwitchTopGamesButton as any,
       ),
       text(createDirectlyText('(LA|ＬＡ)日曆'), QueryCalendarEvents as any),
       text(
-        isMultiPeopleMessage
-          ? createCommandText(QueryTwitchStreamsText)
-          : createDirectlyText(QueryTwitchStreamsText),
+        createUniversalText(context, QueryTwitchStreamsText),
         QueryTwitchStreams as any,
       ),
       text(
-        isMultiPeopleMessage
-          ? createCommandText(`(?<text>[\\s\\S]+)`)
-          : createDirectlyText(`(?<text>[\\s\\S]+)`),
+        createUniversalText(context, `(?<text>[\\s\\S]+)`),
         SayHelloWorld as any,
       ),
     ]),
