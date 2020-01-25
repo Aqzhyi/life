@@ -46,7 +46,7 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
 
     if (!gameId && inputKeyword) {
       await context.sendText(
-        i18nAPI.t('validate/支援文字', { text: inputKeyword }),
+        i18nAPI.t['validate/支援文字']({ text: inputKeyword }),
       )
       return
     }
@@ -67,7 +67,7 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
         context: `!gameId || !gameTitle`,
         errorMessage: error.message,
       })
-      await context.sendText(i18nAPI.t('error/系統內部錯誤'))
+      await context.sendText(i18nAPI.t['error/系統內部錯誤']())
       return
     }
     if (!gameId || !gameTitle) return

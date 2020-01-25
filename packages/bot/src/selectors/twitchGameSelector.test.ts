@@ -10,22 +10,22 @@ describe(twitchGameSelector.name, () => {
   it('傳入 keyword 得到 { id, title }', async () => {
     expect(twitchGameSelector('星海')).toStrictEqual({
       id: GameID.starcraft2,
-      title: i18nAPI.t('game/sc2'),
+      title: i18nAPI.t['game/sc2'](),
     })
 
     expect(twitchGameSelector('dota')).toStrictEqual({
       id: GameID.Dota2,
-      title: i18nAPI.t('game/dota2'),
+      title: i18nAPI.t['game/dota2'](),
     })
 
     expect(twitchGameSelector('wc')).toStrictEqual({
       id: GameID.warcraft3,
-      title: i18nAPI.t('game/wc3'),
+      title: i18nAPI.t['game/wc3'](),
     })
 
     expect(twitchGameSelector('lol')).toStrictEqual({
       id: GameID.leagueOfLegends,
-      title: i18nAPI.t('game/lol'),
+      title: i18nAPI.t['game/lol'](),
     })
   })
 

@@ -1,62 +1,40 @@
+import { en } from './en'
+import { tw } from './tw'
+import { I18nKey } from '@/lib/i18n/I18nKey'
 import i18next from 'i18next'
 
 const resources: {
   [key in 'tw' | 'en']: {
-    translation: Partial<{
-      'error/系統內部錯誤': string
-      'game/chatting': string
-      'game/cod': string
-      'game/csgo': string
-      'game/dota2': string
-      'game/hearthstone': string
-      'game/lol': string
-      'game/minecraft': string
-      'game/overwatch': string
-      'game/poe': string
-      'game/sc2': string
-      'game/terraria': string
-      'game/wc3': string
-      'game/wow': string
-      'text/觀看人數': string
-      'text/開播時間': string
-      'tip/正在查詢': string
-      'validate/支援文字': string
-    }>
+    translation: Partial<{ [key in I18nKey]: string }>
   }
 } = {
-  tw: {
-    translation: {
-      'error/系統內部錯誤':
-        '系統內部錯誤，如果你願意，可以通知開發者：hilezi.chen@gmail.com',
-      'game/chatting': '純聊天',
-      'game/cod': '決勝時刻16：現代戰爭',
-      'game/csgo': '絕對武力：全球攻勢',
-      'game/dota2': 'Dota 2',
-      'game/hearthstone': '爐石戰記',
-      'game/lol': '英雄聯盟',
-      'game/minecraft': '創世神',
-      'game/overwatch': '鬥陣特攻',
-      'game/poe': '流亡黯道',
-      'game/sc2': '星海爭霸2',
-      'game/terraria': '泰拉瑞亞',
-      'game/wc3': '魔獸爭霸3',
-      'game/wow': '魔獸世界',
-      'text/觀看人數': '人數: {{value}}',
-      'text/開播時間': '開播於: {{value}}',
-      'tip/正在查詢': '查詢中...',
-      'validate/支援文字':
-        '似乎沒有一款遊戲，匹配到你輸入的遊戲名稱「{{text}}」',
-    },
-  },
-  en: {
-    translation: {
-      'game/sc2': 'StarCraft II',
-      'game/wc3': 'WarCraft III',
-    },
-  },
+  tw: { translation: tw },
+  en: { translation: en },
 }
 
-type I18nKeys = keyof typeof resources['tw']['translation']
+const t = {
+  'error/系統內部錯誤': () => i18next.t(t['error/系統內部錯誤'].name),
+  'game/chatting': () => i18next.t(t['game/chatting'].name),
+  'game/cod': () => i18next.t(t['game/cod'].name),
+  'game/csgo': () => i18next.t(t['game/csgo'].name),
+  'game/dota2': () => i18next.t(t['game/dota2'].name),
+  'game/hearthstone': () => i18next.t(t['game/hearthstone'].name),
+  'game/lol': () => i18next.t(t['game/lol'].name),
+  'game/minecraft': () => i18next.t(t['game/minecraft'].name),
+  'game/overwatch': () => i18next.t(t['game/overwatch'].name),
+  'game/poe': () => i18next.t(t['game/poe'].name),
+  'game/sc2': () => i18next.t(t['game/sc2'].name),
+  'game/terraria': () => i18next.t(t['game/terraria'].name),
+  'game/wc3': () => i18next.t(t['game/wc3'].name),
+  'game/wow': () => i18next.t(t['game/wow'].name),
+  'text/觀看人數': (values: { value: string | number }) =>
+    i18next.t(t['text/觀看人數'].name, values),
+  'text/開播時間': (values: { value: string }) =>
+    i18next.t(t['text/開播時間'].name, values),
+  'tip/正在查詢': () => i18next.t(t['tip/正在查詢'].name),
+  'validate/支援文字': (values: { text: string }) =>
+    i18next.t(t['validate/支援文字'].name, values),
+} as const
 
 export const i18nAPI = {
   init: () => {
@@ -67,14 +45,5 @@ export const i18nAPI = {
       resources,
     })
   },
-  t: <T extends I18nKeys>(
-    key: T,
-    options?: T extends 'validate/支援文字'
-      ? { text: string }
-      : T extends 'text/觀看人數' | 'text/開播時間'
-      ? { value: string | number }
-      : undefined,
-  ) => {
-    return i18next.t(key, options)
-  },
+  t: t,
 }
