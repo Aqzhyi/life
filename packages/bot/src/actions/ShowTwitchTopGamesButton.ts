@@ -4,6 +4,7 @@ import { createStreamInfoBubble } from '@/lib/bottender-toolkit/templates/create
 import { chunk } from 'lodash'
 import { createCover } from '@/lib/bottender-toolkit/templates/createCover'
 import { twitchUserStreamLink } from '@/selectors/twitchUserStreamLink'
+import { createMessageSendButton } from '@/lib/bottender-toolkit/templates/createMessageSendButton'
 
 export const ShowTwitchTopGamesButton: LineAction = async (context, props) => {
   try {
@@ -40,16 +41,10 @@ export const ShowTwitchTopGamesButton: LineAction = async (context, props) => {
                 type: 'box',
                 layout: 'vertical',
                 contents: [
-                  {
-                    type: 'button',
-                    style: 'primary',
-                    height: 'sm',
-                    action: {
-                      type: 'message',
-                      label: '查看正在直播',
-                      text: `！直播${item.name}`,
-                    },
-                  },
+                  createMessageSendButton({
+                    label: '查看正在直播',
+                    text: `！直播${item.name}`,
+                  }),
                 ],
               },
             }
