@@ -1,8 +1,8 @@
 import { ContextSimulator } from 'bottender/test-utils'
 import { ShowTwitchTopGamesButton } from '@/actions/ShowTwitchTopGamesButton'
-import * as getTopGames from '@/lib/twitch/twitchAPI/getTopGames.mock'
+import { createMockAPI } from '@/lib/twitch/twitchAPI.mock'
 
-getTopGames.createMock(10)
+createMockAPI.getTopGames(10)
 
 describe(ShowTwitchTopGamesButton.name, () => {
   const simulator = new ContextSimulator({ platform: 'line' })
