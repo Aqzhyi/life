@@ -1,12 +1,12 @@
 import { gaAPI } from '@/lib/google-analytics/gaAPI'
 import { EventCategory } from '@/lib/google-analytics/EventCategory'
 import { LineContext } from 'bottender'
-import { QueryTwitchStreams } from '@/actions/QueryTwitchStreams'
+import { queryTwitchStreamsAction } from '@/actions/queryTwitchStreams/queryTwitchStreamsAction'
 import { HelixStream } from 'twitch'
 
 const NS = '/查詢/正在直播頻道'
 
-export const useQueryTwitchStreamGa = (context: LineContext) => {
+export const useQueryTwitchStreamsGA = (context: LineContext) => {
   const events = {
     onQuery: async (gameTitle: string) => {
       const user = await context.getUserProfile()
@@ -15,7 +15,7 @@ export const useQueryTwitchStreamGa = (context: LineContext) => {
           ec: EventCategory.LINEBOT,
           ea: `${gameTitle}${NS}`,
           el: {
-            functionName: QueryTwitchStreams.name,
+            functionName: queryTwitchStreamsAction.name,
             displayName: user?.displayName,
             statusMessage: user?.statusMessage,
           },

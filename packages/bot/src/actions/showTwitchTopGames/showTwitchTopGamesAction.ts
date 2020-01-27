@@ -1,12 +1,10 @@
 import { LineAction } from '@/lib/bottender-toolkit/types'
 import { twitchAPI } from '@/lib/twitch/twitchAPI'
-import { createStreamInfoBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
 import { chunk } from 'lodash'
 import { createCover } from '@/lib/bottender-toolkit/templates/createCover'
-import { twitchUserStreamLink } from '@/selectors/twitchUserStreamLink'
 import { createMessageSendButton } from '@/lib/bottender-toolkit/templates/createMessageSendButton'
 
-export const ShowTwitchTopGamesButton: LineAction = async (context, props) => {
+export const showTwitchTopGamesAction: LineAction = async (context, props) => {
   try {
     const data = chunk(await twitchAPI.getTopGames(), 10)
 

@@ -3,7 +3,7 @@ import { calendarAPI } from '@/lib/googleapis/calendarAPI'
 import { createStreamInfoBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
 import dayjs from 'dayjs'
 
-export const QueryCalendarEvents: LineAction = async (context, props) => {
+export const queryCalendarEventsAction: LineAction = async (context, props) => {
   try {
     const items = await calendarAPI.getAfterTodayEvents()
 

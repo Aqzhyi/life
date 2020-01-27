@@ -1,8 +1,8 @@
 import { LineAction } from '@/lib/bottender-toolkit/types'
 import { createCommandHintBubble } from '@/lib/bottender-toolkit/templates/createCommandHintBubble'
-import * as SayBullshit from './SayBullshit'
+import * as SayBullshit from '../sayBullshit/sayBullshitAction'
 
-export const SayHelloWorld: LineAction = async (context, props) => {
+export const sayHiAction: LineAction = async (context, props) => {
   const seeLink = {
     type: 'bubble',
     body: {

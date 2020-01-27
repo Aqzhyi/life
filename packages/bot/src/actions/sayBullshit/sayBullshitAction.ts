@@ -2,12 +2,12 @@ import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import fetch from 'node-fetch'
 import replaceStrings from 'replace-string'
 import { debugAPI } from '@/lib/debug/debugAPI'
-import { events } from './SayBullshit/ga'
+import { sayBullshitGA } from './sayBullshitGA'
 
 export const DEFAULTS_TOPIC = '我的鹹魚'
 export const DEFAULTS_MINLEN = 100
 
-export const SayBullshit: LineAction<WithGroupProps<{
+export const sayBullshitAction: LineAction<WithGroupProps<{
   topic: string
   minLen: string
 }>> = async (context, props) => {
@@ -20,7 +20,7 @@ export const SayBullshit: LineAction<WithGroupProps<{
   log(`topic = ${topic}`)
   log(`minLen = ${minLen}`)
 
-  events.onQuery({
+  sayBullshitGA.onQuery({
     topic,
     minLength: minLen,
   })
@@ -40,7 +40,7 @@ export const SayBullshit: LineAction<WithGroupProps<{
       )
     })
     .catch(error => {
-      events.onError({
+      sayBullshitGA.onError({
         topic,
         minLength: minLen,
       })

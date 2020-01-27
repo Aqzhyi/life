@@ -1,10 +1,9 @@
-import { LineContext } from 'bottender'
 import { gaAPI } from '@/lib/google-analytics/gaAPI'
 import { EventCategory } from '@/lib/google-analytics/EventCategory'
 
 const NS = '唬爛產生器'
 
-export const events = {
+export const sayBullshitGA = {
   onQuery: (props: { topic: string; minLength: number }) => {
     gaAPI.send({
       ec: EventCategory.LINEBOT,

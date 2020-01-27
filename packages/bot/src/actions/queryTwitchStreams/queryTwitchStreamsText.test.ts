@@ -1,12 +1,13 @@
-import { QueryTwitchStreamsText } from '@/configs/TEXT'
+import { queryTwitchStreamsText } from '@/actions/queryTwitchStreams/queryTwitchStreamsText'
+import { queryTwitchStreamsAction } from '@/actions/queryTwitchStreams/queryTwitchStreamsAction'
 import { createCommandText } from '@/utils/createCommandText'
 import { createDirectlyText } from '@/utils/createDirectlyText'
 
-describe('指令正規', () => {
+describe(`${queryTwitchStreamsAction.name} 指令`, () => {
   it('查詢直播頻道: [!！]$(直播|live)', () => {
     const commands = [
-      createDirectlyText(QueryTwitchStreamsText),
-      createCommandText(QueryTwitchStreamsText),
+      createDirectlyText(queryTwitchStreamsText),
+      createCommandText(queryTwitchStreamsText),
     ]
 
     for (const command of commands) {

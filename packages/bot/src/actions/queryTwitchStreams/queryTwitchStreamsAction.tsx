@@ -11,17 +11,17 @@ import { isKeywordSelector } from '@/selectors/isKeywordSelector'
 import { chunk } from 'lodash'
 import { createStreamInfoBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
 import { streamModelSelector } from '@/selectors/streamModelSelector'
-import { useQueryTwitchStreamGa } from '@/lib/google-analytics/events/queryTwitchStreamGa'
+import { useQueryTwitchStreamsGA } from '@/actions/queryTwitchStreams/queryTwitchStreamsGA'
 
-export const QueryTwitchStreams: LineAction<WithGroupProps<{
+export const queryTwitchStreamsAction: LineAction<WithGroupProps<{
   inputKeyword: GameKeyword
 }>> = async (context, props) => {
-  const debug = debugAPI.bot.extend(QueryTwitchStreams.name)
+  const debug = debugAPI.bot.extend(queryTwitchStreamsAction.name)
   const debugSystem = debug.extend('系統')
   const debugUser = debug.extend('用戶')
   const defaultsKeyword: GameKeyword = '魔獸'
   const inputKeyword = props.match?.groups?.inputKeyword?.toLowerCase()
-  const queryTwitchStreamGa = useQueryTwitchStreamGa(context)
+  const queryTwitchStreamGa = useQueryTwitchStreamsGA(context)
 
   debugUser(`輸入:${inputKeyword}`)
 

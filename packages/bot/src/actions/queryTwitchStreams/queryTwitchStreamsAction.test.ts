@@ -1,11 +1,11 @@
-import { QueryTwitchStreams } from '@/actions/QueryTwitchStreams'
+import { queryTwitchStreamsAction } from './queryTwitchStreamsAction'
 import { ContextSimulator } from 'bottender/test-utils'
 import { createMockAPI } from '@/lib/twitch/twitchAPI.mock'
 
 createMockAPI.helix.games.getGameByName()
 createMockAPI.helix.streams.getStreams()
 
-describe(QueryTwitchStreams.name, () => {
+describe(queryTwitchStreamsAction.name, () => {
   const simulator = new ContextSimulator({ platform: 'line' })
 
   it('預設場景下，會發送 flex 內容', async done => {
@@ -15,7 +15,7 @@ describe(QueryTwitchStreams.name, () => {
     context.getUserProfile = jest.fn()
 
     // 試著查一個不列於冊的小眾遊戲，應也可透過 twitchAPI 查得
-    await QueryTwitchStreams(context, {
+    await queryTwitchStreamsAction(context, {
       match: { groups: { inputKeyword: `No Man's Sky` as any } },
     })
 
