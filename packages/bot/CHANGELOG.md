@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.9.0](https://github.com/hilezi/life/compare/v0.8.0...v0.9.0) (2020-01-27)
+
+
+### Features
+
+* **bot:** 改善「hi」返回「指令卡」幫助使用者快速上手 ([7699734](https://github.com/hilezi/life/commit/769973461ddd152598b6df32dabe65c7546b1414))
+
 ## [0.8.0](https://github.com/hilezi/life/compare/v0.7.0...v0.8.0) (2020-01-21)
 
 
