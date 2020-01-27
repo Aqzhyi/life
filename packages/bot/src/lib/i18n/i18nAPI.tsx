@@ -28,7 +28,7 @@ const t = {
   'game/wc3': () => i18next.t('game/wc3'),
   'game/wow': () => i18next.t('game/wow'),
   'text/觀看人數': (values: { value: string | number }) =>
-    i18next.t('text/開播時間', values),
+    i18next.t('text/觀看人數', values),
   'text/開播時間': (values: { value: string }) =>
     i18next.t('text/開播時間', values),
   'tip/正在查詢': () => i18next.t('tip/正在查詢'),
