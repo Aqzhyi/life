@@ -2,6 +2,7 @@ import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import fetch from 'node-fetch'
 import replaceStrings from 'replace-string'
 import { debugAPI } from '@/lib/debug/debugAPI'
+import { events } from './SayBullshit/ga'
 
 export const DEFAULTS_TOPIC = '我的鹹魚'
 export const DEFAULTS_MINLEN = 100
@@ -19,6 +20,11 @@ export const SayBullshit: LineAction<WithGroupProps<{
   log(`topic = ${topic}`)
   log(`minLen = ${minLen}`)
 
+  events.onQuery({
+    topic,
+    minLength: minLen,
+  })
+
   await fetch(
     'http://ec2-18-223-132-77.us-east-2.compute.amazonaws.com:10000/bullshit',
     {
@@ -34,6 +40,10 @@ export const SayBullshit: LineAction<WithGroupProps<{
       )
     })
     .catch(error => {
+      events.onError({
+        topic,
+        minLength: minLen,
+      })
       context.sendText(error.message)
     })
 }
