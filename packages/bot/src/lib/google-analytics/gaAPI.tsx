@@ -11,11 +11,12 @@ export const gaAPI = {
       `${event.ec}/${event.ea} ${JSON.stringify(omit(event, ['ec', 'ea']))}`,
     )
 
-    visitor
-      .event({
-        ...omit(event, 'el'),
-        el: JSON.stringify(event.el),
-      })
-      .send()
+    process.env.NODE_ENV !== 'production' &&
+      visitor
+        .event({
+          ...omit(event, 'el'),
+          el: JSON.stringify(event.el),
+        })
+        .send()
   },
 }
