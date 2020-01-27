@@ -1,10 +1,8 @@
 const path = require('path')
 const { jestPreset } = require('ts-jest')
-const dotenv = require('dotenv')
 
 module.exports = {
   testEnvironment: 'node',
-  testEnvironmentOptions: dotenv.config('./env.test'),
   transform: {
     /** 👇 { '^.+\\.tsx?$': 'ts-jest' } */
     ...jestPreset.transform,
