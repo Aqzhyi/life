@@ -20,18 +20,8 @@ const configration: Configuration = {
     libraryTarget: 'commonjs',
     path: path.resolve(__dirname, 'dist'),
   },
-  externals: [
-    function(context, request, callback) {
-      if (/^@?firebase(\/(.+))?/.test(request)) {
-        return callback(null, 'commonjs ' + request)
-      }
-      if (/^twitch$/.test(request)) {
-        return callback(null, 'commonjs ' + request)
-      }
-      callback(null, undefined)
-    },
-  ],
   resolve: {
+    mainFields: ['main'],
     /**
      * going
      *   @/actions: __dirname + src/actions
