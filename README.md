@@ -2,6 +2,7 @@
 
 # 讓你輕鬆查詢 Twitch 正在直播的 LINE BOT 機器人
 
+> 更多訊息請見
 > https://www.notion.so/hilezi/d7ac6acf3ee94029a245be3df3c9f5fe
 
 ---
@@ -15,9 +16,9 @@
 
 ---
 
-| 預覽                                  | 預覽                                  |
-| ------------------------------------- | ------------------------------------- |
-| ![](./public/2020-01-19-04-39-09.png) | ![](./public/2020-01-19-04-39-30.png) |
+| 預覽                                  |
+| ------------------------------------- |
+| ![](./public/2020-01-28-01-49-56.png) |
 
 ## 加入好友
 
@@ -29,25 +30,33 @@
 
 ## development
 
-> 需要兩個 process 一個給 webpack build，一個使用 bottender console 作測試。
+> 需要三個 sessions 分別給 webpack build、npm test 和 bottender start 作測試。
 
 ```sh
-npm run dev:watch
+npm run dev:watch -- --watch
 ```
 
 ```sh
+npm run test -- --verbose --watch
+```
+
+```sh
+DEBUG=bottender*,-messaging-api*,-bottender:session*-bottender:response,w3r* npx bottender start
+
+# 或
+
 npm run dev:console
 ```
 
 ## deploy
 
 ```sh
-# 部署到公開測試機器人
+# 部署到 ZEIT Now 公開測試機器人
 npm run deploy
 ```
 
 ```sh
-# 部署到正式站
+# 部署到 ZEIT Now 正式站
 npm run deploy:prod
 ```
 

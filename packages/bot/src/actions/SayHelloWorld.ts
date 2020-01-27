@@ -1,5 +1,6 @@
 import { LineAction } from '@/lib/bottender-toolkit/types'
 import { createCommandHintBubble } from '@/lib/bottender-toolkit/templates/createCommandHintBubble'
+import * as SayBullshit from './SayBullshit'
 
 export const SayHelloWorld: LineAction = async (context, props) => {
   const seeLink = {
@@ -72,9 +73,9 @@ export const SayHelloWorld: LineAction = async (context, props) => {
         context,
       }) as any,
       createCommandHintBubble({
-        commandLabel: '唬爛{主題} {長度=200}',
+        commandLabel: `唬爛{主題} {長度=${SayBullshit.DEFAULTS_MINLEN}}`,
         commandDescription: '圍繞著一個主題講幹話',
-        commandText: '唬爛我的夢想 200',
+        commandText: `唬爛${SayBullshit.DEFAULTS_TOPIC} ${SayBullshit.DEFAULTS_MINLEN}`,
         context,
       }) as any,
       seeLink,
