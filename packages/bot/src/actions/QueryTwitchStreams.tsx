@@ -25,7 +25,7 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
 
   debugUser(`輸入:${inputKeyword}`)
 
-  let game = twitchGameSelector(inputKeyword as GameKeyword)
+  const game = twitchGameSelector(inputKeyword as GameKeyword)
   let gameId: GameID | string | undefined = game?.id
   let gameTitle: string | undefined = game?.title
 
@@ -49,14 +49,6 @@ export const QueryTwitchStreams: LineAction<WithGroupProps<{
         i18nAPI.t['validate/支援文字']({ text: inputKeyword }),
       )
       return
-    }
-
-    if (!gameId) {
-      game = twitchGameSelector(defaultsKeyword)
-      gameId = game?.id
-      gameTitle = game?.title
-      debugSystem('套用預設關鍵字')
-      debugSystem(`gameId:${gameId} gameTitle:${gameTitle}`)
     }
 
     try {
