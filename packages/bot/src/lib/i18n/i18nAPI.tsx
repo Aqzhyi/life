@@ -13,27 +13,27 @@ const resources: {
 }
 
 const t = {
-  'error/系統內部錯誤': () => i18next.t(t['error/系統內部錯誤'].name),
-  'game/chatting': () => i18next.t(t['game/chatting'].name),
-  'game/cod': () => i18next.t(t['game/cod'].name),
-  'game/csgo': () => i18next.t(t['game/csgo'].name),
-  'game/dota2': () => i18next.t(t['game/dota2'].name),
-  'game/hearthstone': () => i18next.t(t['game/hearthstone'].name),
-  'game/lol': () => i18next.t(t['game/lol'].name),
-  'game/minecraft': () => i18next.t(t['game/minecraft'].name),
-  'game/overwatch': () => i18next.t(t['game/overwatch'].name),
-  'game/poe': () => i18next.t(t['game/poe'].name),
-  'game/sc2': () => i18next.t(t['game/sc2'].name),
-  'game/terraria': () => i18next.t(t['game/terraria'].name),
-  'game/wc3': () => i18next.t(t['game/wc3'].name),
-  'game/wow': () => i18next.t(t['game/wow'].name),
+  'error/系統內部錯誤': () => i18next.t('error/系統內部錯誤'),
+  'game/chatting': () => i18next.t('game/chatting'),
+  'game/cod': () => i18next.t('game/cod'),
+  'game/csgo': () => i18next.t('game/csgo'),
+  'game/dota2': () => i18next.t('game/dota2'),
+  'game/hearthstone': () => i18next.t('game/hearthstone'),
+  'game/lol': () => i18next.t('game/lol'),
+  'game/minecraft': () => i18next.t('game/minecraft'),
+  'game/overwatch': () => i18next.t('game/overwatch'),
+  'game/poe': () => i18next.t('game/poe'),
+  'game/sc2': () => i18next.t('game/sc2'),
+  'game/terraria': () => i18next.t('game/terraria'),
+  'game/wc3': () => i18next.t('game/wc3'),
+  'game/wow': () => i18next.t('game/wow'),
   'text/觀看人數': (values: { value: string | number }) =>
-    i18next.t(t['text/觀看人數'].name, values),
+    i18next.t('text/開播時間', values),
   'text/開播時間': (values: { value: string }) =>
-    i18next.t(t['text/開播時間'].name, values),
-  'tip/正在查詢': () => i18next.t(t['tip/正在查詢'].name),
+    i18next.t('text/開播時間', values),
+  'tip/正在查詢': () => i18next.t('tip/正在查詢'),
   'validate/支援文字': (values: { text: string }) =>
-    i18next.t(t['validate/支援文字'].name, values),
+    i18next.t('validate/支援文字', values),
 } as const
 
 export const i18nAPI = {
