@@ -11,6 +11,7 @@ import { queryCalendarEventsAction } from '@/actions/queryCalendarEvents/queryCa
 import { showTwitchTopGamesAction } from '@/actions/showTwitchTopGames/showTwitchTopGamesAction'
 import { isMultiPeopleMessage } from '@/selectors/isMultiPeopleMessage'
 import { sayBullshitAction } from '@/actions/sayBullshit/sayBullshitAction'
+import { sayBullshitText } from '@/actions/sayBullshit/sayBullshitText'
 
 /**
  * 自動依「群組」或「私人」訊息，決定是否建立「！」驚嘆號關鍵字
@@ -32,7 +33,7 @@ export default async function App(context: LineContext): Promise<unknown> {
     recordUserSayingAction as any,
     router([
       text(
-        createUniversalText(context, `唬爛(?<topic>.*?)(\\s(?<minLen>\\d+))?$`),
+        createUniversalText(context, sayBullshitText),
         sayBullshitAction as any,
       ),
       text(
