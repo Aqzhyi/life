@@ -71,6 +71,12 @@ export const SayHelloWorld: LineAction = async (context, props) => {
         commandText: '直播魔獸',
         context,
       }) as any,
+      createCommandHintBubble({
+        commandLabel: '唬爛{主題} {長度=200}',
+        commandDescription: '圍繞著一個主題講幹話',
+        commandText: '唬爛我的夢想 200',
+        context,
+      }) as any,
       seeLink,
     ],
   })

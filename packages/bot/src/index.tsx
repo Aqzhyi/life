@@ -10,6 +10,7 @@ import { createCommandText } from '@/utils/createCommandText'
 import { QueryCalendarEvents } from '@/actions/QueryCalendarEvents'
 import { ShowTwitchTopGamesButton } from '@/actions/ShowTwitchTopGamesButton'
 import { isMultiPeopleMessage } from '@/selectors/isMultiPeopleMessage'
+import { SayBullshit } from '@/actions/SayBullshit'
 
 /**
  * 自動依「群組」或「私人」訊息，決定是否建立「！」驚嘆號關鍵字
@@ -30,6 +31,10 @@ export default async function App(context: LineContext): Promise<unknown> {
   return chain([
     RecordUserSaying as any,
     router([
+      text(
+        createUniversalText(context, `唬爛(?<topic>.*?)(\\s(?<minLen>\\d+))?$`),
+        SayBullshit as any,
+      ),
       text(
         createUniversalText(context, '(直播|live)$'),
         ShowTwitchTopGamesButton as any,
