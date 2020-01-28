@@ -25,14 +25,11 @@ export const sayBullshitAction: LineAction<WithGroupProps<{
     minLength: minLen,
   })
 
-  await fetch(
-    'http://ec2-18-223-132-77.us-east-2.compute.amazonaws.com:10000/bullshit',
-    {
-      method: 'POST',
-      body: JSON.stringify({ topic, minLen }),
-      redirect: 'follow',
-    },
-  )
+  await fetch('https://api.howtobullshit.me/bullshit', {
+    method: 'POST',
+    body: JSON.stringify({ topic, minLen }),
+    redirect: 'follow',
+  })
     .then(res => res.text())
     .then(text => {
       context.sendText(
