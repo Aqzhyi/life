@@ -3,9 +3,15 @@ import path from 'path'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import Dotenv from 'dotenv-webpack'
 import globby from 'globby'
+import webpackNodeExternals from 'webpack-node-externals'
 
 const configration: Configuration = {
   target: 'node',
+  externals: [
+    webpackNodeExternals({
+      modulesFromFile: true,
+    }),
+  ],
   stats: {
     warnings: false,
   },
