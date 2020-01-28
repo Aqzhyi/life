@@ -11,4 +11,6 @@ const app = firebase.initializeApp({
   measurementId: process.env.FIREBASE_MEASUREMENT_ID,
 })
 
-export const firestoreAPI = {}
+export const firestoreAPI = {
+  db: app.firestore(),
+}

@@ -12,6 +12,7 @@ import { showTwitchTopGamesAction } from '@/actions/showTwitchTopGames/showTwitc
 import { isMultiPeopleMessage } from '@/selectors/isMultiPeopleMessage'
 import { sayBullshitAction } from '@/actions/sayBullshit/sayBullshitAction'
 import { sayBullshitText } from '@/actions/sayBullshit/sayBullshitText'
+import { newsAPI } from '@/lib/news/newsAPI'
 
 /**
  * 自動依「群組」或「私人」訊息，決定是否建立「！」驚嘆號關鍵字
