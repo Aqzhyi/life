@@ -13,6 +13,7 @@ import { isMultiPeopleMessage } from '@/selectors/isMultiPeopleMessage'
 import { sayBullshitAction } from '@/actions/sayBullshit/sayBullshitAction'
 import { sayBullshitText } from '@/actions/sayBullshit/sayBullshitText'
 import { newsAPI } from '@/lib/news/newsAPI'
+import { queryWar3NewsAction } from '@/actions/queryWar3News/queryWar3NewsAction'
 
 /**
  * 自動依「群組」或「私人」訊息，決定是否建立「！」驚嘆號關鍵字
@@ -33,6 +34,19 @@ export default async function App(context: LineContext): Promise<unknown> {
   return chain([
     recordUserSayingAction as any,
     router([
+      text(
+        createUniversalText(context, '更新魔獸新聞'),
+        chain([
+          async () => {
+            await newsAPI.crawlAll()
+          },
+          queryWar3NewsAction as any,
+        ]),
+      ),
+      text(
+        createUniversalText(context, '魔獸新聞'),
+        queryWar3NewsAction as any,
+      ),
       text(
         createUniversalText(context, sayBullshitText),
         sayBullshitAction as any,

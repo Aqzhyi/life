@@ -73,6 +73,12 @@ export const sayHiAction: LineAction = async (context, props) => {
         context,
       }) as any,
       createCommandHintBubble({
+        commandLabel: '魔獸新聞',
+        commandDescription: '查詢各個網站魔獸新聞',
+        commandText: '魔獸新聞',
+        context,
+      }) as any,
+      createCommandHintBubble({
         commandLabel: `唬爛{主題} {長度=${SayBullshit.DEFAULTS_MINLEN}}`,
         commandDescription: '圍繞著一個主題講幹話',
         commandText: `唬爛${SayBullshit.DEFAULTS_TOPIC} ${SayBullshit.DEFAULTS_MINLEN}`,

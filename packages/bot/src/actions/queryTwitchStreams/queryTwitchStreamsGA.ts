@@ -4,8 +4,6 @@ import { LineContext } from 'bottender'
 import { queryTwitchStreamsAction } from '@/actions/queryTwitchStreams/queryTwitchStreamsAction'
 import { HelixStream } from 'twitch'
 
-const NS = '/查詢/正在直播頻道'
-
 export const useQueryTwitchStreamsGA = (context: LineContext) => {
   const events = {
     onQuery: async (gameTitle: string) => {
@@ -13,7 +11,7 @@ export const useQueryTwitchStreamsGA = (context: LineContext) => {
       if (user?.displayName) {
         gaAPI.send({
           ec: EventCategory.LINEBOT,
-          ea: `${gameTitle}${NS}`,
+          ea: `直播頻道/${gameTitle}/查詢`,
           el: {
             functionName: queryTwitchStreamsAction.name,
             displayName: user?.displayName,
@@ -29,7 +27,7 @@ export const useQueryTwitchStreamsGA = (context: LineContext) => {
         .join(',')
       gaAPI.send({
         ec: EventCategory.LINEBOT,
-        ea: `${gameTitle}${NS}/回應`,
+        ea: `直播頻道/${gameTitle}/查詢/回應`,
         el: sendUsersName,
         ev: sendUsersName.length,
       })
@@ -37,7 +35,7 @@ export const useQueryTwitchStreamsGA = (context: LineContext) => {
     onNoResult: async (gameTitle: string) => {
       gaAPI.send({
         ec: EventCategory.LINEBOT,
-        ea: `${gameTitle}${NS}/無結果`,
+        ea: `直播頻道/${gameTitle}/查詢/無結果`,
         el: gameTitle,
       })
     },
@@ -49,7 +47,7 @@ export const useQueryTwitchStreamsGA = (context: LineContext) => {
       const user = await context.getUserProfile()
       gaAPI.send({
         ec: EventCategory.LINEBOT,
-        ea: `${data.gameTitle}${NS}/錯誤`,
+        ea: `直播頻道/${data.gameTitle}/查詢/錯誤`,
         el: {
           ...data,
           displayName: user?.displayName,

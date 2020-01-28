@@ -18,6 +18,31 @@ export const createStreamInfoBubble = (options: {
   const defaultsImageUrl =
     'https://twimage.daigobang.com/web/blog/0944f5bf5a5bc7b095157343fee62d7e.jpeg'
 
+  const info =
+    (options.info && [
+      {
+        type: 'box',
+        layout: 'horizontal',
+        contents: [
+          (options.info.left && {
+            type: 'text',
+            text: options.info.left,
+            size: 'sm',
+            color: '#bbbbbb',
+          }) ||
+            undefined,
+          (options.info.right && {
+            type: 'text',
+            text: options.info.right,
+            size: 'sm',
+            color: '#bbbbbb',
+          }) ||
+            undefined,
+        ],
+      },
+    ]) ||
+    []
+
   return {
     type: 'bubble',
     hero: createCover({
@@ -38,26 +63,7 @@ export const createStreamInfoBubble = (options: {
           size: 'xs',
           color: '#999999',
         },
-        {
-          type: 'box',
-          layout: 'horizontal',
-          contents: options.info && [
-            (options.info.left && {
-              type: 'text',
-              text: options.info.left,
-              size: 'sm',
-              color: '#bbbbbb',
-            }) ||
-              undefined,
-            (options.info.right && {
-              type: 'text',
-              text: options.info.right,
-              size: 'sm',
-              color: '#bbbbbb',
-            }) ||
-              undefined,
-          ],
-        },
+        ...info,
       ],
     },
     footer: {
