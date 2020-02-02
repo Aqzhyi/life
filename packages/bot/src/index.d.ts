@@ -34,3 +34,9 @@ declare namespace NodeJS {
     DEBUG_I18N: '0' | '1'
   }
 }
+
+type ThenArg<T> = T extends Promise<infer U>
+  ? U
+  : T extends (...args: any[]) => Promise<infer U>
+  ? U
+  : T
