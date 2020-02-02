@@ -14,19 +14,7 @@ import { sayBullshitAction } from '@/actions/sayBullshit/sayBullshitAction'
 import { sayBullshitText } from '@/actions/sayBullshit/sayBullshitText'
 import { newsAPI } from '@/lib/news/newsAPI'
 import { queryWar3NewsAction } from '@/actions/queryWar3News/queryWar3NewsAction'
-
-/**
- * 自動依「群組」或「私人」訊息，決定是否建立「！」驚嘆號關鍵字
- */
-const createUniversalText = (
-  context: LineContext,
-  /** 此引數將傳入 RegExp 類別 */
-  matchText: string,
-) => {
-  return isMultiPeopleMessage(context)
-    ? createCommandText(matchText)
-    : createDirectlyText(matchText)
-}
+import { createUniversalText } from '@/utils/createUniversalText'
 
 export default async function App(context: LineContext): Promise<unknown> {
   await i18nAPI.init()
