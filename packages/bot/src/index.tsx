@@ -15,6 +15,10 @@ import { sayBullshitText } from '@/actions/sayBullshit/sayBullshitText'
 import { newsAPI } from '@/lib/news/newsAPI'
 import { queryWar3NewsAction } from '@/actions/queryWar3News/queryWar3NewsAction'
 import { createUniversalText } from '@/utils/createUniversalText'
+import { showTwitchTopGamesText } from '@/actions/showTwitchTopGames/showTwitchTopGamesText'
+import { queryWar3NewsText } from '@/actions/queryWar3News/queryWar3NewsText'
+import { updateWar3NewsText } from '@/actions/updateWar3News/updateWar3NewsText'
+import { updateWar3NewsAction } from '@/actions/updateWar3News/updateWar3NewsAction'
 
 export default async function App(context: LineContext): Promise<unknown> {
   await i18nAPI.init()
@@ -23,16 +27,11 @@ export default async function App(context: LineContext): Promise<unknown> {
     recordUserSayingAction as any,
     router([
       text(
-        createUniversalText(context, '更新魔獸新聞'),
-        chain([
-          async () => {
-            await newsAPI.crawlAll()
-          },
-          queryWar3NewsAction as any,
-        ]),
+        createUniversalText(context, updateWar3NewsText),
+        chain([updateWar3NewsAction, queryWar3NewsAction] as any),
       ),
       text(
-        createUniversalText(context, '魔獸新聞'),
+        createUniversalText(context, queryWar3NewsText),
         queryWar3NewsAction as any,
       ),
       text(
@@ -40,7 +39,7 @@ export default async function App(context: LineContext): Promise<unknown> {
         sayBullshitAction as any,
       ),
       text(
-        createUniversalText(context, '(直播|live)$'),
+        createUniversalText(context, showTwitchTopGamesText),
         showTwitchTopGamesAction as any,
       ),
       text(

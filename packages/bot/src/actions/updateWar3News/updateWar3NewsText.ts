@@ -1,0 +1,1 @@
+export const updateWar3NewsText = '更新魔獸新聞'

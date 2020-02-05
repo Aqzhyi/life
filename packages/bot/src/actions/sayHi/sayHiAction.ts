@@ -1,6 +1,8 @@
 import { LineAction } from '@/lib/bottender-toolkit/types'
-import { createCommandHintBubble } from '@/lib/bottender-toolkit/templates/createCommandHintBubble'
-import * as SayBullshit from '../sayBullshit/sayBullshitAction'
+import { showTwitchTopGamesCommandBubble } from '@/actions/showTwitchTopGames/showTwitchTopGamesCommandBubble'
+import { queryWar3NewsCommandBubble } from '@/actions/queryWar3News/queryWar3NewsCommandBubble'
+import { queryTwitchStreamsCommandBubble } from '@/actions/queryTwitchStreams/queryTwitchStreamsCommandBubble'
+import { sayBullshitCommandBubble } from '@/actions/sayBullshit/sayBullshitCommandBubble'
 
 export const sayHiAction: LineAction = async (context, props) => {
   const seeLink = {
@@ -60,32 +62,12 @@ export const sayHiAction: LineAction = async (context, props) => {
   await context.sendFlex('快速執行指令', {
     type: 'carousel',
     contents: [
-      createCommandHintBubble({
-        commandLabel: '直播',
-        commandDescription: '查詢流行遊戲',
-        commandText: '直播',
-        context,
-      }) as any,
-      createCommandHintBubble({
-        commandLabel: '直播{遊戲}',
-        commandDescription: '查詢指定遊戲',
-        commandText: '直播魔獸',
-        context,
-      }) as any,
-      createCommandHintBubble({
-        commandLabel: '魔獸新聞',
-        commandDescription: '查詢各個網站魔獸新聞',
-        commandText: '魔獸新聞',
-        context,
-      }) as any,
-      createCommandHintBubble({
-        commandLabel: `唬爛{主題} {長度=${SayBullshit.DEFAULTS_MINLEN}}`,
-        commandDescription: '圍繞著一個主題講幹話',
-        commandText: `唬爛${SayBullshit.DEFAULTS_TOPIC} ${SayBullshit.DEFAULTS_MINLEN}`,
-        context,
-      }) as any,
+      showTwitchTopGamesCommandBubble,
+      queryTwitchStreamsCommandBubble,
+      queryWar3NewsCommandBubble,
+      sayBullshitCommandBubble,
       seeLink,
-    ],
+    ] as any,
   })
 
   return props.next
