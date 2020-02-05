@@ -3,10 +3,13 @@ import { twitchAPI } from '@/lib/twitch/twitchAPI'
 import { chunk } from 'lodash'
 import { createCover } from '@/lib/bottender-toolkit/templates/createCover'
 import { createMessageSendButton } from '@/lib/bottender-toolkit/templates/createMessageSendButton'
+import { showTwitchTopGamesGA } from './showTwitchTopGamesGA'
 
 export const showTwitchTopGamesAction: LineAction = async (context, props) => {
   try {
-    const data = chunk(await twitchAPI.getTopGames(), 10)
+    showTwitchTopGamesGA.onQuery()
+    const twitchData = await twitchAPI.getTopGames()
+    const data = chunk(twitchData, 10)
 
     for (const datum of data) {
       context.sendFlex('請選擇要查詢的直播', {
@@ -49,8 +52,10 @@ export const showTwitchTopGamesAction: LineAction = async (context, props) => {
           }) as any),
         ],
       })
+      showTwitchTopGamesGA.onResponsed(twitchData)
     }
   } catch (error) {
+    showTwitchTopGamesGA.onError(error)
     await context.sendText(error.message)
   }
 
