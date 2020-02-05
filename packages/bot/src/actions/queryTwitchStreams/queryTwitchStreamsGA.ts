@@ -21,7 +21,7 @@ export const useQueryTwitchStreamsGA = (context: LineContext) => {
         })
       }
     },
-    onSentStreams: async (gameTitle: string, sentStreams: HelixStream[]) => {
+    onResponsed: async (gameTitle: string, sentStreams: HelixStream[]) => {
       const sendUsersName = sentStreams
         .map(item => item.userDisplayName)
         .join(',')

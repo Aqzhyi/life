@@ -21,7 +21,8 @@ export const queryTwitchStreamsAction: LineAction<WithGroupProps<{
   const debugUser = debug.extend('用戶')
   const defaultsKeyword: GameKeyword = '魔獸'
   const inputKeyword = props.match?.groups?.inputKeyword?.toLowerCase()
-  const queryTwitchStreamGa = useQueryTwitchStreamsGA(context)
+  const queryTwitchStreamsGA = useQueryTwitchStreamsGA(context)
+  queryTwitchStreamsGA.onQuery(inputKeyword || '')
 
   debugUser(`輸入:${inputKeyword}`)
 
@@ -54,7 +55,7 @@ export const queryTwitchStreamsAction: LineAction<WithGroupProps<{
     try {
       ow(!gameId || !gameTitle, ow.boolean.false)
     } catch (error) {
-      queryTwitchStreamGa.onError({
+      queryTwitchStreamsGA.onError({
         gameTitle: inputKeyword || '',
         context: `!gameId || !gameTitle`,
         errorMessage: error.message,
@@ -63,8 +64,6 @@ export const queryTwitchStreamsAction: LineAction<WithGroupProps<{
       return
     }
     if (!gameId || !gameTitle) return
-
-    queryTwitchStreamGa.onQuery(gameTitle || inputKeyword || '')
 
     const { data } = await twitchAPI.helix.streams.getStreams({
       game: gameId,
@@ -104,13 +103,13 @@ export const queryTwitchStreamsAction: LineAction<WithGroupProps<{
         })
       }
 
-      queryTwitchStreamGa.onSentStreams(gameTitle || inputKeyword || '', data)
+      queryTwitchStreamsGA.onResponsed(gameTitle || inputKeyword || '', data)
     } else {
-      queryTwitchStreamGa.onNoResult(gameTitle || inputKeyword || '')
+      queryTwitchStreamsGA.onNoResult(gameTitle || inputKeyword || '')
       await context.sendText(`查詢不到 ${gameTitle} 的中文直播頻道`)
     }
   } catch (error) {
-    queryTwitchStreamGa.onError({
+    queryTwitchStreamsGA.onError({
       gameTitle: gameTitle || inputKeyword || '',
       context: `inputKeyword=${inputKeyword}`,
       errorMessage: error.message,
