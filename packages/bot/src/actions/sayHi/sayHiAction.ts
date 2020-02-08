@@ -62,10 +62,10 @@ export const sayHiAction: LineAction = async (context, props) => {
   await context.sendFlex('快速執行指令', {
     type: 'carousel',
     contents: [
-      showTwitchTopGamesCommandBubble,
-      queryTwitchStreamsCommandBubble,
-      queryWar3NewsCommandBubble,
-      sayBullshitCommandBubble,
+      showTwitchTopGamesCommandBubble(context),
+      queryTwitchStreamsCommandBubble(context),
+      queryWar3NewsCommandBubble(context),
+      sayBullshitCommandBubble(context),
       seeLink,
     ] as any,
   })
