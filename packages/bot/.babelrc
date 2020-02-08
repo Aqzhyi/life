@@ -1,9 +1,5 @@
 {
-  "presets": [
-    ["@babel/preset-env", { "targets": { "node": "current" } }],
-    "next/babel",
-    "@babel/preset-react"
-  ],
+  "presets": [["@babel/preset-env", { "targets": { "node": "current" } }]],
   "plugins": [
     "@babel/plugin-transform-typescript",
     "@babel/plugin-proposal-optional-chaining",

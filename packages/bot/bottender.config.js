@@ -32,7 +32,6 @@ module.exports = {
       appId: process.env.MESSENGER_APP_ID,
       appSecret: process.env.MESSENGER_APP_SECRET,
       verifyToken: process.env.MESSENGER_VERIFY_TOKEN,
-      sync: true,
     },
     line: {
       enabled: true,
@@ -43,20 +42,17 @@ module.exports = {
       channelSecret: isProd
         ? process.env.LINE_CHANNEL_SECRET
         : process.env.LINE_CHANNEL_SECRET_BETA,
-      sync: true,
     },
     telegram: {
       enabled: false,
       path: '/webhooks/telegram',
       accessToken: process.env.TELEGRAM_ACCESS_TOKEN,
-      sync: true,
     },
     slack: {
       enabled: false,
       path: '/webhooks/slack',
       accessToken: process.env.SLACK_ACCESS_TOKEN,
       verificationToken: process.env.SLACK_VERIFICATION_TOKEN,
-      sync: true,
     },
     viber: {
       enabled: false,
@@ -65,7 +61,6 @@ module.exports = {
       sender: {
         name: 'xxxx',
       },
-      sync: true,
     },
   },
 }
