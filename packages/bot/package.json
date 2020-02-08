@@ -8,8 +8,7 @@
   "scripts": {
     "deploy": "NODE_ENV=development npm t && npm run build:src && now -e NODE_ENV=development",
     "deploy:prod": "NODE_ENV=production npm t && npm run build:src && now --prod -e NODE_ENV=production",
-    "dev": "npm run build:src && npm run dev:watch",
-    "dev:console": "DEBUG=w3r* bottender start --console",
+    "dev:server": "DEBUG=w3r* bottender dev",
     "dev:watch": "npm run build:src -- --watch",
     "build": "next build",
     "build:src": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack",
