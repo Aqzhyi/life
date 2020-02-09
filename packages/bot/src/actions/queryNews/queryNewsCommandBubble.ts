@@ -2,8 +2,8 @@ import { createCommandHintBubble } from '@/lib/bottender-toolkit/templates/creat
 
 export const queryNewsCommandBubble = context =>
   createCommandHintBubble({
-    commandLabel: '魔獸新聞',
-    commandDescription: '各大網站魔獸相關新聞',
+    commandLabel: '{關鍵字}新聞',
+    commandDescription: '從遊戲媒體撈出新聞',
     commandText: '魔獸新聞',
     context,
   })
