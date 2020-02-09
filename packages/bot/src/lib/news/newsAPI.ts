@@ -23,11 +23,16 @@ export const newsAPI = {
       await firestoreAPI.db
         .collection('news')
         .orderBy('postedAt', 'desc')
-        .startAt(options.keyword)
-        .limit(options.pageCount ?? 10)
+        .limit(300)
         .get()
     ).docs.map(item => item.data() as NewsDoc)
 
     return data1
+      .filter(
+        item =>
+          item.title.includes(options.keyword) ||
+          item.tag.filter(tag => tag.includes(options.keyword)).length,
+      )
+      .slice(0, 9)
   },
 }
