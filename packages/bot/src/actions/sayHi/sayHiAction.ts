@@ -3,10 +3,12 @@ import { showTwitchTopGamesCommandBubble } from '@/actions/showTwitchTopGames/sh
 import { queryWar3NewsCommandBubble } from '@/actions/queryWar3News/queryWar3NewsCommandBubble'
 import { queryTwitchStreamsCommandBubble } from '@/actions/queryTwitchStreams/queryTwitchStreamsCommandBubble'
 import { sayBullshitCommandBubble } from '@/actions/sayBullshit/sayBullshitCommandBubble'
+import { createCommandHintBubble } from '@/lib/bottender-toolkit/templates/createCommandHintBubble'
 
 export const sayHiAction: LineAction = async (context, props) => {
   const seeLink = {
     type: 'bubble',
+    size: 'micro',
     body: {
       type: 'box',
       layout: 'vertical',
