@@ -4,9 +4,9 @@ import { crawlGamer } from '@/lib/news/crawlGamer'
 import { crawl4Gamers } from '@/lib/news/crawl4Gamers'
 
 export const newsAPI = {
-  crawlAll: async () => {
-    await crawlGamer()
-    await crawl4Gamers()
+  crawlAll: async (byKeyword: string) => {
+    await crawlGamer(byKeyword)
+    await crawl4Gamers(byKeyword)
   },
   addItems: async (items: NewsDoc[]) => {
     for (const item of items) {

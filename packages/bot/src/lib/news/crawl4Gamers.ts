@@ -31,13 +31,15 @@ interface Data {
 /**
  * 爬取 4Gamers 關於魔獸爭霸的新聞
  */
-export const crawl4Gamers = async () => {
+export const crawl4Gamers = async (byKeyword: string) => {
   const log = debugAPI.news.extend('4Gamers')
 
-  log('爬文')
+  log('爬文 關鍵字=', byKeyword)
 
   const news = await fetch(
-    'https://www.4gamers.com.tw/site/api/news/by-tag?tag=%E9%AD%94%E7%8D%B8%E7%88%AD%E9%9C%B8&nextStart=0&pageSize=25',
+    encodeURI(
+      `https://www.4gamers.com.tw/site/api/news/by-tag?tag=${byKeyword}&nextStart=0&pageSize=25`,
+    ),
   )
     .then(res => res.json())
     .then<NewsDoc[]>(
@@ -55,7 +57,8 @@ export const crawl4Gamers = async () => {
             linkUrl: item.canonicalUrl,
             postedAt: dayjs(item.createPublishedAt).toISOString(),
             coverUrl: item.socialBannerUrl || 'https://i.imgur.com/ow2Ipot.png',
-          }
+            tag: [byKeyword, ...item.tags],
+          } as NewsDoc
         })
       },
     )

@@ -9,13 +9,13 @@ import { newsAPI } from '@/lib/news/newsAPI'
 /**
  * 爬取巴哈姆特關於魔獸爭霸的新聞
  */
-export const crawlGamer = async () => {
+export const crawlGamer = async (byKeyword: string) => {
   const log = debugAPI.news.extend('巴哈姆特')
 
-  log('爬文')
+  log('爬文 關鍵字=', byKeyword)
 
   const news = await fetch(
-    'https://acg.gamer.com.tw/search.php?s=4&kw=%E9%AD%94%E7%8D%B8%E7%88%AD%E9%9C%B8+3',
+    encodeURI(`https://acg.gamer.com.tw/search.php?s=4&kw=${byKeyword}`),
   )
     .then(res => res.text())
     .then(htmlText => {
@@ -48,6 +48,7 @@ export const crawlGamer = async () => {
                 .trim(),
             ).toISOString(),
             coverUrl: 'https://i.imgur.com/ow2Ipot.png',
+            tag: [byKeyword],
           } as NewsDoc
         })
         .toArray() as any) as NewsDoc[]
