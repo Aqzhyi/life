@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/hilezi/life/compare/v0.9.0...v1.1.0) (2020-02-09)
+
+
+### Features
+
+* **bot:** 增加「唬爛」指令 ([23dfbef](https://github.com/hilezi/life/commit/23dfbef8edd1e6054bfb46644dcba66d86c1f105))
+* **bot:** 現在指令「魔獸新聞」能摘要各大網站最新消息 ([3f72f49](https://github.com/hilezi/life/commit/3f72f4923da76466238f030dc8aca1aa3f3566cd))
+
 ### [0.9.0](https://github.com/hilezi/life/compare/v0.8.0...v0.9.0) (2020-01-27)
 
 
