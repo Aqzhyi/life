@@ -22,7 +22,7 @@ export const createStreamInfoBubble = (options: {
     (options.info && [
       {
         type: 'box',
-        layout: 'horizontal',
+        layout: 'vertical',
         contents: [
           (options.info.left && {
             type: 'text',
@@ -45,8 +45,10 @@ export const createStreamInfoBubble = (options: {
 
   return {
     type: 'bubble',
+    size: 'micro',
     hero: createCover({
       imageUrl: options.cover?.imageUrl || defaultsImageUrl,
+      actionUri: options.cover?.linkUrl,
     }),
     body: {
       type: 'box',
