@@ -37,20 +37,24 @@ export const queryNewsAction: LineAction<WithGroupProps<{
     data = await newsAPI.getList({ keyword, pageCount: 10 })
     log('取得快取資料', data)
 
-    await context.sendFlex(`${keyword}新聞`, {
-      type: 'carousel',
-      contents: [
-        ...(data.map(item =>
-          createSmallCardBubble({
-            coverUrl: item.coverUrl,
-            link: item.linkUrl,
-            content: dayjs(item.postedAt).format('@YYYY/MM/DD'),
-            title: item.title,
-            subtitle: item.provider,
-          }),
-        ) as any),
-      ],
-    })
+    if (data.length) {
+      await context.sendFlex(`${keyword}新聞`, {
+        type: 'carousel',
+        contents: [
+          ...(data.map(item =>
+            createSmallCardBubble({
+              coverUrl: item.coverUrl,
+              link: item.linkUrl,
+              content: dayjs(item.postedAt).format('@YYYY/MM/DD'),
+              title: item.title,
+              subtitle: item.provider,
+            }),
+          ) as any),
+        ],
+      })
+    } else {
+      await context.sendText('沒有找到相關新聞')
+    }
     queryNewsGA.onResponsed(keyword, data)
   } catch (error) {
     queryNewsGA.onError(keyword, error)
