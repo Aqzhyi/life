@@ -5,7 +5,7 @@ export interface NewsDoc {
   postedAt: string
   title: string
   linkUrl: string
-  provider: '巴哈姆特' | '4Gamers'
+  provider: '巴哈姆特' | '4Gamers' | 'TESL'
   coverUrl: string
   tag: string[]
 }
