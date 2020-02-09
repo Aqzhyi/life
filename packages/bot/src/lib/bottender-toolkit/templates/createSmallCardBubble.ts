@@ -10,12 +10,18 @@ export const createSmallCardBubble = (options: {
   title: string
   content: string
 }) => {
+  if (options.coverUrl.startsWith('http://')) {
+    console.warn(
+      `WARNING: bubble/hero/url 只接受 https 安全連線，傳入的 ${options.title} 圖片不符合 LINE 要求`,
+    )
+  }
+
   return {
     type: 'bubble',
     size: 'micro',
     hero: {
       type: 'image',
-      url: options.coverUrl || DEFAULT_COVER_URL,
+      url: options.coverUrl.replace('http://', 'https://') || DEFAULT_COVER_URL,
       size: 'full',
       aspectMode: 'cover',
       aspectRatio: '320:213',
