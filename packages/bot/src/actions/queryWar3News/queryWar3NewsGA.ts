@@ -3,26 +3,34 @@ import { EventCategory } from '@/lib/google-analytics/EventCategory'
 import { NewsDoc } from '@/lib/news/NewsDoc'
 
 export const queryWar3NewsGA = {
-  onQuery: () => {
+  onCrawl: (keyword: string) => {
     gaAPI.send({
       ec: EventCategory.LINEBOT,
-      ea: '查詢/魔獸爭霸/新聞',
+      ea: `${keyword}/新聞/查詢`,
+      el: '',
+      ev: 0,
+    })
+  },
+  onQuery: (keyword: string) => {
+    gaAPI.send({
+      ec: EventCategory.LINEBOT,
+      ea: `${keyword}/新聞/查詢`,
       el: '',
       ev: 3,
     })
   },
-  onResponsed: (data: NewsDoc[]) => {
+  onResponsed: (keyword: string, data: NewsDoc[]) => {
     gaAPI.send({
       ec: EventCategory.LINEBOT,
-      ea: '查詢/魔獸爭霸/新聞/回應',
+      ea: `${keyword}/新聞/查詢/回應`,
       el: `length=${data.length}`,
       ev: 1,
     })
   },
-  onError: (error: Error) => {
+  onError: (keyword: string, error: Error) => {
     gaAPI.send({
       ec: EventCategory.LINEBOT,
-      ea: '查詢/魔獸爭霸/新聞/錯誤',
+      ea: `${keyword}/新聞/查詢/錯誤`,
       el: `error.message=${error.message}`,
       ev: 0,
     })

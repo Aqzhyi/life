@@ -1,1 +1,1 @@
-export const queryWar3NewsText = '魔獸新聞'
+export const queryWar3NewsText = '(?<keyword>[\\s\\S]+)新聞'

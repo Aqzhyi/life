@@ -17,8 +17,6 @@ import { queryWar3NewsAction } from '@/actions/queryWar3News/queryWar3NewsAction
 import { createUniversalText } from '@/utils/createUniversalText'
 import { showTwitchTopGamesText } from '@/actions/showTwitchTopGames/showTwitchTopGamesText'
 import { queryWar3NewsText } from '@/actions/queryWar3News/queryWar3NewsText'
-import { updateWar3NewsText } from '@/actions/updateWar3News/updateWar3NewsText'
-import { updateWar3NewsAction } from '@/actions/updateWar3News/updateWar3NewsAction'
 
 export default async function App(context: LineContext): Promise<unknown> {
   await i18nAPI.init()
@@ -26,10 +24,6 @@ export default async function App(context: LineContext): Promise<unknown> {
   return chain([
     recordUserSayingAction as any,
     router([
-      text(
-        createUniversalText(context, updateWar3NewsText),
-        chain([updateWar3NewsAction, queryWar3NewsAction] as any),
-      ),
       text(
         createUniversalText(context, queryWar3NewsText),
         queryWar3NewsAction as any,

@@ -57,7 +57,7 @@ export const crawl4Gamers = async (byKeyword: string) => {
             linkUrl: item.canonicalUrl,
             postedAt: dayjs(item.createPublishedAt).toISOString(),
             coverUrl: item.socialBannerUrl || 'https://i.imgur.com/ow2Ipot.png',
-            tag: [byKeyword, ...item.tags],
+            tag: [...item.tags],
           } as NewsDoc
         })
       },
