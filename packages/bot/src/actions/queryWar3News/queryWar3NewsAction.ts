@@ -1,8 +1,9 @@
 import { LineAction } from '@/lib/bottender-toolkit/types'
 import { firestoreAPI } from '@/lib/firestore/firestoreAPI'
 import { NewsDoc } from '@/lib/news/NewsDoc'
-import { createStreamInfoBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
 import { queryWar3NewsGA } from '@/actions/queryWar3News/queryWar3NewsGA'
+import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
+import dayjs from 'dayjs'
 
 export const queryWar3NewsAction: LineAction = async (context, props) => {
   queryWar3NewsGA.onQuery()
@@ -19,13 +20,12 @@ export const queryWar3NewsAction: LineAction = async (context, props) => {
       type: 'carousel',
       contents: [
         ...(data.map(item =>
-          createStreamInfoBubble({
-            title: item.provider,
-            subTitle: item.title,
-            cover: {
-              imageUrl: item.coverUrl,
-              linkUrl: item.linkUrl,
-            },
+          createSmallCardBubble({
+            coverUrl: item.coverUrl,
+            link: item.linkUrl,
+            content: dayjs(item.postedAt).format('@YYYY/MM/DD'),
+            title: item.title,
+            subtitle: item.provider,
           }),
         ) as any),
       ],
