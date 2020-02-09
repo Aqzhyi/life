@@ -1,13 +1,13 @@
 import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import { firestoreAPI } from '@/lib/firestore/firestoreAPI'
 import { NewsDoc } from '@/lib/news/NewsDoc'
-import { queryWar3NewsGA } from '@/actions/queryWar3News/queryWar3NewsGA'
+import { queryNewsGA } from '@/actions/queryNews/queryNewsGA'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import dayjs from 'dayjs'
 import { newsAPI } from '@/lib/news/newsAPI'
 import { debugAPI } from '@/lib/debug/debugAPI'
 
-export const queryWar3NewsAction: LineAction<WithGroupProps<{
+export const queryNewsAction: LineAction<WithGroupProps<{
   keyword
 }>> = async (context, props) => {
   const log = debugAPI.bot.extend('新聞')
@@ -20,7 +20,7 @@ export const queryWar3NewsAction: LineAction<WithGroupProps<{
       await context.sendText('🛑請輸入關鍵字查詢')
     }
 
-    queryWar3NewsGA.onQuery(keyword)
+    queryNewsGA.onQuery(keyword)
     let data: NewsDoc[]
     data = await newsAPI.getList({ keyword, pageCount: 10 })
 
@@ -51,9 +51,9 @@ export const queryWar3NewsAction: LineAction<WithGroupProps<{
         ) as any),
       ],
     })
-    queryWar3NewsGA.onResponsed(keyword, data)
+    queryNewsGA.onResponsed(keyword, data)
   } catch (error) {
-    queryWar3NewsGA.onError(keyword, error)
+    queryNewsGA.onError(keyword, error)
     await context.sendText(error.message)
   }
 

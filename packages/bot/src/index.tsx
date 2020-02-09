@@ -13,10 +13,10 @@ import { isMultiPeopleMessage } from '@/selectors/isMultiPeopleMessage'
 import { sayBullshitAction } from '@/actions/sayBullshit/sayBullshitAction'
 import { sayBullshitText } from '@/actions/sayBullshit/sayBullshitText'
 import { newsAPI } from '@/lib/news/newsAPI'
-import { queryWar3NewsAction } from '@/actions/queryWar3News/queryWar3NewsAction'
+import { queryNewsAction } from '@/actions/queryNews/queryNewsAction'
 import { createUniversalText } from '@/utils/createUniversalText'
 import { showTwitchTopGamesText } from '@/actions/showTwitchTopGames/showTwitchTopGamesText'
-import { queryWar3NewsText } from '@/actions/queryWar3News/queryWar3NewsText'
+import { queryWar3NewsText } from '@/actions/queryNews/queryNewsText'
 
 export default async function App(context: LineContext): Promise<unknown> {
   await i18nAPI.init()
@@ -26,7 +26,7 @@ export default async function App(context: LineContext): Promise<unknown> {
     router([
       text(
         createUniversalText(context, queryWar3NewsText),
-        queryWar3NewsAction as any,
+        queryNewsAction as any,
       ),
       text(
         createUniversalText(context, sayBullshitText),

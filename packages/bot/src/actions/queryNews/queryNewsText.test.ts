@@ -1,5 +1,5 @@
 import { createDirectlyText } from '@/utils/createDirectlyText'
-import { queryWar3NewsText } from '@/actions/queryWar3News/queryWar3NewsText'
+import { queryWar3NewsText } from '@/actions/queryNews/queryNewsText'
 
 describe('新聞系統', () => {
   it('指令正規："{關鍵字}新聞" 可辨別出匹配 關鍵字 as "keyword"', () => {

@@ -1,6 +1,6 @@
 import { LineAction } from '@/lib/bottender-toolkit/types'
 import { showTwitchTopGamesCommandBubble } from '@/actions/showTwitchTopGames/showTwitchTopGamesCommandBubble'
-import { queryWar3NewsCommandBubble } from '@/actions/queryWar3News/queryWar3NewsCommandBubble'
+import { queryNewsCommandBubble } from '@/actions/queryNews/queryNewsCommandBubble'
 import { queryTwitchStreamsCommandBubble } from '@/actions/queryTwitchStreams/queryTwitchStreamsCommandBubble'
 import { sayBullshitCommandBubble } from '@/actions/sayBullshit/sayBullshitCommandBubble'
 import { createCommandHintBubble } from '@/lib/bottender-toolkit/templates/createCommandHintBubble'
@@ -66,7 +66,7 @@ export const sayHiAction: LineAction = async (context, props) => {
     contents: [
       showTwitchTopGamesCommandBubble(context),
       queryTwitchStreamsCommandBubble(context),
-      queryWar3NewsCommandBubble(context),
+      queryNewsCommandBubble(context),
       sayBullshitCommandBubble(context),
       seeLink,
     ] as any,

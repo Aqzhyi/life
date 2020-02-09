@@ -2,7 +2,7 @@ import { gaAPI } from '@/lib/google-analytics/gaAPI'
 import { EventCategory } from '@/lib/google-analytics/EventCategory'
 import { NewsDoc } from '@/lib/news/NewsDoc'
 
-export const queryWar3NewsGA = {
+export const queryNewsGA = {
   onCrawl: (keyword: string) => {
     gaAPI.send({
       ec: EventCategory.LINEBOT,
