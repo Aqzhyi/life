@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/hilezi/life/compare/v0.9.0...v1.2.0) (2020-02-10)
+
+
+### Features
+
+* **bot:** 指令「{關鍵字}新聞」現在可自訂關鍵字，例如「鬥陣特攻新聞」「阿吉新聞」等 ([713ab48](https://github.com/hilezi/life/commit/713ab48d5ff81b8676c4081dfb9058dceda396ea))
+
 ## [1.1.0](https://github.com/hilezi/life/compare/v0.9.0...v1.1.0) (2020-02-09)
 
 
