@@ -31,7 +31,7 @@ export const queryNewsAction: LineAction<WithGroupProps<{
       log('連線到外部更新新聞快取')
       await newsAPI.crawlAll(keyword)
     } else {
-      log('不需要從外部新聞資源')
+      log('目前不需要獲取外部新聞資源')
     }
 
     data = await newsAPI.getList({ keyword, pageCount: 10 })
