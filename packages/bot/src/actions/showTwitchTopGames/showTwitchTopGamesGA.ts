@@ -15,7 +15,7 @@ export const showTwitchTopGamesGA = {
     gaAPI.send({
       ec: EventCategory.LINEBOT,
       ea: '遊戲/排行/查詢/回應',
-      el: games.join(','),
+      el: games.map(item => item.name).join(', '),
       ev: 0,
     })
   },
