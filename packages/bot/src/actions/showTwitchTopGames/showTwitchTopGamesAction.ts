@@ -18,6 +18,7 @@ export const showTwitchTopGamesAction: LineAction = async (context, props) => {
           ...(datum.map(item => {
             return {
               type: 'bubble',
+              size: 'micro',
               hero: createCover({
                 imageUrl: item.coverUrl,
               }),
@@ -28,12 +29,12 @@ export const showTwitchTopGamesAction: LineAction = async (context, props) => {
                   {
                     type: 'text',
                     text: item.name,
-                    size: 'xxl',
+                    size: 'md',
                   },
                   {
                     type: 'text',
                     text: `api.stream.id ${item.id}`,
-                    size: 'xs',
+                    size: 'xxs',
                     color: '#bbbbbb',
                   },
                 ],
@@ -43,7 +44,7 @@ export const showTwitchTopGamesAction: LineAction = async (context, props) => {
                 layout: 'vertical',
                 contents: [
                   createMessageSendButton({
-                    label: '查看正在直播',
+                    label: '查看',
                     text: `！直播${item.name}`,
                   }),
                 ],
