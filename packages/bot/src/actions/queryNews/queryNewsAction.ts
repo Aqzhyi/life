@@ -35,7 +35,15 @@ export const queryNewsAction: LineAction<WithGroupProps<{
     }
 
     data = await newsAPI.getList({ keyword, pageCount: 10 })
-    log('取得快取資料', data)
+    log(
+      '取得快取資料',
+      data.map(
+        item =>
+          `${item.title} ${item.provider}@${dayjs(item.postedAt).format(
+            'MM/DD',
+          )}`,
+      ),
+    )
 
     if (data.length) {
       await context.sendFlex(`${keyword}新聞`, {
