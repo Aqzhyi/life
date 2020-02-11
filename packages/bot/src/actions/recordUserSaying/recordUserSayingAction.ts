@@ -6,7 +6,7 @@ export const recordUserSayingAction: LineAction = async (context, props) => {
   context.event.isText &&
     gaAPI.send({
       ec: EventCategory.LINEBOT,
-      ea: '任意文字訊息',
+      ea: '訊息/發送',
       el: context.event.text,
       ev: 0.01,
     })
