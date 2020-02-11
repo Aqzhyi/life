@@ -15,21 +15,21 @@ export const sayHiAction: LineAction = async (context, props) => {
       contents: [
         {
           type: 'text',
-          text: '歡迎使用 Twitch 直播查詢',
+          text: '那個機器人',
           weight: 'bold',
           color: '#1DB446',
           size: 'sm',
         },
         {
           type: 'text',
-          text: '更多消息',
+          text: '關於',
           weight: 'bold',
           size: 'xxl',
           margin: 'md',
         },
         {
           type: 'text',
-          text: '請見官網',
+          text: '如何使用這個機器人',
           size: 'xs',
           color: '#aaaaaa',
           wrap: true,
@@ -52,7 +52,7 @@ export const sayHiAction: LineAction = async (context, props) => {
           height: 'sm',
           action: {
             type: 'uri',
-            label: '官網',
+            label: '查看',
             uri:
               'https://www.notion.so/hilezi/d7ac6acf3ee94029a245be3df3c9f5fe',
           },
