@@ -8,8 +8,7 @@
   "scripts": {
     "build": "npm run build:src",
     "start": "node server/bot-server.js",
-    "deploy": "NODE_ENV=development npm t && npm run build:src && now -e NODE_ENV=development",
-    "deploy:prod": "NODE_ENV=production npm t && npm run build:src && now --prod -e NODE_ENV=production",
+    "deploy:prod": "git push heroku master -f",
     "dev:server": "DEBUG=w3r* bottender dev",
     "dev:watch": "npm run build:src -- --watch",
     "build:src": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack",
