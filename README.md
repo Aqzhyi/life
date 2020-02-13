@@ -1,4 +1,4 @@
-[![](https://img.shields.io/badge/CHANGELOG-conventional%20changelog-informational)](./packages/bot/CHANGELOG.md)
+![testing](https://github.com/hilezi/life/workflows/testing/badge.svg?branch=master) [![](https://img.shields.io/badge/CHANGELOG-conventional%20changelog-informational)](./packages/bot/CHANGELOG.md)
 
 # 這個 LINE BOT 機器人
 
@@ -26,7 +26,7 @@
 
 ### LINE
 
-| 正式站                            | 測試機人                            |
+| 正式站                                  | 測試機人                                  |
 | --------------------------------------- | ----------------------------------------- |
 | <img src="./public/正式站機器人.png" /> | <img src="./public/公開測試機器人.png" /> |
 
