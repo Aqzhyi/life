@@ -60,6 +60,11 @@ export class TeslCrawler implements Crawler {
       }
     }
 
-    return news.filter(item => item.title.includes(keyword))
+    return news
+      .filter(item => item.title.includes(keyword))
+      .map(item => ({
+        ...item,
+        tag: [keyword],
+      }))
   }
 }
