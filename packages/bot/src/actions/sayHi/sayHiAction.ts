@@ -66,7 +66,7 @@ export const sayHiAction: LineAction = async (context, props) => {
     contents: [
       showTwitchTopGamesCommandBubble(context),
       queryTwitchStreamsCommandBubble(context),
-      queryNewsCommandBubble(context),
+      ...queryNewsCommandBubble(context),
       sayBullshitCommandBubble(context),
       seeLink,
     ] as any,
