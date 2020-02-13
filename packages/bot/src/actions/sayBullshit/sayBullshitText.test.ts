@@ -6,6 +6,10 @@ describe(`${sayBullshitAction.name} 指令正規`, () => {
   it('能匹配主題和產生文字長度', () => {
     const command = createCommandText(sayBullshitText)
 
+    expect(command.test('！唬濫魔獸')).toBe(true)
+    expect(command.test('！虎濫魔獸')).toBe(true)
+    expect(command.test('！滸爛魔獸')).toBe(true)
+    expect(command.test('！虎爛魔獸')).toBe(true)
     expect(command.test('！唬爛魔獸')).toBe(true)
     expect(command.test('！唬爛星海')).toBe(true)
     expect(command.test('！唬爛dota')).toBe(true)
