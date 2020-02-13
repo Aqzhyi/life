@@ -61,16 +61,29 @@ export const sayHiAction: LineAction = async (context, props) => {
     },
   }
 
-  await context.sendFlex('快速執行指令', {
-    type: 'carousel',
-    contents: [
-      showTwitchTopGamesCommandBubble(context),
-      queryTwitchStreamsCommandBubble(context),
-      ...queryNewsCommandBubble(context),
-      sayBullshitCommandBubble(context),
-      seeLink,
-    ] as any,
-  })
+  if (context.platform === 'telegram') {
+    context.sendText(`
+      可接受指令：
+      1. 唬爛{主題}
+      1. 唬爛{主題} {長度}
+
+      操作詳見
+      https://www.notion.so/hilezi/LINE-BOT-d7ac6acf3ee94029a245be3df3c9f5fe
+    `)
+  }
+
+  if (context.platform === 'line') {
+    await context.sendFlex('快速執行指令', {
+      type: 'carousel',
+      contents: [
+        showTwitchTopGamesCommandBubble(context),
+        queryTwitchStreamsCommandBubble(context),
+        ...queryNewsCommandBubble(context),
+        sayBullshitCommandBubble(context),
+        seeLink,
+      ] as any,
+    })
+  }
 
   return props.next
 }
