@@ -63,6 +63,6 @@ export const newsAPI = {
           item.title.includes(options.keyword) ||
           item.tag.filter(tag => tag.includes(options.keyword)).length,
       )
-      .slice(0, 9)
+      .slice(0, 10)
   },
 }
