@@ -8,7 +8,7 @@ import { newsAPI } from '@/lib/news/newsAPI'
 import { debugAPI } from '@/lib/debug/debugAPI'
 
 export const queryNewsAction: LineAction<WithGroupProps<{
-  keyword
+  keyword: string
 }>> = async (context, props) => {
   const log = debugAPI.bot.extend('新聞')
   const keyword = props.match?.groups?.keyword?.trim() || ''
