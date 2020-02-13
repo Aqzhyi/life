@@ -6,6 +6,7 @@ import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createS
 import dayjs from 'dayjs'
 import { newsAPI } from '@/lib/news/newsAPI'
 import { debugAPI } from '@/lib/debug/debugAPI'
+import { queryNewsNoCacheText } from '@/actions/queryNews/queryNewsText'
 
 export const queryNewsAction: LineAction<WithGroupProps<{
   keyword: string
@@ -13,8 +14,11 @@ export const queryNewsAction: LineAction<WithGroupProps<{
   const log = debugAPI.bot.extend('新聞')
   const keyword = props.match?.groups?.keyword?.trim() || ''
 
+  /** 不使用 firestore 快取，而是連線到外部獲取最新資源 */
+  const nocache = new RegExp(queryNewsNoCacheText).test(context.event.text)
+
   try {
-    log(`關鍵字=${keyword}`)
+    log(`關鍵字=${keyword} 更新=${nocache}`)
 
     if (!keyword) {
       await context.sendText('🛑請輸入關鍵字查詢')
@@ -25,6 +29,7 @@ export const queryNewsAction: LineAction<WithGroupProps<{
     data = await newsAPI.getList({ keyword, pageCount: 10 })
 
     if (
+      nocache ||
       (keyword && !data.length) ||
       dayjs(data[0].postedAt).isAfter(dayjs().subtract(1, 'day'))
     ) {
