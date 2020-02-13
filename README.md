@@ -24,9 +24,15 @@
 
 ## 加入好友
 
+### LINE
+
 | 正式站                            | 測試機人                            |
 | --------------------------------------- | ----------------------------------------- |
 | <img src="./public/正式站機器人.png" /> | <img src="./public/公開測試機器人.png" /> |
+
+### Telegram
+
+[@itsthatbot](https://t.me/itsthatbot)
 
 # BOT
 
@@ -35,7 +41,7 @@
 > 需要三個 sessions 分別給 webpack build、npm test 和 bottender start 作測試。
 
 ```sh
-npm run dev:watch -- --watch
+npm run dev:watch
 ```
 
 ```sh
