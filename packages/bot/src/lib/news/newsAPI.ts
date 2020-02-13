@@ -15,24 +15,30 @@ export const newsAPI = {
     new TeslCrawler(),
   ],
   crawlAll: async (byKeyword: string) => {
+    const container: Promise<any>[] = []
+
     for (const crawler of newsAPI.installCrawlers) {
       const log = debugAPI.news.extend(crawler.provider)
 
       log(`開始爬蟲，關鍵字：${byKeyword}`)
 
-      const news = (await crawler.crawl(byKeyword)).filter(
-        item => !!item._id && !!item.title,
-      )
+      const promise = crawler.crawl(byKeyword).then(data => {
+        const news = data.filter(item => !!item._id && !!item.title)
 
-      log(
-        `爬文新聞量：${news.length}`,
-        news.map(
-          item => `${item.title} @${dayjs(item.postedAt).format('MM/DD')}`,
-        ),
-      )
+        log(
+          `爬文新聞量：${news.length}`,
+          news.map(
+            item => `${item.title} @${dayjs(item.postedAt).format('MM/DD')}`,
+          ),
+        )
 
-      await newsAPI.addItems(news)
+        return newsAPI.addItems(news)
+      })
+
+      container.push(promise)
     }
+
+    await Promise.all(container)
   },
   addItems: async (items: NewsDoc[]) => {
     for (const item of items) {
