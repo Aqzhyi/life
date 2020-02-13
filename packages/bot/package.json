@@ -9,7 +9,7 @@
     "build": "npm run build:src",
     "start": "node server/bot-server.js",
     "deploy:prod": "git push heroku master -f",
-    "dev:server": "DEBUG=w3r* bottender dev",
+    "dev:server": "DEBUG=w3r*,bottender:action* bottender dev",
     "dev:watch": "npm run build:src -- --watch",
     "build:src": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack",
     "lint": "eslint .",
