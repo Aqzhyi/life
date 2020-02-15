@@ -8,13 +8,32 @@ export const createSmallCardBubble = (options: {
   link: string
   subtitle?: string
   title: string
-  content: string
+  /**
+   * 允許單行，或傳術 Array 表示多行
+   */
+  content: string | string[]
 }) => {
   if (options.coverUrl?.startsWith('http://')) {
     console.warn(
       `WARNING: bubble/hero/url 只接受 https 安全連線，傳入的 ${options.title} 圖片不符合 LINE 要求`,
     )
   }
+
+  const contents = Array.isArray(options.content)
+    ? options.content.map(stringValue => ({
+        type: 'text',
+        text: stringValue,
+        size: 'xxs',
+        color: '#cccccc',
+      }))
+    : [
+        {
+          type: 'text',
+          text: options.content,
+          size: 'xxs',
+          color: '#cccccc',
+        },
+      ]
 
   return {
     type: 'bubble',
@@ -65,12 +84,7 @@ export const createSmallCardBubble = (options: {
                   size: 'xs',
                   flex: 5,
                 },
-                {
-                  type: 'text',
-                  text: options.content,
-                  size: 'xxs',
-                  color: '#cccccc',
-                },
+                ...contents,
               ],
             },
           ],
