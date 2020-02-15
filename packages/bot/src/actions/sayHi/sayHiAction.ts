@@ -4,6 +4,7 @@ import { queryNewsCommandBubble } from '@/actions/queryNews/queryNewsCommandBubb
 import { queryTwitchStreamsCommandBubble } from '@/actions/queryTwitchStreams/queryTwitchStreamsCommandBubble'
 import { sayBullshitCommandBubble } from '@/actions/sayBullshit/sayBullshitCommandBubble'
 import { createCommandHintBubble } from '@/lib/bottender-toolkit/templates/createCommandHintBubble'
+import { queryGamePriceCommandBubble } from '@/actions/queryGamePrice/commandBubble'
 
 export const sayHiAction: LineAction = async (context, props) => {
   const seeLink = {
@@ -76,6 +77,7 @@ export const sayHiAction: LineAction = async (context, props) => {
     await context.sendFlex('快速執行指令', {
       type: 'carousel',
       contents: [
+        queryGamePriceCommandBubble(context),
         showTwitchTopGamesCommandBubble(context),
         queryTwitchStreamsCommandBubble(context),
         ...queryNewsCommandBubble(context),

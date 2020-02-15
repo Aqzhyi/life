@@ -17,6 +17,8 @@ import { queryNewsAction } from '@/actions/queryNews/queryNewsAction'
 import { createUniversalText } from '@/utils/createUniversalText'
 import { showTwitchTopGamesText } from '@/actions/showTwitchTopGames/showTwitchTopGamesText'
 import { queryWar3NewsText } from '@/actions/queryNews/queryNewsText'
+import { queryGamePriceAction } from '@/actions/queryGamePrice/action'
+import { queryGamePriceText } from '@/actions/queryGamePrice/text'
 
 export default async function App(context: LineContext): Promise<unknown> {
   await i18nAPI.init()
@@ -40,6 +42,10 @@ export default async function App(context: LineContext): Promise<unknown> {
       platform(
         'line',
         router([
+          text(
+            createUniversalText(context, queryGamePriceText),
+            queryGamePriceAction as any,
+          ),
           text(
             createUniversalText(context, queryWar3NewsText),
             queryNewsAction as any,
