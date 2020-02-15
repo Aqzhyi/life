@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/hilezi/life/compare/v1.2.0...v1.3.0) (2020-02-15)
+
+
+### Features
+
+* **bot:** 新增指令「遊戲售價{遊戲}」用以查詢 Steam 或 其它遊戲平台的歷史折扣 ([caddabf](https://github.com/hilezi/life/commit/caddabf16e4c192e0f6ceab38f2154a33fea6568))
+
 ## [1.2.0](https://github.com/hilezi/life/compare/v0.9.0...v1.2.0) (2020-02-10)
 
 
