@@ -1,63 +1,7 @@
 import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
-import cheerio from 'cheerio'
-import fetch from 'node-fetch'
 import { queryGamePriceGa } from '@/actions/queryGamePrice/ga'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
-
-const getSearchResult = async (keyword: string) => {
-  return await fetch(
-    encodeURI(`https://isthereanydeal.com/search/?q=${keyword}`),
-  )
-    .then(res => res.text())
-    .then(htmlText => {
-      type Item = {
-        current: number
-        historical: number
-        isthereanydealUrl: string
-        title: string
-        coverUrl: string
-      }
-
-      const items = (cheerio(htmlText)
-        .find('.card-container')
-        .map((index, element) => {
-          const $element = cheerio(element)
-
-          const title = $element.find('.card__title').text()
-
-          const isthereanydealUrl =
-            'https://isthereanydeal.com' +
-            $element.find('.card__title').attr('href')
-
-          const historical = $element
-            .find('.numtag__second')
-            .eq(0)
-            .text()
-            ?.replace('%', '')
-
-          const noDiscount = 0
-
-          const current = $element
-            .find('.numtag__second')
-            .eq(1)
-            .text()
-            ?.replace('%', '')
-
-          return {
-            coverUrl: $element
-              .find('.card__img div[data-img-sm]')
-              .attr('data-img-sm'),
-            current: Number(current) || noDiscount,
-            historical: Number(historical) || noDiscount,
-            isthereanydealUrl,
-            title,
-          } as Item
-        })
-        .toArray() as any[]) as Item[]
-
-      return items
-    })
-}
+import { fetchGamesPrice } from '@/utils/fetchGamesPrice'
 
 export const queryGamePriceAction: LineAction<WithGroupProps<{
   inputKeyword?: string
@@ -74,7 +18,7 @@ export const queryGamePriceAction: LineAction<WithGroupProps<{
   }
 
   try {
-    const items = await getSearchResult(keyword)
+    const items = await fetchGamesPrice(keyword)
 
     if (items.length) {
       await context.sendFlex('遊戲售價/查詢', {
