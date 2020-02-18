@@ -30,6 +30,7 @@ export const queryNewsAction: LineAction<WithGroupProps<{
 
     if (
       nocache ||
+      data.length < 10 ||
       (keyword && !data.length) ||
       dayjs(data[0].postedAt).isAfter(dayjs().subtract(1, 'day'))
     ) {
