@@ -1,18 +1,13 @@
 import { queryTwitchStreamsAction } from './queryTwitchStreamsAction'
-import { ContextSimulator } from 'bottender/test-utils'
 import { createMockAPI } from '@/lib/twitch/twitchAPI.mock'
+import { ContextMock } from '@/lib/bottender-toolkit/contextMock'
 
 createMockAPI.helix.games.getGameByName()
 createMockAPI.helix.streams.getStreams()
 
 describe(queryTwitchStreamsAction.name, () => {
-  const simulator = new ContextSimulator({ platform: 'line' })
-
   it('預設場景下，會發送 flex 內容', async done => {
-    const context = simulator.createTextContext()
-    context.sendFlex = jest.fn()
-    context.sendText = jest.fn()
-    context.getUserProfile = jest.fn()
+    const { context } = new ContextMock('', { platform: 'line' })
 
     // 試著查一個不列於冊的小眾遊戲，應也可透過 twitchAPI 查得
     await queryTwitchStreamsAction(context, {
