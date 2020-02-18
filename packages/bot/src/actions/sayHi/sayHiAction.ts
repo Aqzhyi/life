@@ -3,8 +3,8 @@ import { showTwitchTopGamesCommandBubble } from '@/actions/showTwitchTopGames/sh
 import { queryNewsCommandBubble } from '@/actions/queryNews/queryNewsCommandBubble'
 import { queryTwitchStreamsCommandBubble } from '@/actions/queryTwitchStreams/queryTwitchStreamsCommandBubble'
 import { sayBullshitCommandBubble } from '@/actions/sayBullshit/sayBullshitCommandBubble'
-import { createCommandHintBubble } from '@/lib/bottender-toolkit/templates/createCommandHintBubble'
 import { queryGamePriceCommandBubble } from '@/actions/queryGamePrice/commandBubble'
+import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 
 export const sayHiAction: LineAction = async (context, props) => {
   const seeLink = {
@@ -62,30 +62,26 @@ export const sayHiAction: LineAction = async (context, props) => {
     },
   }
 
-  if (context.platform === 'telegram') {
-    context.sendText(`
-      可接受指令：
-      1. 唬爛{主題}
-      1. 唬爛{主題} {長度}
-
-      操作詳見
-      https://www.notion.so/hilezi/LINE-BOT-d7ac6acf3ee94029a245be3df3c9f5fe
-    `)
-  }
-
-  if (context.platform === 'line') {
-    await context.sendFlex('快速執行指令', {
-      type: 'carousel',
-      contents: [
+  sendFlex(
+    context,
+    {
+      alt: '機器人操作指令面板',
+      bubbles: [
         queryGamePriceCommandBubble(context),
         showTwitchTopGamesCommandBubble(context),
         queryTwitchStreamsCommandBubble(context),
         ...queryNewsCommandBubble(context),
         sayBullshitCommandBubble(context),
         seeLink,
-      ] as any,
-    })
-  }
+      ],
+      text: `指令🧩 \`唬爛{主題}\`
+      指令🧩 \`唬爛{主題} {長度}\`
+      指令🧩 \`{關鍵字}新聞\`
+
+      其它詳細操作起見[網站](https://www.notion.so/hilezi/LINE-BOT-d7ac6acf3ee94029a245be3df3c9f5fe)`,
+    },
+    { preset: 'LINE_CAROUSEL' },
+  )
 
   return props.next
 }
