@@ -32,6 +32,9 @@ declare namespace NodeJS {
 
     /** i18next debug */
     DEBUG_I18N: '0' | '1'
+
+    /** mongoDB Atlas */
+    MONGODB_URL: string
   }
 }
 

@@ -19,9 +19,17 @@ import { showTwitchTopGamesText } from '@/actions/showTwitchTopGames/showTwitchT
 import { queryWar3NewsText } from '@/actions/queryNews/queryNewsText'
 import { queryGamePriceAction } from '@/actions/queryGamePrice/action'
 import { queryGamePriceText } from '@/actions/queryGamePrice/text'
+import mongoose from 'mongoose'
+import { debugAPI } from '@/lib/debug/debugAPI'
 
 export default async function App(context: LineContext): Promise<unknown> {
   await i18nAPI.init()
+
+  debugAPI.mongoDB('⚡️ Connecting...')
+  mongoose.connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
 
   return chain([
     recordUserSayingAction,
@@ -73,5 +81,9 @@ export default async function App(context: LineContext): Promise<unknown> {
         ]),
       ),
     ] as any),
+    async () => {
+      mongoose.connection.close()
+      debugAPI.mongoDB('⚡️ Closed')
+    },
   ] as any)
 }
