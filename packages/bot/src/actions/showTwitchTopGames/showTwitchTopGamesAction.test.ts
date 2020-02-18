@@ -6,7 +6,7 @@ createMockAPI.getTopGames(10)
 
 describe(showTwitchTopGamesAction.name, () => {
   it('預設場景下，會發送 flex 內容；每十個單位一次', async done => {
-    const { context } = new ContextMock('直播', { platform: 'line' })
+    const context = new ContextMock('直播').lineContext
 
     await showTwitchTopGamesAction(context, {})
 
