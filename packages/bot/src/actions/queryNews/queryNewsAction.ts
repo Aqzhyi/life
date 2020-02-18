@@ -13,7 +13,7 @@ export const queryNewsAction: LineAction<WithGroupProps<{
   const log = debugAPI.bot.extend('新聞')
   const keyword = props.match?.groups?.keyword?.trim() || ''
 
-  /** 不使用 firestore 快取，而是連線到外部獲取最新資源 */
+  /** 不使用 DB 快取，而是連線到外部，重新獲取最新資源 */
   const nocache = new RegExp(queryNewsNoCacheText).test(context.event.text)
 
   try {
