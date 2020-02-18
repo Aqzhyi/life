@@ -1,5 +1,4 @@
 import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
-import { firestoreAPI } from '@/lib/firestore/firestoreAPI'
 import { queryNewsGA } from '@/actions/queryNews/queryNewsGA'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import dayjs from 'dayjs'

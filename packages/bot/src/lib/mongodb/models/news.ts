@@ -4,8 +4,7 @@ import { NewsProvider } from '@/lib/news/NewsProvider'
 export interface NewsDoc {
   /** 由 npm:uuid-by-string 生產 */
   newsId: string
-  /** ISO8601 format */
-  postedAt: string
+  postedAt: Date
   title: string
   linkUrl: string
   provider: NewsProvider
@@ -17,7 +16,7 @@ export const NewsSchema = new mongoose.Schema({
   newsId: String,
   coverUrl: String,
   linkUrl: String,
-  postedAt: String,
+  postedAt: Date,
   provider: String,
   title: String,
   tag: [String],

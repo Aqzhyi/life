@@ -43,7 +43,7 @@ export class GamerCrawler implements Crawler {
                   .find('p')
                   .text()
                   .trim(),
-              ).toISOString(),
+              ).toDate(),
               coverUrl: 'https://i.imgur.com/ow2Ipot.png',
               tag: [keyword],
             } as NewsDoc

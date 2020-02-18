@@ -1,5 +1,4 @@
 import { debugAPI } from '@/lib/debug/debugAPI'
-import { firestoreAPI } from '@/lib/firestore/firestoreAPI'
 import { FourGamersCrawler } from '@/lib/news/crawlers/FourGamersCrawler'
 import dayjs from 'dayjs'
 import { GamerCrawler } from '@/lib/news/crawlers/GamerCrawler'
@@ -59,20 +58,26 @@ export const newsAPI = {
     )
   },
   getList: async (options: { keyword: string; pageCount: number }) => {
-    const data1 = (
-      await firestoreAPI.db
-        .collection('news')
-        .orderBy('postedAt', 'desc')
-        .limit(300)
-        .get()
-    ).docs.map(item => item.data() as NewsDoc)
+    const data1 = await NewsModel.find({
+      title: new RegExp(`${options.keyword}`, 'i'),
+    })
 
-    return data1
-      .filter(
-        item =>
-          item.title.includes(options.keyword) ||
-          item.tag.filter(tag => tag.includes(options.keyword)).length,
-      )
-      .slice(0, 10)
+    const data2 = await NewsModel.find({
+      tag: {
+        $in: new RegExp(`${options.keyword}`, 'i'),
+      },
+    })
+
+    const data = [...data1, ...data2].sort(
+      (left, right) =>
+        dayjs(right.postedAt)
+          .toDate()
+          .getTime() -
+        dayjs(left.postedAt)
+          .toDate()
+          .getTime(),
+    )
+
+    return data.slice(0, 10)
   },
 }

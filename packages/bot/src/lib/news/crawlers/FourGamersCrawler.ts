@@ -56,7 +56,7 @@ export class FourGamersCrawler implements Crawler {
               coverUrl:
                 item.socialBannerUrl || 'https://i.imgur.com/ow2Ipot.png',
               linkUrl: item.canonicalUrl,
-              postedAt: dayjs(item.createPublishedAt).toISOString(),
+              postedAt: dayjs(item.createPublishedAt).toDate(),
               provider: this.provider,
               tag: [...item.tags],
               title: item.title,

@@ -48,7 +48,7 @@ export class TeslCrawler implements Crawler {
                       .text()
                       .trim()
                       .replace(/\n/, '/'),
-                  ).toISOString(),
+                  ).toDate(),
                   provider: this.provider,
                   tag: [],
                   title: title.trim(),
