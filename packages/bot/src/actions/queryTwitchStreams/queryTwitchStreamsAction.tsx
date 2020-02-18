@@ -21,7 +21,7 @@ export const queryTwitchStreamsAction: LineAction<WithGroupProps<{
   const debugUser = debug.extend('用戶')
   const defaultsKeyword: GameKeyword = '魔獸'
   const inputKeyword = props.match?.groups?.inputKeyword?.toLowerCase()
-  const queryTwitchStreamsGA = useQueryTwitchStreamsGA(context)
+  const queryTwitchStreamsGA = await useQueryTwitchStreamsGA(context)
   queryTwitchStreamsGA.onQuery(inputKeyword || '')
 
   debugUser(`輸入:${inputKeyword}`)

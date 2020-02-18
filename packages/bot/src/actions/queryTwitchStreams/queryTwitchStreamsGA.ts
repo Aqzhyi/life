@@ -1,25 +1,31 @@
 import { gaAPI } from '@/lib/google-analytics/gaAPI'
 import { EventCategory } from '@/lib/google-analytics/EventCategory'
-import { LineContext } from 'bottender'
+import { LineContext, TelegramContext } from 'bottender'
 import { queryTwitchStreamsAction } from '@/actions/queryTwitchStreams/queryTwitchStreamsAction'
 import { HelixStream } from 'twitch'
+import { isLineContext } from '@/lib/bottender-toolkit/isLineContext'
 
-export const useQueryTwitchStreamsGA = (context: LineContext) => {
+export const useQueryTwitchStreamsGA = async (
+  context: LineContext | TelegramContext,
+) => {
+  const user = isLineContext(context)
+    ? await context.getUserProfile()
+    : {
+        displayName: context.event.message.from.username,
+      }
+
   const events = {
     onQuery: async (gameTitle: string) => {
-      const user = await context.getUserProfile()
-      if (user?.displayName) {
-        gaAPI.send({
-          ec: EventCategory.LINEBOT,
-          ea: `直播頻道/${gameTitle}/查詢`,
-          el: {
-            functionName: queryTwitchStreamsAction.name,
-            displayName: user?.displayName,
-            statusMessage: user?.statusMessage,
-          },
-          ev: 10,
-        })
-      }
+      gaAPI.send({
+        ec: EventCategory.LINEBOT,
+        ea: `直播頻道/${gameTitle}/查詢`,
+        el: {
+          functionName: queryTwitchStreamsAction.name,
+          displayName: user?.displayName,
+          statusMessage: user?.statusMessage,
+        },
+        ev: 10,
+      })
     },
     onResponsed: async (gameTitle: string, sentStreams: HelixStream[]) => {
       const sendUsersName = sentStreams
@@ -44,7 +50,6 @@ export const useQueryTwitchStreamsGA = (context: LineContext) => {
       errorMessage: string
       gameTitle: string
     }) => {
-      const user = await context.getUserProfile()
       gaAPI.send({
         ec: EventCategory.LINEBOT,
         ea: `直播頻道/${data.gameTitle}/查詢/錯誤`,
