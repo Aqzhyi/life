@@ -12,6 +12,7 @@ import { chunk } from 'lodash'
 import { createStreamInfoBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
 import { streamModelSelector } from '@/selectors/streamModelSelector'
 import { useQueryTwitchStreamsGA } from '@/actions/queryTwitchStreams/queryTwitchStreamsGA'
+import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 
 export const queryTwitchStreamsAction: LineAction<WithGroupProps<{
   inputKeyword: GameKeyword
@@ -70,38 +71,45 @@ export const queryTwitchStreamsAction: LineAction<WithGroupProps<{
       language: LanguageParam.zh,
     })
 
-    const flexContents = data
+    const items = data
       .sort((left, right) => {
         return right.viewers - left.viewers
       })
       .map(streamModelSelector)
-      .map(
-        item =>
-          item &&
-          createStreamInfoBubble({
-            cover: {
-              imageUrl: item.coverUrl,
-              linkUrl: item.siteLink,
-            },
-            subTitle: item.title,
-            title: item.name,
-            info: {
-              left: item.viewerCount,
-              right: item.startedAt,
-            },
-          }),
-      )
       .filter(item => typeof item === 'object')
 
-    const splittedContents = chunk(flexContents, 10)
+    const flexContents = items.map(
+      item =>
+        item &&
+        createStreamInfoBubble({
+          cover: {
+            imageUrl: item.coverUrl,
+            linkUrl: item.siteLink,
+          },
+          subTitle: item.title,
+          title: item.name,
+          info: {
+            left: item.viewerCount,
+            right: item.startedAt,
+          },
+        }),
+    )
 
-    if (splittedContents.length) {
-      for (const contents of splittedContents) {
-        await context.sendFlex(`${gameTitle}/查詢/正在直播頻道`, {
-          type: 'carousel',
-          contents: [...(contents as any)],
-        })
-      }
+    if (items.length) {
+      sendFlex(
+        context,
+        {
+          alt: `${gameTitle}/查詢/正在直播頻道`,
+          bubbles: flexContents,
+          text: items
+            .map(
+              item =>
+                `🎥 ${item?.viewerCount}👓 [${item?.title}](${item?.siteLink})`,
+            )
+            .join('\n'),
+        },
+        { preset: 'LINE_CAROUSEL' },
+      )
 
       queryTwitchStreamsGA.onResponsed(gameTitle || inputKeyword || '', data)
     } else {
@@ -114,7 +122,7 @@ export const queryTwitchStreamsAction: LineAction<WithGroupProps<{
       context: `inputKeyword=${inputKeyword}`,
       errorMessage: error.message,
     })
-    await context.sendText(error.message)
+    await context.sendText(`💥 ${error.message}`)
   }
 
   return props?.next
