@@ -25,7 +25,7 @@ export const queryNewsAction: LineAction<WithGroupProps<{
 
     queryNewsGA.onQuery(keyword)
     let data: NewsDoc[]
-    data = await newsAPI.getList({ keyword, pageCount: 10 })
+    data = await newsAPI.getList({ keyword })
 
     if (
       nocache ||
@@ -39,7 +39,7 @@ export const queryNewsAction: LineAction<WithGroupProps<{
       log('目前不需要獲取外部新聞資源')
     }
 
-    data = await newsAPI.getList({ keyword, pageCount: 10 })
+    data = await newsAPI.getList({ keyword })
     log(
       '取得快取資料',
       data.map(

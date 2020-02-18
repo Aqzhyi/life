@@ -57,7 +57,7 @@ export const newsAPI = {
       `傳入了 ${items.length} NewsDoc，小計新增了 ${count} 個 NewsDoc`,
     )
   },
-  getList: async (options: { keyword: string; pageCount: number }) => {
+  getList: async (options: { keyword: string }) => {
     const data1 = await NewsModel.find({
       title: new RegExp(`${options.keyword}`, 'i'),
     })
