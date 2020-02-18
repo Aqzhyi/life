@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+import cheerio from 'cheerio'
 
 /**
  * 爬蟲爬取遊戲歷史記錄
