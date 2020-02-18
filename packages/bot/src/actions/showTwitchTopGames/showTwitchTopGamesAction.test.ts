@@ -1,6 +1,6 @@
 import { showTwitchTopGamesAction } from '@/actions/showTwitchTopGames/showTwitchTopGamesAction'
 import { createMockAPI } from '@/lib/twitch/twitchAPI.mock'
-import { ContextMock } from '@/lib/bottender-toolkit/contextMock'
+import { ContextMock } from '@/lib/bottender-toolkit/classes/ContextMock'
 
 createMockAPI.getTopGames(10)
 

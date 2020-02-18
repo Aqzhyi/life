@@ -1,5 +1,5 @@
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
-import { ContextMock } from '@/lib/bottender-toolkit/contextMock'
+import { ContextMock } from '@/lib/bottender-toolkit/classes/ContextMock'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import { isLineContext } from '@/lib/bottender-toolkit/isLineContext'
 import { isTelegramContext } from '@/lib/bottender-toolkit/isTelegramContext'
