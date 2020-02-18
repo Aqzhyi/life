@@ -27,10 +27,10 @@ export class GamerCrawler implements Crawler {
               .find('a[target=_blank]')
               .text()
 
-            const _id = getUuidByString(title)
+            const newsId = getUuidByString(title)
 
             return {
-              _id,
+              newsId,
               provider: '巴哈姆特',
               title: cheerio(element)
                 .find('a[target=_blank]')

@@ -46,7 +46,7 @@ export class GamebaseCrawler implements Crawler {
         ) as PrintedData[]
 
         return items.map<NewsDoc>(item => ({
-          _id: getUuidByString(item.headline),
+          newsId: getUuidByString(item.headline),
           title: item.headline,
           coverUrl: item.image.url,
           linkUrl: item.mainEntityOfPage['@id'],

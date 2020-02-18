@@ -52,7 +52,7 @@ export class FourGamersCrawler implements Crawler {
         }) => {
           return response.data.results.map(item => {
             return {
-              _id: getUuidByString(item.title),
+              newsId: getUuidByString(item.title),
               coverUrl:
                 item.socialBannerUrl || 'https://i.imgur.com/ow2Ipot.png',
               linkUrl: item.canonicalUrl,

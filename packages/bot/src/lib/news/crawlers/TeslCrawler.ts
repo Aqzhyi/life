@@ -34,10 +34,10 @@ export class TeslCrawler implements Crawler {
                     .find('a')
                     .attr('title') || ''
 
-                const _id = getUuidByString(title)
+                const newsId = getUuidByString(title)
 
                 return {
-                  _id,
+                  newsId,
                   coverUrl: cheerio(element)
                     .find('.img-responsive')
                     .attr('src'),

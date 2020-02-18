@@ -5,7 +5,7 @@ import dayjs from 'dayjs'
 import { GamerCrawler } from '@/lib/news/crawlers/GamerCrawler'
 import { GamebaseCrawler } from '@/lib/news/crawlers/GamebaseCrawler'
 import { TeslCrawler } from '@/lib/news/crawlers/TeslCrawler'
-import { NewsDoc } from '@/lib/mongodb/models/news'
+import { NewsDoc, NewsModel } from '@/lib/mongodb/models/news'
 
 export const newsAPI = {
   installCrawlers: [
@@ -23,7 +23,7 @@ export const newsAPI = {
       log(`開始爬蟲，關鍵字：${byKeyword}`)
 
       const promise = crawler.crawl(byKeyword).then(data => {
-        const news = data.filter(item => !!item._id && !!item.title)
+        const news = data.filter(item => !!item.newsId && !!item.title)
 
         log(
           `爬文新聞量：${news.length}`,
@@ -41,12 +41,22 @@ export const newsAPI = {
     await Promise.all(container)
   },
   addItems: async (items: NewsDoc[]) => {
+    let count = 0
     for (const item of items) {
-      await firestoreAPI.db
-        .collection('news')
-        .doc(item._id)
-        .set(item)
+      const data = await NewsModel.findOne({
+        newsId: item.newsId,
+      })
+
+      if (!data) {
+        const doc = new NewsModel(item)
+        await doc.save()
+        count++
+      }
     }
+
+    debugAPI.mongoDB(
+      `傳入了 ${items.length} NewsDoc，小計新增了 ${count} 個 NewsDoc`,
+    )
   },
   getList: async (options: { keyword: string; pageCount: number }) => {
     const data1 = (
