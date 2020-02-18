@@ -1,8 +1,8 @@
 import { Crawler } from '@/lib/news/crawlers/Crawler'
-import { NewsDoc } from '@/lib/news/NewsDoc'
 import { NewsProvider } from '@/lib/news/NewsProvider'
 import fetch from 'node-fetch'
 import getUuidByString from 'uuid-by-string'
+import { NewsDoc } from '@/lib/mongodb/models/news'
 
 interface PrintedData {
   mainEntityOfPage: {

@@ -1,9 +1,9 @@
 import fetch from 'node-fetch'
-import { NewsDoc } from '@/lib/news/NewsDoc'
 import getUuidByString from 'uuid-by-string'
 import dayjs from 'dayjs'
 import { Crawler } from '@/lib/news/crawlers/Crawler'
 import { NewsProvider } from '@/lib/news/NewsProvider'
+import { NewsDoc } from '@/lib/mongodb/models/news'
 
 interface Data {
   title: string

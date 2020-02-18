@@ -1,12 +1,12 @@
 import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import { firestoreAPI } from '@/lib/firestore/firestoreAPI'
-import { NewsDoc } from '@/lib/news/NewsDoc'
 import { queryNewsGA } from '@/actions/queryNews/queryNewsGA'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import dayjs from 'dayjs'
 import { newsAPI } from '@/lib/news/newsAPI'
 import { debugAPI } from '@/lib/debug/debugAPI'
 import { queryNewsNoCacheText } from '@/actions/queryNews/queryNewsText'
+import { NewsDoc } from '@/lib/mongodb/models/news'
 
 export const queryNewsAction: LineAction<WithGroupProps<{
   keyword: string

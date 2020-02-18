@@ -1,4 +1,4 @@
-import { NewsDoc } from '@/lib/news/NewsDoc'
+import { NewsDoc } from '@/lib/mongodb/models/news'
 
 export interface Crawler {
   crawl(keyword?: string): Promise<NewsDoc[]>

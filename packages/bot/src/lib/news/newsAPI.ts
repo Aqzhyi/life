@@ -1,11 +1,11 @@
 import { debugAPI } from '@/lib/debug/debugAPI'
 import { firestoreAPI } from '@/lib/firestore/firestoreAPI'
 import { FourGamersCrawler } from '@/lib/news/crawlers/FourGamersCrawler'
-import { NewsDoc } from '@/lib/news/NewsDoc'
 import dayjs from 'dayjs'
 import { GamerCrawler } from '@/lib/news/crawlers/GamerCrawler'
 import { GamebaseCrawler } from '@/lib/news/crawlers/GamebaseCrawler'
 import { TeslCrawler } from '@/lib/news/crawlers/TeslCrawler'
+import { NewsDoc } from '@/lib/mongodb/models/news'
 
 export const newsAPI = {
   installCrawlers: [

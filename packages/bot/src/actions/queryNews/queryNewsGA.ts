@@ -1,6 +1,6 @@
 import { gaAPI } from '@/lib/google-analytics/gaAPI'
 import { EventCategory } from '@/lib/google-analytics/EventCategory'
-import { NewsDoc } from '@/lib/news/NewsDoc'
+import { NewsDoc } from '@/lib/mongodb/models/news'
 
 export const queryNewsGA = {
   onCrawl: (keyword: string) => {

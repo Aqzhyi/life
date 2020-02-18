@@ -1,10 +1,10 @@
 import { Crawler } from '@/lib/news/crawlers/Crawler'
-import { NewsDoc } from '@/lib/news/NewsDoc'
 import { NewsProvider } from '@/lib/news/NewsProvider'
 import cheerio from 'cheerio'
 import dayjs from 'dayjs'
 import fetch from 'node-fetch'
 import getUuidByString from 'uuid-by-string'
+import { NewsDoc } from '@/lib/mongodb/models/news'
 
 /** 巴哈姆特 */
 export class GamerCrawler implements Crawler {
