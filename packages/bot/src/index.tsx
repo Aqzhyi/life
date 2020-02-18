@@ -38,6 +38,10 @@ export default async function App(context: LineContext): Promise<unknown> {
         'telegram',
         router([
           text(
+            createUniversalText(context, queryTwitchStreamsText),
+            queryTwitchStreamsAction as any,
+          ),
+          text(
             createUniversalText(context, sayBullshitText),
             sayBullshitAction as any,
           ),
