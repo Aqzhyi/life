@@ -1,7 +1,7 @@
 import { gaAPI } from '@/lib/google-analytics/gaAPI'
 import { EventCategory } from '@/lib/google-analytics/EventCategory'
 import { LineContext, TelegramContext } from 'bottender'
-import { queryTwitchStreamsAction } from '@/actions/queryTwitchStreams/queryTwitchStreamsAction'
+import { queryTwitchStreamsAction } from '@/actions/queryTwitchStreams/action'
 import { HelixStream } from 'twitch'
 import { isLineContext } from '@/lib/bottender-toolkit/isLineContext'
 

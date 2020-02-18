@@ -1,8 +1,8 @@
 import { LineAction } from '@/lib/bottender-toolkit/types'
-import { showTwitchTopGamesCommandBubble } from '@/actions/showTwitchTopGames/showTwitchTopGamesCommandBubble'
-import { queryNewsCommandBubble } from '@/actions/queryNews/queryNewsCommandBubble'
-import { queryTwitchStreamsCommandBubble } from '@/actions/queryTwitchStreams/queryTwitchStreamsCommandBubble'
-import { sayBullshitCommandBubble } from '@/actions/sayBullshit/sayBullshitCommandBubble'
+import { showTwitchTopGamesCommandBubble } from '@/actions/showTwitchTopGames/commandBubble'
+import { queryNewsCommandBubble } from '@/actions/queryNews/commandBubble'
+import { queryTwitchStreamsCommandBubble } from '@/actions/queryTwitchStreams/commandBubble'
+import { sayBullshitCommandBubble } from '@/actions/sayBullshit/commandBubble'
 import { queryGamePriceCommandBubble } from '@/actions/queryGamePrice/commandBubble'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 

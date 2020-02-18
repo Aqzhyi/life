@@ -1,4 +1,4 @@
-import { queryTwitchStreamsAction } from './queryTwitchStreamsAction'
+import { queryTwitchStreamsAction } from './action'
 import { createMockAPI } from '@/lib/twitch/twitchAPI.mock'
 import { ContextMock } from '@/lib/bottender-toolkit/classes/ContextMock'
 

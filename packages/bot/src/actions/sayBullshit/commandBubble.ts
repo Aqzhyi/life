@@ -1,5 +1,5 @@
 import { createCommandHintBubble } from '@/lib/bottender-toolkit/templates/createCommandHintBubble'
-import { DEFAULTS_MINLEN, DEFAULTS_TOPIC } from './sayBullshitAction'
+import { DEFAULTS_MINLEN, DEFAULTS_TOPIC } from './action'
 
 export const sayBullshitCommandBubble = context =>
   createCommandHintBubble({

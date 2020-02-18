@@ -7,11 +7,9 @@ import { LanguageParam } from '@/lib/twitch/enums/LanguageParam'
 import { twitchAPI } from '@/lib/twitch/twitchAPI'
 import { twitchGameSelector } from '@/selectors/twitchGameSelector'
 import ow from 'ow'
-import { isKeywordSelector } from '@/selectors/isKeywordSelector'
-import { chunk } from 'lodash'
 import { createStreamInfoBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
 import { streamModelSelector } from '@/selectors/streamModelSelector'
-import { useQueryTwitchStreamsGA } from '@/actions/queryTwitchStreams/queryTwitchStreamsGA'
+import { useQueryTwitchStreamsGA } from '@/actions/queryTwitchStreams/ga'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 
 export const queryTwitchStreamsAction: LineAction<WithGroupProps<{

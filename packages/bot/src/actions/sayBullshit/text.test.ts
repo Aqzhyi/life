@@ -1,6 +1,6 @@
-import { sayBullshitAction } from '@/actions/sayBullshit/sayBullshitAction'
+import { sayBullshitAction } from '@/actions/sayBullshit/action'
 import { createCommandText } from '@/utils/createCommandText'
-import { sayBullshitText } from '@/actions/sayBullshit/sayBullshitText'
+import { sayBullshitText } from '@/actions/sayBullshit/text'
 
 describe(`${sayBullshitAction.name} 指令正規`, () => {
   it('能匹配主題和產生文字長度', () => {

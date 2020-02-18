@@ -3,7 +3,7 @@ import { twitchAPI } from '@/lib/twitch/twitchAPI'
 import { chunk } from 'lodash'
 import { createCover } from '@/lib/bottender-toolkit/templates/createCover'
 import { createMessageSendButton } from '@/lib/bottender-toolkit/templates/createMessageSendButton'
-import { showTwitchTopGamesGA } from './showTwitchTopGamesGA'
+import { showTwitchTopGamesGA } from './ga'
 
 export const showTwitchTopGamesAction: LineAction = async (context, props) => {
   try {

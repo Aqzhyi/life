@@ -2,7 +2,7 @@ import { createDirectlyText } from '@/utils/createDirectlyText'
 import {
   queryWar3NewsText,
   queryNewsNoCacheText,
-} from '@/actions/queryNews/queryNewsText'
+} from '@/actions/queryNews/text'
 
 describe('新聞系統', () => {
   it('指令正規："{關鍵字}新聞 (更新)" 可辨別出匹配 關鍵字 as "keyword"', () => {

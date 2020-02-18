@@ -2,7 +2,7 @@ import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import fetch from 'node-fetch'
 import replaceStrings from 'replace-string'
 import { debugAPI } from '@/lib/debug/debugAPI'
-import { sayBullshitGA } from './sayBullshitGA'
+import { sayBullshitGA } from './ga'
 
 export const DEFAULTS_TOPIC = '我的鹹魚'
 export const DEFAULTS_MINLEN = 100

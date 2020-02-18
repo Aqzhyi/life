@@ -1,5 +1,5 @@
-import { queryTwitchStreamsText } from '@/actions/queryTwitchStreams/queryTwitchStreamsText'
-import { queryTwitchStreamsAction } from '@/actions/queryTwitchStreams/queryTwitchStreamsAction'
+import { queryTwitchStreamsText } from '@/actions/queryTwitchStreams/text'
+import { queryTwitchStreamsAction } from '@/actions/queryTwitchStreams/action'
 import { createCommandText } from '@/utils/createCommandText'
 import { createDirectlyText } from '@/utils/createDirectlyText'
 
