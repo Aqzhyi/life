@@ -17,7 +17,7 @@ import { queryWar3NewsText } from '@/actions/queryNews/text'
 import { queryGamePriceAction } from '@/actions/queryGamePrice/action'
 import { queryGamePriceText } from '@/actions/queryGamePrice/text'
 import mongoose from 'mongoose'
-import { debugAPI } from '@/lib/debug/debugAPI'
+import { debugAPI } from '@/lib/debugAPI'
 
 export default async function App(context: LineContext): Promise<unknown> {
   await i18nAPI.init()
@@ -30,6 +30,58 @@ export default async function App(context: LineContext): Promise<unknown> {
 
   return chain([
     recordUserSayingAction,
+    router([
+      platform(
+        'telegram',
+        router([
+          text(
+            createUniversalText(context, queryTwitchStreamsText),
+            queryTwitchStreamsAction as any,
+          ),
+          text(
+            createUniversalText(context, sayBullshitText),
+            sayBullshitAction as any,
+          ),
+          text(
+            createUniversalText(context, `(?<text>[\\s\\S]+)`),
+            sayHiAction as any,
+          ),
+        ]),
+      ),
+      platform(
+        'line',
+        router([
+          text(
+            createUniversalText(context, queryGamePriceText),
+            queryGamePriceAction as any,
+          ),
+          text(
+            createUniversalText(context, queryWar3NewsText),
+            queryNewsAction as any,
+          ),
+          text(
+            createUniversalText(context, sayBullshitText),
+            sayBullshitAction as any,
+          ),
+          text(
+            createUniversalText(context, showTwitchTopGamesText),
+            showTwitchTopGamesAction as any,
+          ),
+          text(
+            createDirectlyText('(LA|ＬＡ)日曆'),
+            queryCalendarEventsAction as any,
+          ),
+          text(
+            createUniversalText(context, queryTwitchStreamsText),
+            queryTwitchStreamsAction as any,
+          ),
+          text(
+            createUniversalText(context, `(?<text>[\\s\\S]+)`),
+            sayHiAction as any,
+          ),
+        ]),
+      ),
+    ] as any),
     async () => {
       mongoose.connection.close()
       debugAPI.mongoDB('⚡️ Closed')

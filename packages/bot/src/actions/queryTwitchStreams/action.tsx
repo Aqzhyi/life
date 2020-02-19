@@ -1,6 +1,6 @@
 import { GAME_KEYWORDS, GameKeyword } from '@/configs/GAME_CONFIGS'
 import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
-import { debugAPI } from '@/lib/debug/debugAPI'
+import { debugAPI } from '@/lib/debugAPI'
 import { i18nAPI } from '@/lib/i18n/i18nAPI'
 import { GameID } from '@/lib/twitch/enums/GameID'
 import { LanguageParam } from '@/lib/twitch/enums/LanguageParam'

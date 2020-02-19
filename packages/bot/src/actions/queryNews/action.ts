@@ -3,7 +3,7 @@ import { queryNewsGA } from '@/actions/queryNews/ga'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import dayjs from 'dayjs'
 import { newsAPI } from '@/lib/news/newsAPI'
-import { debugAPI } from '@/lib/debug/debugAPI'
+import { debugAPI } from '@/lib/debugAPI'
 import { queryNewsNoCacheText } from '@/actions/queryNews/text'
 import { NewsDoc } from '@/lib/mongodb/models/news'
 

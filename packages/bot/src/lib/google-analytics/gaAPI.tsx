@@ -1,5 +1,5 @@
 import ua, { EventParams } from 'universal-analytics'
-import { debugAPI } from '@/lib/debug/debugAPI'
+import { debugAPI } from '@/lib/debugAPI'
 import { omit } from 'lodash'
 
 const visitor = ua(process.env.GOOGLE_ANALYTICS_UA_ID)

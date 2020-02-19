@@ -1,4 +1,4 @@
-import { debugAPI } from '@/lib/debug/debugAPI'
+import { debugAPI } from '@/lib/debugAPI'
 import { FourGamersCrawler } from '@/lib/news/crawlers/FourGamersCrawler'
 import dayjs from 'dayjs'
 import { GamerCrawler } from '@/lib/news/crawlers/GamerCrawler'
