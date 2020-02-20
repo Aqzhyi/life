@@ -9,7 +9,7 @@ export const createSmallCardBubble = (options: {
   subtitle?: string
   title: string
   /**
-   * 允許單行，或傳術 Array 表示多行
+   * 允許單行，或傳入 Array 表示多行
    */
   content: string | string[]
 }) => {
