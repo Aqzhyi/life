@@ -11,8 +11,14 @@ export const fetchGamesPrice = async (keyword: string) => {
     .then(res => res.text())
     .then(htmlText => {
       type GamePriceItem = {
-        current: number
-        historical: number
+        current: {
+          discount: number
+          price: number
+        }
+        historical: {
+          discount: number
+          price: number
+        }
         isthereanydealUrl: string
         title: string
         coverUrl: string
@@ -21,6 +27,8 @@ export const fetchGamesPrice = async (keyword: string) => {
       const items = (cheerio(htmlText)
         .find('.card-container')
         .map((index, element) => {
+          const noDiscount = 0
+
           const $element = cheerio(element)
 
           const title = $element.find('.card__title').text()
@@ -29,26 +37,42 @@ export const fetchGamesPrice = async (keyword: string) => {
             'https://isthereanydeal.com' +
             $element.find('.card__title').attr('href')
 
-          const historical = $element
+          const historicalDiscount = $element
             .find('.numtag__second')
             .eq(0)
             .text()
             ?.replace('%', '')
 
-          const noDiscount = 0
+          const historicalPrice = $element
+            .find('.numtag__primary')
+            .eq(0)
+            .text()
+            ?.replace('$', '')
 
-          const current = $element
+          const currentDiscount = $element
             .find('.numtag__second')
             .eq(1)
             .text()
             ?.replace('%', '')
 
+          const currentPrice = $element
+            .find('.numtag__primary')
+            .eq(1)
+            .text()
+            ?.replace('$', '')
+
           return {
             coverUrl: $element
               .find('.card__img div[data-img-sm]')
               .attr('data-img-sm'),
-            current: Number(current) || noDiscount,
-            historical: Number(historical) || noDiscount,
+            current: {
+              discount: Number(currentDiscount) || noDiscount,
+              price: Number(currentPrice),
+            },
+            historical: {
+              discount: Number(historicalDiscount) || noDiscount,
+              price: Number(historicalPrice),
+            },
             isthereanydealUrl,
             title,
           } as GamePriceItem

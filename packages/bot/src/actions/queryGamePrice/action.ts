@@ -2,6 +2,7 @@ import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import { queryGamePriceGa } from '@/actions/queryGamePrice/ga'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import { fetchGamesPrice } from '@/utils/fetchGamesPrice'
+import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 
 export const queryGamePriceAction: LineAction<WithGroupProps<{
   inputKeyword?: string
@@ -21,26 +22,32 @@ export const queryGamePriceAction: LineAction<WithGroupProps<{
     const items = await fetchGamesPrice(keyword)
 
     if (items.length) {
-      await context.sendFlex('遊戲售價/查詢', {
-        type: 'carousel',
-        contents: [
-          ...items.slice(0, 10).map(item =>
-            createSmallCardBubble({
+      await sendFlex(
+        context,
+        {
+          alt: '遊戲售價/查詢',
+          bubbles: items.map(item => {
+            const hasDiscountNow = item.current.discount !== 0
+
+            return createSmallCardBubble({
               coverUrl: item.coverUrl,
               link: item.isthereanydealUrl,
               title: item.title,
-              subtitle:
-                item.current !== 0 && item.current === item.historical
-                  ? '👍 最佳購買時機'
-                  : '可以再等等看看折扣',
+              subtitle: `最佳價格 ${item.current.price} 美金`,
               content: [
-                `當前折扣 ${item.current}％`,
-                `歷史折扣 ${item.historical}％`,
+                `${(hasDiscountNow && '✅折扣中') || '🤔未發現折扣'}`,
+                ` `,
+                `當前折扣 ${item.current.discount}％`,
+                `當前價格 ${item.current.price}美金`,
+                ` `,
+                `歷史折扣 ${item.historical.discount}％`,
+                `歷史價格 ${item.historical.price}美金`,
               ],
-            }),
-          ),
-        ] as any,
-      })
+            })
+          }),
+        },
+        { preset: 'LINE_CAROUSEL' },
+      )
     } else {
       await context.sendText(
         '找不到遊戲售價，用該遊戲的英文譯名或簡體字試試看？',
