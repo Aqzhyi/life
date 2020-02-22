@@ -1,4 +1,4 @@
-import { isMultiPeopleMessage } from '@/selectors/isMultiPeopleMessage'
+import { isMultiPeopleMessage } from '@/lib/bottender-toolkit/utils/isMultiPeopleMessage'
 import { ContextSimulator } from 'bottender/test-utils'
 
 describe(isMultiPeopleMessage.name, () => {

@@ -1,5 +1,5 @@
 import { LineContext, TelegramContext } from 'bottender'
-import { isLineContext } from '@/lib/bottender-toolkit/isLineContext'
+import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
 import { chunk } from 'lodash'
 import ow from 'ow'
 import {

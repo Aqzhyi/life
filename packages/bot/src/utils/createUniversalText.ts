@@ -1,5 +1,5 @@
 import { LineContext } from 'bottender'
-import { isMultiPeopleMessage } from '@/selectors/isMultiPeopleMessage'
+import { isMultiPeopleMessage } from '@/lib/bottender-toolkit/utils/isMultiPeopleMessage'
 import { createCommandText } from '@/utils/createCommandText'
 import { createDirectlyText } from '@/utils/createDirectlyText'
 

@@ -3,7 +3,7 @@ import { EventCategory } from '@/lib/google-analytics/EventCategory'
 import { LineContext, TelegramContext } from 'bottender'
 import { queryTwitchStreamsAction } from '@/actions/queryTwitchStreams/action'
 import { HelixStream } from 'twitch'
-import { isLineContext } from '@/lib/bottender-toolkit/isLineContext'
+import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
 
 export const useQueryTwitchStreamsGA = async (
   context: LineContext | TelegramContext,

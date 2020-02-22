@@ -1,6 +1,6 @@
 import { createMessageSendButton } from '@/lib/bottender-toolkit/templates/createMessageSendButton'
 import { LineContext } from 'bottender'
-import { isMultiPeopleMessage } from '@/selectors/isMultiPeopleMessage'
+import { isMultiPeopleMessage } from '@/lib/bottender-toolkit/utils/isMultiPeopleMessage'
 
 /**
  * 適合用來建立「指令卡」讓使用者直接在私人對話，或群組對話之中按選
