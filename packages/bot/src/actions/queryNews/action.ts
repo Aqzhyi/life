@@ -6,6 +6,7 @@ import { newsAPI } from '@/lib/news/newsAPI'
 import { debugAPI } from '@/lib/debugAPI'
 import { queryNewsNoCacheText } from '@/actions/queryNews/text'
 import { NewsDoc } from '@/lib/mongodb/models/news'
+import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 
 export const queryNewsAction: LineAction<WithGroupProps<{
   keyword: string
@@ -51,20 +52,24 @@ export const queryNewsAction: LineAction<WithGroupProps<{
     )
 
     if (data.length) {
-      await context.sendFlex(`${keyword}新聞`, {
-        type: 'carousel',
-        contents: [
-          ...(data.map(item =>
-            createSmallCardBubble({
-              coverUrl: item.coverUrl,
-              link: item.linkUrl,
-              content: dayjs(item.postedAt).format('@YYYY/MM/DD'),
-              title: item.title,
-              subtitle: item.provider,
-            }),
-          ) as any),
-        ],
-      })
+      sendFlex(
+        context,
+        {
+          alt: `${keyword}新聞`,
+          bubbles: [
+            ...(data.map(item =>
+              createSmallCardBubble({
+                coverUrl: item.coverUrl,
+                link: item.linkUrl,
+                content: dayjs(item.postedAt).format('@YYYY/MM/DD'),
+                title: item.title,
+                subtitle: item.provider,
+              }),
+            ) as any),
+          ],
+        },
+        { preset: 'LINE_CAROUSEL' },
+      )
     } else {
       await context.sendText('沒有找到相關新聞')
     }
