@@ -2,15 +2,15 @@ import { createCommandHintBubble } from '@/lib/bottender-toolkit/templates/creat
 
 export const queryNewsCommandBubble = context => [
   createCommandHintBubble({
-    commandLabel: '{關鍵字}新聞',
-    commandDescription: '顯示相關新聞',
-    commandText: 'MSI新聞',
+    commandLabel: '新聞{關鍵字}',
+    commandDescription: '依關鍵字搜尋新聞',
+    commandText: '新聞MSI',
     context,
   }),
   createCommandHintBubble({
-    commandLabel: '{關鍵字}新聞 更新',
-    commandDescription: '抓取最新新聞',
-    commandText: 'MSI新聞 更新',
+    commandLabel: '新聞{關鍵字} 更新',
+    commandDescription: '強制更新',
+    commandText: '新聞MSI 更新',
     context,
   }),
 ]

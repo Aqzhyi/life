@@ -76,7 +76,7 @@ export const sayHiAction: LineAction = async (context, props) => {
       ],
       text: `指令🧩 \`唬爛{主題}\`
       指令🧩 \`唬爛{主題} {長度}\`
-      指令🧩 \`{關鍵字}新聞\`
+      指令🧩 \`新聞{關鍵字}\`
 
       其它詳細操作起見[網站](https://www.notion.so/hilezi/LINE-BOT-d7ac6acf3ee94029a245be3df3c9f5fe)`,
     },
