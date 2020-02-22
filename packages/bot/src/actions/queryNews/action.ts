@@ -4,7 +4,6 @@ import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createS
 import dayjs from 'dayjs'
 import { newsAPI } from '@/lib/news/newsAPI'
 import { debugAPI } from '@/lib/debugAPI'
-import { queryNewsNoCacheText } from '@/actions/queryNews/text'
 import { NewsDoc } from '@/lib/mongodb/models/news'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 
@@ -15,7 +14,7 @@ export const queryNewsAction: LineAction<WithGroupProps<{
   const keyword = props.match?.groups?.keyword?.trim() || ''
 
   /** 不使用 DB 快取，而是連線到外部，重新獲取最新資源 */
-  const nocache = new RegExp(queryNewsNoCacheText).test(context.event.text)
+  const nocache = /\s更新$/.test(context.event.text)
 
   try {
     log(`關鍵字=${keyword} 更新=${nocache}`)
