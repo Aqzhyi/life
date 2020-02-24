@@ -6,6 +6,8 @@ import { newsAPI } from '@/lib/news/newsAPI'
 import { debugAPI } from '@/lib/debugAPI'
 import { NewsDoc } from '@/lib/mongodb/models/news'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
+import { createText } from '@/lib/line-flex-toolkit/createText'
+import { FlexSize } from '@/lib/line-flex-toolkit/enums'
 
 export const queryNewsAction: BottenderAction<WithGroupProps<{
   keyword: string
@@ -60,7 +62,13 @@ export const queryNewsAction: BottenderAction<WithGroupProps<{
               createSmallCardBubble({
                 coverUrl: item.coverUrl,
                 link: item.linkUrl,
-                contents: [dayjs(item.postedAt).format('@YYYY/MM/DD')],
+                contents: [
+                  createText({
+                    text: dayjs(item.postedAt).format('@YYYY/MM/DD'),
+                    size: FlexSize.xxs,
+                    color: '#cccccc',
+                  }),
+                ],
                 title: item.title,
                 subtitle: item.provider,
               }),

@@ -2,6 +2,7 @@ import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 import { ContextMock } from '@/lib/bottender-toolkit/classes/ContextMock'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import { range } from 'lodash'
+import { createText } from '@/lib/line-flex-toolkit/createText'
 
 describe(sendFlex.name, () => {
   it('能自動切割 bubbles 多次發送，以符合 sendFlex 每次請求只能 10 筆的限制', async () => {
@@ -9,7 +10,7 @@ describe(sendFlex.name, () => {
 
     const bubbles = range(0, 20).map(() =>
       createSmallCardBubble({
-        contents: ['{content}'],
+        contents: [createText({ text: '{content}' })],
         link: '{link}',
         coverUrl: '{coverUrl}',
         title: '{title}',

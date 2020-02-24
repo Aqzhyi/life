@@ -3,6 +3,7 @@ import { queryGamePriceGa } from '@/actions/queryGamePrice/ga'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import { fetchGamesPrice } from '@/utils/fetchGamesPrice'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
+import { createText } from '@/lib/line-flex-toolkit/createText'
 
 export const queryGamePriceAction: BottenderAction<WithGroupProps<{
   inputKeyword?: string
@@ -35,13 +36,15 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
               title: item.title,
               subtitle: `最佳價格 ${item.current.price} 美金`,
               contents: [
-                `${(hasDiscountNow && '✅折扣中') || '🤔未發現折扣'}`,
-                ` `,
-                `當前折扣 ${item.current.discount}％`,
-                `當前價格 ${item.current.price}美金`,
-                ` `,
-                `歷史折扣 ${item.historical.discount}％`,
-                `歷史價格 ${item.historical.price}美金`,
+                createText({
+                  text: `${(hasDiscountNow && '✅折扣中') || '🤔未發現折扣'}`,
+                }),
+                createText({ text: ` ` }),
+                createText({ text: `當前折扣 ${item.current.discount}％` }),
+                createText({ text: `當前價格 ${item.current.price}美金` }),
+                createText({ text: ` ` }),
+                createText({ text: `歷史折扣 ${item.historical.discount}％` }),
+                createText({ text: `歷史價格 ${item.historical.price}美金` }),
               ],
             })
           }),

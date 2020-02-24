@@ -8,20 +8,13 @@ export const createSmallCardBubble = (options: {
   link: string
   subtitle?: string
   title: string
-  contents: string[]
+  contents: object[]
 }) => {
   if (options.coverUrl?.startsWith('http://')) {
     console.warn(
       `WARNING: bubble/hero/url 只接受 https 安全連線，傳入的 ${options.title} 圖片不符合 LINE 要求`,
     )
   }
-
-  const contents = options.contents.map(stringValue => ({
-    type: 'text',
-    text: stringValue,
-    size: 'xxs',
-    color: '#cccccc',
-  }))
 
   return {
     type: 'bubble',
@@ -63,7 +56,7 @@ export const createSmallCardBubble = (options: {
               type: 'box',
               layout: 'vertical',
               spacing: 'sm',
-              contents: [...contents],
+              contents: [...options.contents],
             },
           ],
         },
