@@ -34,7 +34,7 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
               link: item.isthereanydealUrl,
               title: item.title,
               subtitle: `最佳價格 ${item.current.price} 美金`,
-              content: [
+              contents: [
                 `${(hasDiscountNow && '✅折扣中') || '🤔未發現折扣'}`,
                 ` `,
                 `當前折扣 ${item.current.discount}％`,

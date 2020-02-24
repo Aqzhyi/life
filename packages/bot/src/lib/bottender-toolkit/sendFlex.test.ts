@@ -9,7 +9,7 @@ describe(sendFlex.name, () => {
 
     const bubbles = range(0, 20).map(() =>
       createSmallCardBubble({
-        content: '{content}',
+        contents: ['{content}'],
         link: '{link}',
         coverUrl: '{coverUrl}',
         title: '{title}',

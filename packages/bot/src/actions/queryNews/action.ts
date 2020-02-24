@@ -60,7 +60,7 @@ export const queryNewsAction: BottenderAction<WithGroupProps<{
               createSmallCardBubble({
                 coverUrl: item.coverUrl,
                 link: item.linkUrl,
-                content: dayjs(item.postedAt).format('@YYYY/MM/DD'),
+                contents: [dayjs(item.postedAt).format('@YYYY/MM/DD')],
                 title: item.title,
                 subtitle: item.provider,
               }),

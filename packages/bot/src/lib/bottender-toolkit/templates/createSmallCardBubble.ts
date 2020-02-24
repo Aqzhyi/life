@@ -8,10 +8,7 @@ export const createSmallCardBubble = (options: {
   link: string
   subtitle?: string
   title: string
-  /**
-   * 允許單行，或傳入 Array 表示多行
-   */
-  content: string | string[]
+  contents: string[]
 }) => {
   if (options.coverUrl?.startsWith('http://')) {
     console.warn(
@@ -19,21 +16,12 @@ export const createSmallCardBubble = (options: {
     )
   }
 
-  const contents = Array.isArray(options.content)
-    ? options.content.map(stringValue => ({
-        type: 'text',
-        text: stringValue,
-        size: 'xxs',
-        color: '#cccccc',
-      }))
-    : [
-        {
-          type: 'text',
-          text: options.content,
-          size: 'xxs',
-          color: '#cccccc',
-        },
-      ]
+  const contents = options.contents.map(stringValue => ({
+    type: 'text',
+    text: stringValue,
+    size: 'xxs',
+    color: '#cccccc',
+  }))
 
   return {
     type: 'bubble',
@@ -75,17 +63,7 @@ export const createSmallCardBubble = (options: {
               type: 'box',
               layout: 'vertical',
               spacing: 'sm',
-              contents: [
-                {
-                  type: 'text',
-                  text: options.subtitle || '不明',
-                  wrap: true,
-                  color: '#8c8c8c',
-                  size: 'xs',
-                  flex: 5,
-                },
-                ...contents,
-              ],
+              contents: [...contents],
             },
           ],
         },
