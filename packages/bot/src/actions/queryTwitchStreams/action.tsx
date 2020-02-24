@@ -11,6 +11,9 @@ import { createStreamInfoBubble } from '@/lib/bottender-toolkit/templates/create
 import { streamModelSelector } from '@/selectors/streamModelSelector'
 import { useQueryTwitchStreamsGA } from '@/actions/queryTwitchStreams/ga'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
+import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
+import { isTelegramContext } from '@/lib/bottender-toolkit/utils/isTelegramContext'
+import { replaceStringTabSpace } from '@/utils/replaceStringTabSpace'
 
 export const queryTwitchStreamsAction: BottenderAction<WithGroupProps<{
   inputKeyword: GameKeyword
@@ -94,20 +97,29 @@ export const queryTwitchStreamsAction: BottenderAction<WithGroupProps<{
     )
 
     if (items.length) {
-      sendFlex(
-        context,
-        {
-          alt: `${gameTitle}/查詢/正在直播頻道`,
-          bubbles: flexContents,
-          text: items
-            .map(
-              item =>
-                `🎥 ${item?.viewerCount}👓 [${item?.title}](${item?.siteLink})`,
-            )
-            .join('\n'),
-        },
-        { preset: 'LINE_CAROUSEL' },
-      )
+      if (isLineContext(context)) {
+        await sendFlex(
+          context,
+          {
+            alt: `${gameTitle}/查詢/正在直播頻道`,
+            bubbles: flexContents,
+          },
+          { preset: 'LINE_CAROUSEL' },
+        )
+      }
+
+      if (isTelegramContext(context)) {
+        await context.sendMessage(
+          replaceStringTabSpace(
+            items
+              .map(
+                item =>
+                  `🎥 ${item?.viewerCount}👓 [${item?.title}](${item?.siteLink})`,
+              )
+              .join('\n'),
+          ),
+        )
+      }
 
       queryTwitchStreamsGA.onResponsed(gameTitle || inputKeyword || '', data)
     } else {

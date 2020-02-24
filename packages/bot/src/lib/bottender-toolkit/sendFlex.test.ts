@@ -1,39 +1,31 @@
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 import { ContextMock } from '@/lib/bottender-toolkit/classes/ContextMock'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
-import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
-import { isTelegramContext } from '@/lib/bottender-toolkit/utils/isTelegramContext'
+import { range } from 'lodash'
 
 describe(sendFlex.name, () => {
-  it('能分辨 Context 屬於 Line | Telegram 使用相應的「類 sendFlex」函數', async () => {
-    const contexts = new Set([
-      new ContextMock('填充滿滿的文字').lineContext,
-      new ContextMock('填充滿滿的文字').telegramContext,
-    ])
+  it('能自動切割 bubbles 多次發送，以符合 sendFlex 每次請求只能 10 筆的限制', async () => {
+    const context = new ContextMock('填充滿滿的文字').lineContext
 
-    contexts.forEach(context => {
-      sendFlex(
-        context,
-        {
-          alt: '替代文字',
-          bubbles: [
-            createSmallCardBubble({
-              content: '{content}',
-              link: '{link}',
-              coverUrl: '{coverUrl}',
-              title: '{title}',
-              subtitle: '{subtitle}',
-            }),
-          ],
-          text: '',
-        },
-        { preset: 'LINE_CAROUSEL' },
-      )
+    const bubbles = range(0, 20).map(() =>
+      createSmallCardBubble({
+        content: '{content}',
+        link: '{link}',
+        coverUrl: '{coverUrl}',
+        title: '{title}',
+        subtitle: '{subtitle}',
+      }),
+    )
 
-      isLineContext(context) && expect(context.sendFlex).toBeCalledTimes(1)
+    sendFlex(
+      context,
+      {
+        alt: '替代文字',
+        bubbles,
+      },
+      { preset: 'LINE_CAROUSEL' },
+    )
 
-      isTelegramContext(context) &&
-        expect(context.sendMessage).toBeCalledTimes(1)
-    })
+    expect(context.sendFlex).toBeCalledTimes(2)
   })
 })

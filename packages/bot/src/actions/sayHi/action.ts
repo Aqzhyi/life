@@ -7,6 +7,7 @@ import { queryGamePriceCommandBubble } from '@/actions/queryGamePrice/commandBub
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
 import { isTelegramContext } from '@/lib/bottender-toolkit/utils/isTelegramContext'
+import { replaceStringTabSpace } from '@/utils/replaceStringTabSpace'
 
 export const sayHiAction: BottenderAction = async (context, props) => {
   const seeLink = {
@@ -77,28 +78,18 @@ export const sayHiAction: BottenderAction = async (context, props) => {
           sayBullshitCommandBubble(context),
           seeLink,
         ],
-        text: `指令🧩 \`唬爛{主題}\`
-        指令🧩 \`唬爛{主題} {長度}\`
-        指令🧩 \`新聞{關鍵字}\`
-
-        其它詳細操作起見[網站](https://www.notion.so/hilezi/LINE-BOT-d7ac6acf3ee94029a245be3df3c9f5fe)`,
       },
       { preset: 'LINE_CAROUSEL' },
     )
   }
 
   if (isTelegramContext(context)) {
-    sendFlex(
-      context,
-      {
-        alt: '機器人操作指令面板',
-        text: `指令🧩 \`唬爛{主題}\`
-        指令🧩 \`唬爛{主題} {長度}\`
-        指令🧩 \`新聞{關鍵字}\`
+    context.sendMessage(
+      replaceStringTabSpace(`指令🧩 \`唬爛{主題}\`
+    指令🧩 \`唬爛{主題} {長度}\`
+    指令🧩 \`新聞{關鍵字}\`
 
-        其它詳細操作起見[網站](https://www.notion.so/hilezi/LINE-BOT-d7ac6acf3ee94029a245be3df3c9f5fe)`,
-      },
-      { preset: 'LINE_CAROUSEL' },
+    其它詳細操作起見[網站](https://www.notion.so/hilezi/LINE-BOT-d7ac6acf3ee94029a245be3df3c9f5fe)`),
     )
   }
 
