@@ -1,4 +1,4 @@
-import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
+import { BottenderAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import fetch from 'node-fetch'
 import replaceStrings from 'replace-string'
 import { debugAPI } from '@/lib/debugAPI'
@@ -7,7 +7,7 @@ import { sayBullshitGA } from './ga'
 export const DEFAULTS_TOPIC = '我的鹹魚'
 export const DEFAULTS_MINLEN = 100
 
-export const sayBullshitAction: LineAction<WithGroupProps<{
+export const sayBullshitAction: BottenderAction<WithGroupProps<{
   topic: string
   minLen: string
 }>> = async (context, props) => {

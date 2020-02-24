@@ -1,21 +1,25 @@
-import { LineAction } from '@/lib/bottender-toolkit/types'
+import { BottenderAction } from '@/lib/bottender-toolkit/types'
 import { twitchAPI } from '@/lib/twitch/twitchAPI'
-import { chunk } from 'lodash'
 import { createCover } from '@/lib/bottender-toolkit/templates/createCover'
 import { createMessageSendButton } from '@/lib/bottender-toolkit/templates/createMessageSendButton'
 import { showTwitchTopGamesGA } from './ga'
+import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
+import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 
-export const showTwitchTopGamesAction: LineAction = async (context, props) => {
+export const showTwitchTopGamesAction: BottenderAction = async (
+  context,
+  props,
+) => {
   try {
     showTwitchTopGamesGA.onQuery()
     const twitchData = await twitchAPI.getTopGames()
-    const data = chunk(twitchData, 10)
 
-    for (const datum of data) {
-      context.sendFlex('請選擇要查詢的直播', {
-        type: 'carousel',
-        contents: [
-          ...(datum.map(item => {
+    if (isLineContext(context)) {
+      sendFlex(
+        context,
+        {
+          alt: '請選擇要查詢的直播',
+          bubbles: twitchData.map(item => {
             return {
               type: 'bubble',
               size: 'micro',
@@ -50,11 +54,13 @@ export const showTwitchTopGamesAction: LineAction = async (context, props) => {
                 ],
               },
             }
-          }) as any),
-        ],
-      })
-      showTwitchTopGamesGA.onResponsed(twitchData)
+          }),
+        },
+        { preset: 'LINE_CAROUSEL' },
+      )
     }
+
+    showTwitchTopGamesGA.onResponsed(twitchData)
   } catch (error) {
     showTwitchTopGamesGA.onError(error)
     await context.sendText(error.message)

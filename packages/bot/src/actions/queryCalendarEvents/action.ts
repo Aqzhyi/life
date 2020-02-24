@@ -1,13 +1,17 @@
-import { LineAction } from '@/lib/bottender-toolkit/types'
+import { BottenderAction } from '@/lib/bottender-toolkit/types'
 import { calendarAPI } from '@/lib/googleapis/calendarAPI'
 import { createStreamInfoBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
 import dayjs from 'dayjs'
+import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
 
-export const queryCalendarEventsAction: LineAction = async (context, props) => {
+export const queryCalendarEventsAction: BottenderAction = async (
+  context,
+  props,
+) => {
   try {
     const items = await calendarAPI.getAfterTodayEvents()
 
-    if (items?.length) {
+    if (isLineContext(context) && items?.length) {
       context.sendFlex('查詢甜豬的日曆', {
         type: 'carousel',
         contents: [

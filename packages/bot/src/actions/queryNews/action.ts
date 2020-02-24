@@ -1,4 +1,4 @@
-import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
+import { BottenderAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import { queryNewsGA } from '@/actions/queryNews/ga'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import dayjs from 'dayjs'
@@ -7,7 +7,7 @@ import { debugAPI } from '@/lib/debugAPI'
 import { NewsDoc } from '@/lib/mongodb/models/news'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 
-export const queryNewsAction: LineAction<WithGroupProps<{
+export const queryNewsAction: BottenderAction<WithGroupProps<{
   keyword: string
 }>> = async (context, props) => {
   const log = debugAPI.bot.extend('新聞')

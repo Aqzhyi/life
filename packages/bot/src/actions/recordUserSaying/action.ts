@@ -1,8 +1,11 @@
-import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
+import { BottenderAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import { gaAPI } from '@/lib/google-analytics/gaAPI'
 import { EventCategory } from '@/lib/google-analytics/EventCategory'
 
-export const recordUserSayingAction: LineAction = async (context, props) => {
+export const recordUserSayingAction: BottenderAction = async (
+  context,
+  props,
+) => {
   context.event.isText &&
     gaAPI.send({
       ec: EventCategory.LINEBOT,

@@ -1,5 +1,5 @@
 import { GAME_KEYWORDS, GameKeyword } from '@/configs/GAME_CONFIGS'
-import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
+import { BottenderAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import { debugAPI } from '@/lib/debugAPI'
 import { i18nAPI } from '@/lib/i18n/i18nAPI'
 import { GameID } from '@/lib/twitch/enums/GameID'
@@ -12,7 +12,7 @@ import { streamModelSelector } from '@/selectors/streamModelSelector'
 import { useQueryTwitchStreamsGA } from '@/actions/queryTwitchStreams/ga'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 
-export const queryTwitchStreamsAction: LineAction<WithGroupProps<{
+export const queryTwitchStreamsAction: BottenderAction<WithGroupProps<{
   inputKeyword: GameKeyword
 }>> = async (context, props) => {
   const debug = debugAPI.bot.extend(queryTwitchStreamsAction.name)

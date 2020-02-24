@@ -1,10 +1,10 @@
-import { LineAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
+import { BottenderAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import { queryGamePriceGa } from '@/actions/queryGamePrice/ga'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import { fetchGamesPrice } from '@/utils/fetchGamesPrice'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 
-export const queryGamePriceAction: LineAction<WithGroupProps<{
+export const queryGamePriceAction: BottenderAction<WithGroupProps<{
   inputKeyword?: string
 }>> = async (context, props) => {
   const keyword = props.match?.groups?.inputKeyword?.trim()
