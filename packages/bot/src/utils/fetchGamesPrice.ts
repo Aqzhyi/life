@@ -5,12 +5,47 @@ import cheerio from 'cheerio'
  * 爬蟲爬取遊戲歷史記錄
  */
 export const fetchGamesPrice = async (keyword: string) => {
+  const steamSearchResult = await fetch(
+    encodeURI(`https://store.steampowered.com/search/results?term=${keyword}`),
+  )
+    .then(res => res.text())
+    .then(htmlText => {
+      type SteamSearchResult = {
+        title: string
+        price: number
+      }
+      const $items = cheerio(htmlText).find('#search_resultsRows a')
+
+      return ($items
+        .map((index, element) => {
+          const title = cheerio(element)
+            .find('.title')
+            .text()
+            .trim()
+
+          const price = cheerio(element)
+            .find('.search_price')
+            .text()
+            .trim()
+            .replace(/NT\$\s?/, '')
+
+          return {
+            price: Number(price),
+            title,
+          } as SteamSearchResult
+        })
+        .toArray() as any) as SteamSearchResult[]
+    })
+
   return await fetch(
     encodeURI(`https://isthereanydeal.com/search/?q=${keyword}`),
   )
     .then(res => res.text())
     .then(htmlText => {
       type GamePriceItem = {
+        steam: {
+          price?: number
+        }
         current: {
           discount: number
           price: number
@@ -62,6 +97,10 @@ export const fetchGamesPrice = async (keyword: string) => {
             ?.replace('$', '')
 
           return {
+            steam: {
+              price: steamSearchResult.find(item => item.title === title)
+                ?.price,
+            },
             coverUrl: $element
               .find('.card__img div[data-img-sm]')
               .attr('data-img-sm'),

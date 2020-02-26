@@ -8,7 +8,7 @@ export const createSmallCardBubble = (options: {
   link: string
   subtitle?: string
   title: string
-  contents: object[]
+  contents: (object | undefined | null)[]
   footerContents?: object[]
 }) => {
   if (options.coverUrl?.startsWith('http://')) {
@@ -57,7 +57,7 @@ export const createSmallCardBubble = (options: {
               type: 'box',
               layout: 'vertical',
               spacing: 'sm',
-              contents: [...options.contents],
+              contents: [...options.contents.filter(item => item)],
             },
           ],
         },

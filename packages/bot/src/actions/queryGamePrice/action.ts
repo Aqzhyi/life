@@ -4,8 +4,14 @@ import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createS
 import { fetchGamesPrice } from '@/utils/fetchGamesPrice'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 import { createText } from '@/lib/line-flex-toolkit/createText'
-import { FlexSize, FlexButtonStyle } from '@/lib/line-flex-toolkit/enums'
+import {
+  FlexSize,
+  FlexButtonStyle,
+  FlexMargin,
+  FlexHeight,
+} from '@/lib/line-flex-toolkit/enums'
 import { createButton } from '@/lib/line-flex-toolkit/createButton'
+import { createSeparator } from '@/lib/line-flex-toolkit/createSeparator'
 
 export const queryGamePriceAction: BottenderAction<WithGroupProps<{
   inputKeyword?: string
@@ -42,26 +48,12 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
                   createText({
                     text: `${(hasDiscountNow && '✅折扣中') || '🤔未發現折扣'}`,
                   }),
-                  createText({
-                    size: FlexSize.sm,
-                    color: '#999999',
-                    text: ` `,
-                  }),
-                  createText({
-                    size: FlexSize.sm,
-                    color: '#999999',
-                    text: `當前折扣 ${item.current.discount}％`,
-                  }),
-                  createText({
-                    size: FlexSize.sm,
-                    color: '#999999',
-                    text: `當前價格 ${item.current.price}美金`,
-                  }),
-                  createText({
-                    size: FlexSize.sm,
-                    color: '#999999',
-                    text: ` `,
-                  }),
+                  (item.steam.price &&
+                    createText({
+                      text: `Steam ${item.steam.price} 台幣`,
+                      size: FlexSize.sm,
+                    })) ||
+                    null,
                   createText({
                     size: FlexSize.sm,
                     color: '#999999',
@@ -76,6 +68,7 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
                 footerContents: [
                   createButton({
                     style: FlexButtonStyle.primary,
+                    height: FlexHeight.sm,
                     action: {
                       uri: item.isthereanydealUrl,
                       label: '查看',
@@ -96,6 +89,7 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
               footerContents: [
                 createButton({
                   style: FlexButtonStyle.primary,
+                  height: FlexHeight.sm,
                   action: {
                     uri: 'https://es.isthereanydeal.com/',
                     label: '查看',
