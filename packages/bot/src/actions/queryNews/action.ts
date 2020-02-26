@@ -53,7 +53,7 @@ export const queryNewsAction: BottenderAction<WithGroupProps<{
     )
 
     if (data.length) {
-      sendFlex(
+      await sendFlex(
         context,
         {
           alt: `${keyword}新聞`,
