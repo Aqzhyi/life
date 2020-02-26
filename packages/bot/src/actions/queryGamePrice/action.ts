@@ -4,6 +4,8 @@ import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createS
 import { fetchGamesPrice } from '@/utils/fetchGamesPrice'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 import { createText } from '@/lib/line-flex-toolkit/createText'
+import { FlexSize, FlexButtonStyle } from '@/lib/line-flex-toolkit/enums'
+import { createButton } from '@/lib/line-flex-toolkit/createButton'
 
 export const queryGamePriceAction: BottenderAction<WithGroupProps<{
   inputKeyword?: string
@@ -40,14 +42,45 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
                   createText({
                     text: `${(hasDiscountNow && '✅折扣中') || '🤔未發現折扣'}`,
                   }),
-                  createText({ text: ` ` }),
-                  createText({ text: `當前折扣 ${item.current.discount}％` }),
-                  createText({ text: `當前價格 ${item.current.price}美金` }),
-                  createText({ text: ` ` }),
                   createText({
+                    size: FlexSize.sm,
+                    color: '#999999',
+                    text: ` `,
+                  }),
+                  createText({
+                    size: FlexSize.sm,
+                    color: '#999999',
+                    text: `當前折扣 ${item.current.discount}％`,
+                  }),
+                  createText({
+                    size: FlexSize.sm,
+                    color: '#999999',
+                    text: `當前價格 ${item.current.price}美金`,
+                  }),
+                  createText({
+                    size: FlexSize.sm,
+                    color: '#999999',
+                    text: ` `,
+                  }),
+                  createText({
+                    size: FlexSize.sm,
+                    color: '#999999',
                     text: `歷史折扣 ${item.historical.discount}％`,
                   }),
-                  createText({ text: `歷史價格 ${item.historical.price}美金` }),
+                  createText({
+                    size: FlexSize.sm,
+                    color: '#999999',
+                    text: `歷史價格 ${item.historical.price}美金`,
+                  }),
+                ],
+                footerContents: [
+                  createButton({
+                    style: FlexButtonStyle.primary,
+                    action: {
+                      uri: item.isthereanydealUrl,
+                      label: '查看',
+                    },
+                  }),
                 ],
               })
             }),
@@ -58,6 +91,15 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
                 createText({
                   text: '協助你在 steam 網站上直接查詢歷史價格',
                   wrap: true,
+                }),
+              ],
+              footerContents: [
+                createButton({
+                  style: FlexButtonStyle.primary,
+                  action: {
+                    uri: 'https://es.isthereanydeal.com/',
+                    label: '查看',
+                  },
                 }),
               ],
               coverUrl: 'https://es.isthereanydeal.com/img/logo.png?1549755893',

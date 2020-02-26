@@ -9,6 +9,7 @@ export const createSmallCardBubble = (options: {
   subtitle?: string
   title: string
   contents: object[]
+  footerContents?: object[]
 }) => {
   if (options.coverUrl?.startsWith('http://')) {
     console.warn(
@@ -16,7 +17,7 @@ export const createSmallCardBubble = (options: {
     )
   }
 
-  return {
+  const base = {
     type: 'bubble',
     size: 'micro',
     hero: {
@@ -64,5 +65,22 @@ export const createSmallCardBubble = (options: {
       spacing: 'sm',
       paddingAll: '13px',
     },
+  }
+
+  const footer =
+    (options.footerContents?.length && {
+      footer: {
+        type: 'box',
+        layout: 'vertical',
+        spacing: 'sm',
+        flex: 0,
+        contents: [...options.footerContents],
+      },
+    }) ||
+    {}
+
+  return {
+    ...base,
+    ...footer,
   }
 }
