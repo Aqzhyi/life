@@ -50,7 +50,7 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
                   }),
                   (item.steam.price &&
                     createText({
-                      text: `Steam ${item.steam.price} 台幣`,
+                      text: `Steam ${item.steam.price}`,
                       size: FlexSize.sm,
                     })) ||
                     null,

@@ -12,7 +12,7 @@ export const fetchGamesPrice = async (keyword: string) => {
     .then(htmlText => {
       type SteamSearchResult = {
         title: string
-        price: number
+        price: string
       }
       const $items = cheerio(htmlText).find('#search_resultsRows a')
 
@@ -27,10 +27,9 @@ export const fetchGamesPrice = async (keyword: string) => {
             .find('.search_price')
             .text()
             .trim()
-            .replace(/NT\$\s?/, '')
 
           return {
-            price: Number(price),
+            price,
             title,
           } as SteamSearchResult
         })
