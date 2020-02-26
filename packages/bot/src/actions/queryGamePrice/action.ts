@@ -27,27 +27,42 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
         context,
         {
           alt: '遊戲售價/查詢',
-          bubbles: items.map(item => {
-            const hasDiscountNow = item.current.discount !== 0
+          bubbles: [
+            ...items.map(item => {
+              const hasDiscountNow = item.current.discount !== 0
 
-            return createSmallCardBubble({
-              coverUrl: item.coverUrl,
-              link: item.isthereanydealUrl,
-              title: item.title,
-              subtitle: `最佳價格 ${item.current.price} 美金`,
+              return createSmallCardBubble({
+                coverUrl: item.coverUrl,
+                link: item.isthereanydealUrl,
+                title: item.title,
+                subtitle: `最佳價格 ${item.current.price} 美金`,
+                contents: [
+                  createText({
+                    text: `${(hasDiscountNow && '✅折扣中') || '🤔未發現折扣'}`,
+                  }),
+                  createText({ text: ` ` }),
+                  createText({ text: `當前折扣 ${item.current.discount}％` }),
+                  createText({ text: `當前價格 ${item.current.price}美金` }),
+                  createText({ text: ` ` }),
+                  createText({
+                    text: `歷史折扣 ${item.historical.discount}％`,
+                  }),
+                  createText({ text: `歷史價格 ${item.historical.price}美金` }),
+                ],
+              })
+            }),
+            createSmallCardBubble({
+              title: 'Chrome 擴充程式推薦',
+              link: 'https://es.isthereanydeal.com/',
               contents: [
                 createText({
-                  text: `${(hasDiscountNow && '✅折扣中') || '🤔未發現折扣'}`,
+                  text: '協助你在 steam 網站上直接查詢歷史價格',
+                  wrap: true,
                 }),
-                createText({ text: ` ` }),
-                createText({ text: `當前折扣 ${item.current.discount}％` }),
-                createText({ text: `當前價格 ${item.current.price}美金` }),
-                createText({ text: ` ` }),
-                createText({ text: `歷史折扣 ${item.historical.discount}％` }),
-                createText({ text: `歷史價格 ${item.historical.price}美金` }),
               ],
-            })
-          }),
+              coverUrl: 'https://es.isthereanydeal.com/img/logo.png?1549755893',
+            }),
+          ],
         },
         { preset: 'LINE_CAROUSEL' },
       )
