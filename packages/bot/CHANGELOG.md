@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/hilezi/life/compare/v1.3.0...v1.4.0) (2020-02-26)
+
+
+### Features
+
+* **bot:** 指令「遊戲售價」增加 Steam 售價，來源為 Steam 官網 ([719dbda](https://github.com/hilezi/life/commit/719dbda569116ae732f044ef2dc04623894a57c3))
+
 ## [1.3.0](https://github.com/hilezi/life/compare/v1.2.0...v1.3.0) (2020-02-15)
 
 
