@@ -2,7 +2,7 @@ import {
   FlexMargin,
   FlexSize,
   FlexWeight,
-  FlexStyle,
+  FlexTextStyle,
   FlexDecoration,
   FlexPosition,
   FlexAlign,
@@ -17,7 +17,7 @@ export const createText = (options: {
   /** #RRGGBB or #RRGGBBAA */
   color?: string
   weight?: FlexWeight | string
-  style?: FlexStyle | string
+  style?: FlexTextStyle | string
   decoration?: FlexDecoration | string
   position?: FlexPosition | string
   align?: FlexAlign | string

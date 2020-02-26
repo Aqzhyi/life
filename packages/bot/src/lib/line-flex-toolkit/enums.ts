@@ -25,7 +25,7 @@ export enum FlexWeight {
   bold = 'bold',
 }
 
-export enum FlexStyle {
+export enum FlexTextStyle {
   normal = 'normal',
   italic = 'italic',
 }
@@ -51,4 +51,15 @@ export enum FlexGravity {
   top = 'top',
   bottom = 'bottom',
   center = 'center',
+}
+
+export enum FlexButtonStyle {
+  link = 'link',
+  primary = 'primary',
+  secondary = 'secondary',
+}
+
+export enum FlexHeight {
+  sm = 'sm',
+  md = 'md',
 }
