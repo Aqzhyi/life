@@ -14,7 +14,6 @@ describe(sendFlex.name, () => {
         link: '{link}',
         coverUrl: '{coverUrl}',
         title: '{title}',
-        subtitle: '{subtitle}',
       }),
     )
 

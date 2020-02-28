@@ -6,7 +6,6 @@ const DEFAULT_COVER_URL =
 export const createSmallCardBubble = (options: {
   coverUrl?: string
   link: string
-  subtitle?: string
   title: string
   contents: (object | undefined | null)[]
   footerContents?: object[]
