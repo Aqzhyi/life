@@ -11,7 +11,6 @@ import {
   FlexHeight,
 } from '@/lib/line-flex-toolkit/enums'
 import { createButton } from '@/lib/line-flex-toolkit/createButton'
-import { createSeparator } from '@/lib/line-flex-toolkit/createSeparator'
 
 export const queryGamePriceAction: BottenderAction<WithGroupProps<{
   inputKeyword?: string
@@ -37,23 +36,19 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
           alt: '遊戲售價/查詢',
           bubbles: [
             ...items.map(item => {
-              const hasDiscountNow = item.current.discount !== 0
+              const hasDiscountNow = item.price.final < item.price.initial
 
               return createSmallCardBubble({
                 coverUrl: item.coverUrl,
-                link: item.isthereanydealUrl,
+                link: item.steamLinkUrl,
                 title: item.title,
-                subtitle: `最佳價格 ${item.current.price} 美金`,
                 contents: [
                   createText({
                     text: `${(hasDiscountNow && '✅折扣中') || '🤔未發現折扣'}`,
                   }),
-                  (item.steam.price &&
-                    createText({
-                      text: `Steam ${item.steam.price}`,
-                      size: FlexSize.sm,
-                    })) ||
-                    null,
+                  createText({
+                    text: `價格 ${item.price.final} 台幣`,
+                  }),
                   createText({
                     size: FlexSize.sm,
                     color: '#999999',
@@ -64,13 +59,18 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
                     color: '#999999',
                     text: `歷史價格 ${item.historical.price}美金`,
                   }),
+                  createText({
+                    size: FlexSize.sm,
+                    color: '#cccccc',
+                    text: `提供者 IsThereAnyDeal`,
+                  }),
                 ],
                 footerContents: [
                   createButton({
                     style: FlexButtonStyle.primary,
                     height: FlexHeight.sm,
                     action: {
-                      uri: item.isthereanydealUrl,
+                      uri: item.steamLinkUrl,
                       label: '查看',
                     },
                   }),

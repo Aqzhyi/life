@@ -2,18 +2,21 @@ import fetch from 'node-fetch'
 import cheerio from 'cheerio'
 
 /**
- * 爬蟲爬取遊戲歷史記錄
+ * 爬蟲爬取遊戲的價格記錄（含歷史折扣與台灣價格）
  */
 export const fetchGamesPrice = async (keyword: string) => {
+  // 主要拿 appId 和 title
+  type SteamDataV1 = {
+    appId: string
+    steamLinkUrl: string
+    title: string
+  }
+
   const steamSearchResult = await fetch(
     encodeURI(`https://store.steampowered.com/search/results?term=${keyword}`),
   )
     .then(res => res.text())
     .then(htmlText => {
-      type SteamSearchResult = {
-        title: string
-        price: string
-      }
       const $items = cheerio(htmlText).find('#search_resultsRows a')
 
       return ($items
@@ -23,41 +26,34 @@ export const fetchGamesPrice = async (keyword: string) => {
             .text()
             .trim()
 
-          const price = cheerio(element)
-            .find('.search_price')
-            .text()
-            .trim()
+          const appId = cheerio(element).attr('data-ds-appid') as string
+          const steamLinkUrl = cheerio(element).attr('href') as string
 
           return {
-            price,
+            appId,
+            steamLinkUrl,
             title,
-          } as SteamSearchResult
+          } as SteamDataV1
         })
-        .toArray() as any) as SteamSearchResult[]
+        .toArray() as any) as SteamDataV1[]
     })
 
-  return await fetch(
+  // 主要拿 coverUrl 和 歷史折扣
+  type IsThereAnyDealData = {
+    historical: {
+      discount: number
+      price: number
+    }
+    isthereanydealUrl: string
+    title: string
+    coverUrl: string
+  }
+
+  const isThereAnyDealData = await fetch(
     encodeURI(`https://isthereanydeal.com/search/?q=${keyword}`),
   )
     .then(res => res.text())
     .then(htmlText => {
-      type GamePriceItem = {
-        steam: {
-          price?: number
-        }
-        current: {
-          discount: number
-          price: number
-        }
-        historical: {
-          discount: number
-          price: number
-        }
-        isthereanydealUrl: string
-        title: string
-        coverUrl: string
-      }
-
       const items = (cheerio(htmlText)
         .find('.card-container')
         .map((index, element) => {
@@ -83,40 +79,91 @@ export const fetchGamesPrice = async (keyword: string) => {
             .text()
             ?.replace('$', '')
 
-          const currentDiscount = $element
-            .find('.numtag__second')
-            .eq(1)
-            .text()
-            ?.replace('%', '')
-
-          const currentPrice = $element
-            .find('.numtag__primary')
-            .eq(1)
-            .text()
-            ?.replace('$', '')
-
           return {
-            steam: {
-              price: steamSearchResult.find(item => item.title === title)
-                ?.price,
-            },
             coverUrl: $element
               .find('.card__img div[data-img-sm]')
               .attr('data-img-sm'),
-            current: {
-              discount: Number(currentDiscount) || noDiscount,
-              price: Number(currentPrice),
-            },
             historical: {
               discount: Number(historicalDiscount) || noDiscount,
               price: Number(historicalPrice),
             },
             isthereanydealUrl,
             title,
-          } as GamePriceItem
+          } as IsThereAnyDealData
         })
-        .toArray() as any[]) as GamePriceItem[]
+        .toArray() as any[]) as IsThereAnyDealData[]
 
       return items
     })
+
+  // 主要拿 subId
+  interface SteamDataV2 extends SteamDataV1 {
+    subId: string
+  }
+
+  const steamData = await Promise.all(
+    steamSearchResult.map(item =>
+      fetch(encodeURI(`https://store.steampowered.com/app/${item.appId}`))
+        .then(res => res.text())
+        .then(htmlText => {
+          const subId = cheerio(htmlText)
+            .find('[name="subid"]')
+            .attr('value') as string
+
+          return { ...item, subId } as SteamDataV2
+        }),
+    ),
+  )
+
+  // 主要拿台灣價格
+  interface SteamDataV3 extends SteamDataV2 {
+    price: {
+      initial: number
+      final: number
+    }
+  }
+
+  const steamPriceData = await Promise.all(
+    steamData.map(item => {
+      if (!item.subId) {
+        return null
+      }
+      return fetch(
+        encodeURI(
+          `https://store.steampowered.com/api/packagedetails/?packageids=${item.subId}&cc=tw`,
+        ),
+      )
+        .then(res => res.json())
+        .then(jsonData => {
+          const datum = jsonData[item.subId]?.data
+          if (datum) {
+            return {
+              ...item,
+              price: {
+                final: datum.price.final / 100,
+                initial: datum.price.initial / 100,
+              },
+            } as SteamDataV3
+          }
+
+          return null
+        })
+    }),
+  )
+
+  // 用來拼湊最後要輸出的資訊
+  interface SteamData extends SteamDataV3, IsThereAnyDealData {}
+
+  return steamPriceData
+    .map(item => {
+      const isThereAnyDealDatum = isThereAnyDealData.find(
+        datum => datum.title === item?.title,
+      )
+      if (isThereAnyDealDatum) {
+        return { ...item, ...isThereAnyDealDatum } as SteamData
+      }
+
+      return null
+    })
+    .filter(Boolean) as SteamData[]
 }
