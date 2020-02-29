@@ -22,7 +22,7 @@ const configration: Configuration = {
     index: path.resolve(__dirname, 'src/index'),
   },
   output: {
-    filename: '[name].bundle.jsx',
+    filename: '[name].bundle.js',
     libraryTarget: 'commonjs',
     path: path.resolve(__dirname, 'dist'),
   },
