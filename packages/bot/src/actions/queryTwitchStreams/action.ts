@@ -79,22 +79,24 @@ export const queryTwitchStreamsAction: BottenderAction<WithGroupProps<{
       .map(streamModelSelector)
       .filter(item => typeof item === 'object')
 
-    const flexContents = items.map(
-      item =>
-        item &&
-        createStreamInfoBubble({
-          cover: {
-            imageUrl: item.coverUrl,
-            linkUrl: item.siteLink,
-          },
-          subTitle: item.title,
-          title: item.name,
-          info: {
-            left: item.viewerCount,
-            right: item.startedAt,
-          },
-        }),
-    )
+    const flexContents = items
+      .filter(item => typeof item === 'object')
+      .map(
+        item =>
+          item &&
+          createStreamInfoBubble({
+            cover: {
+              imageUrl: item.coverUrl,
+              linkUrl: item.siteLink,
+            },
+            subTitle: item.title,
+            title: item.name,
+            info: {
+              left: item.viewerCount,
+              right: item.startedAt,
+            },
+          }),
+      )
 
     if (items.length) {
       if (isLineContext(context)) {
@@ -102,7 +104,7 @@ export const queryTwitchStreamsAction: BottenderAction<WithGroupProps<{
           context,
           {
             alt: `${gameTitle}/查詢/正在直播頻道`,
-            bubbles: flexContents,
+            bubbles: flexContents as any,
           },
           { preset: 'LINE_CAROUSEL' },
         )

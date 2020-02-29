@@ -11,7 +11,7 @@ export const sendFlex = (
     /** LINE.sendFlex 的替代文字 */
     alt: string
     /** LINE bubble 資料，適合傳入自訂 bubble 格式供 LINE.sendFlex 的時候使用 */
-    bubbles?: any[]
+    bubbles?: object[]
   },
   options: {
     /** 指定採用 preset */
@@ -48,7 +48,7 @@ export const sendFlex = (
                 props.alt || '那個機器人說話了',
                 {
                   type: 'carousel',
-                  contents: [...dataChunk],
+                  contents: [...(dataChunk as any)],
                 },
               )
 
