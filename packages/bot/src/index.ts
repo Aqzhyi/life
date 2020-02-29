@@ -18,6 +18,7 @@ import { queryGamePriceAction } from '@/actions/queryGamePrice/action'
 import { queryGamePriceText } from '@/actions/queryGamePrice/text'
 import mongoose from 'mongoose'
 import { debugAPI } from '@/lib/debugAPI'
+import { querySteamWishlist } from '@/actions/querySteamWishlist/action'
 
 export default async function App(context: LineContext): Promise<unknown> {
   await i18nAPI.init()
@@ -51,6 +52,10 @@ export default async function App(context: LineContext): Promise<unknown> {
       platform(
         'line',
         router([
+          text(
+            /(?<wishlistUrl>https:[/][/]store.steampowered.com[/]wishlist[/]id[/].*)/i,
+            querySteamWishlist as any,
+          ),
           text(
             createUniversalText(context, queryGamePriceText),
             queryGamePriceAction as any,

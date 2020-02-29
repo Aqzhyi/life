@@ -35,6 +35,7 @@
     "mongoose": "^5.9.2",
     "node-fetch": "^2.6.0",
     "ow": "^0.16.0",
+    "p-series": "^2.1.0",
     "replace-string": "^3.0.0",
     "twitch": "^4.0.2",
     "universal-analytics": "^0.4.20",

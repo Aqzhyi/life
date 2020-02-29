@@ -8,6 +8,7 @@ import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
 import { isTelegramContext } from '@/lib/bottender-toolkit/utils/isTelegramContext'
 import { replaceStringTabSpace } from '@/utils/replaceStringTabSpace'
+import { createCommandHintBubble } from '@/lib/bottender-toolkit/templates/createCommandHintBubble'
 
 export const sayHiAction: BottenderAction = async (context, props) => {
   const seeLink = {
@@ -71,6 +72,13 @@ export const sayHiAction: BottenderAction = async (context, props) => {
       {
         alt: '機器人操作指令面板',
         bubbles: [
+          createCommandHintBubble({
+            commandLabel: '{Steam 願望單網址}',
+            commandDescription: '查詢 Steam 願望單遊戲價格',
+            commandText:
+              '!https://store.steampowered.com/wishlist/id/hipigg/#sort=order',
+            context,
+          }),
           queryGamePriceCommandBubble(context),
           showTwitchTopGamesCommandBubble(context),
           queryTwitchStreamsCommandBubble(context),
