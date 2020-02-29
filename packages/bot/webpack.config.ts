@@ -62,6 +62,9 @@ const configration: Configuration = {
         exclude: /node_modules/,
         test: /\.tsx?/,
         use: [
+          // {
+          //   loader: 'swc-loader',
+          // },
           {
             loader: 'babel-loader',
           },
