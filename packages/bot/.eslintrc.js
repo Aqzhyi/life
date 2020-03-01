@@ -36,6 +36,8 @@ module.exports = {
       },
     ],
     '@typescript-eslint/unbound-method': 'warn',
+    // TypeScript Assertion Function 可以不需要 stataments
+    '@typescript-eslint/no-empty-function': 'warn',
   },
   overrides: [
     {
