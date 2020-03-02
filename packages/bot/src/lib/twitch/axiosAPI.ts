@@ -36,9 +36,12 @@ axiosAPI.interceptors.response.use(response => {
     headers,
   }
 
+  const isStartsWithHTTP = response.config.url?.startsWith('http')
+
   gaAPI.send({
     ec: EventCategory.API,
-    ea: `使用/twitch${response.config.url}`,
+    ea: `使用/twitch${(isStartsWithHTTP && `/${response.config.url}`) ||
+      response.config.url}`,
     el: {
       config,
     },

@@ -51,7 +51,6 @@ export const sendFlex = (
                   contents: [...(dataChunk as any)],
                 },
               )
-
               promise && sendPromises.push(promise)
             }
           }
