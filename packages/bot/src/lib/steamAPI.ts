@@ -1,5 +1,4 @@
 import { axiosAPI } from '@/lib/twitch/axiosAPI'
-import { chain, forEach } from 'lodash'
 
 type PackageDatailFailed = {
   success: 2
@@ -42,7 +41,7 @@ export type PackageDatailData = {
   }
 }
 
-export interface SteamApp {
+interface SteamApp {
   name: string
   capsule: string
   reviewScore: number

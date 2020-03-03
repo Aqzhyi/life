@@ -2,7 +2,6 @@ import { BottenderAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import fetch from 'node-fetch'
 import { i18nAPI } from '@/lib/i18n/i18nAPI'
 import pSeries from 'p-series'
-import { camelizeKeys } from 'humps'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import { createText } from '@/lib/line-flex-toolkit/createText'
@@ -13,8 +12,8 @@ import {
   FlexHeight,
 } from '@/lib/line-flex-toolkit/enums'
 import { createButton } from '@/lib/line-flex-toolkit/createButton'
-import { steamAPI, SteamApp } from '@/lib/steamAPI'
-import { chain, merge } from 'lodash'
+import { steamAPI } from '@/lib/steamAPI'
+import { chain } from 'lodash'
 import { debugAPI } from '@/lib/debugAPI'
 
 export const querySteamWishlist: BottenderAction<WithGroupProps<{
