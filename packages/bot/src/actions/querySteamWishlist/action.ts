@@ -15,11 +15,14 @@ import { createButton } from '@/lib/line-flex-toolkit/createButton'
 import { steamAPI } from '@/lib/steamAPI'
 import { chain } from 'lodash'
 import { debugAPI } from '@/lib/debugAPI'
+import { querySteamWishlistGA } from './ga'
 
 export const querySteamWishlist: BottenderAction<WithGroupProps<{
   wishlistUrl: string
 }>> = async (context, props) => {
   const log = debugAPI.bot.extend(querySteamWishlist.name)
+
+  querySteamWishlistGA.onQuery()
 
   const wishlistUrl = props.match?.groups?.wishlistUrl
   if (!wishlistUrl) {
@@ -108,6 +111,7 @@ export const querySteamWishlist: BottenderAction<WithGroupProps<{
       { preset: 'LINE_CAROUSEL' },
     )
   } catch (error) {
+    querySteamWishlistGA.onError(error)
     await context.sendText(error.message)
   }
 
