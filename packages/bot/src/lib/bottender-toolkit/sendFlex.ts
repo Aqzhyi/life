@@ -23,12 +23,15 @@ export const sendFlex = (
   const PER_CHUNK = 10
   const MAX_SEND = 10
 
+  const storePromises = (sendPromise?: Promise<any>) => {
+    sendPromise && sendPromises.push(sendPromise)
+  }
+
   if (IS_LINE_CONTEXT) {
     try {
       ow(props.bubbles || [], 'props.bubbles', ow.array.minLength(1))
     } catch (error) {
-      const promise = context.sendText('ℹ️ 沒有內容')
-      promise && sendPromises.push(promise)
+      storePromises(context.sendText('ℹ️ 沒有內容'))
     }
   }
 
@@ -49,32 +52,27 @@ export const sendFlex = (
             dataChunks.splice(0, MAX_SEND)) ||
             dataChunks) {
             if (dataChunk.length) {
-              const promise = context.sendFlex(
-                props.alt || '那個機器人說話了',
-                {
+              storePromises(
+                context.sendFlex(props.alt || '那個機器人說話了', {
                   type: 'carousel',
                   contents: [...(dataChunk as any)],
-                },
+                }),
               )
-              promise && sendPromises.push(promise)
             }
           }
 
           if (isReachingMax) {
-            const promise = context.sendText(
-              '訊息太多，未避免洗畫面，在此截斷。',
+            storePromises(
+              context.sendText('訊息太多，未避免洗畫面，在此截斷。'),
             )
-            promise && sendPromises.push(promise)
           }
         } catch (error) {
-          console.error(error.message)
-          context.sendText(`💥 ${error.message}`)
+          storePromises(context.sendText(`💥 ${error.message}`))
         }
         break
     }
   } else {
-    const promise = context.sendText(i18nAPI.t['error/系統內部錯誤']())
-    promise && sendPromises.push(promise)
+    storePromises(context.sendText(i18nAPI.t['error/系統內部錯誤']()))
   }
 
   return Promise.all(sendPromises)
