@@ -15,11 +15,11 @@ export const queryNewsAction: BottenderAction<WithGroupProps<{
   const log = debugAPI.bot.extend('新聞')
   const keyword = props.match?.groups?.keyword?.trim() || ''
 
-  /** 不使用 DB 快取，而是連線到外部，重新獲取最新資源 */
-  const nocache = /\s更新$/.test(context.event.text)
+  /** 命令其不允許使用 DB 快取，而是連線到外部，重新獲取最新資源 */
+  const nocacheOrder = /\s更新$/.test(context.event.text)
 
   try {
-    log(`關鍵字=${keyword} 更新=${nocache}`)
+    log(`關鍵字=${keyword} 更新=${nocacheOrder}`)
 
     if (!keyword) {
       await context.sendText('🛑請輸入關鍵字查詢')
@@ -30,7 +30,7 @@ export const queryNewsAction: BottenderAction<WithGroupProps<{
     data = await newsAPI.getList({ keyword })
 
     if (
-      nocache ||
+      nocacheOrder ||
       data.length < 10 ||
       (keyword && !data.length) ||
       dayjs(data[0].postedAt).isAfter(dayjs().subtract(1, 'day'))
