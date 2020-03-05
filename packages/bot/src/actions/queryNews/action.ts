@@ -33,7 +33,7 @@ export const queryNewsAction: BottenderAction<WithGroupProps<{
       nocacheOrder ||
       data.length < 10 ||
       (keyword && !data.length) ||
-      dayjs(data[0].postedAt).isAfter(dayjs().subtract(1, 'day'))
+      dayjs(data[0].postedAt).isBefore(dayjs().subtract(1, 'day'))
     ) {
       log('連線到外部更新新聞快取')
       await newsAPI.crawlAll(keyword)
