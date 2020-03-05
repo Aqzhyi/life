@@ -2,7 +2,7 @@ import { LineContext, TelegramContext } from 'bottender'
 import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
 import { chunk } from 'lodash'
 import ow from 'ow'
-import { assertsLineContext } from '@/lib/bottender-toolkit/asserts'
+import { assertsLineContext } from '@/lib/bottender-toolkit/utils/assertsLineContext'
 import { i18nAPI } from '@/lib/i18n/i18nAPI'
 
 export const sendFlex = (

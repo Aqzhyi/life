@@ -1,11 +1,13 @@
-import { Context, LineContext, TelegramContext } from 'bottender'
+import { LineContext, TelegramContext } from 'bottender'
+import { assertsLineContext } from '@/lib/bottender-toolkit/utils/assertsLineContext'
 
 export const isLineContext = (
   context: LineContext | TelegramContext,
 ): context is LineContext => {
-  if ('sendFlex' in context && 'getUserProfile' in context) {
+  try {
+    assertsLineContext(context)
     return true
+  } catch (error) {
+    return false
   }
-
-  return false
 }

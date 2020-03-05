@@ -1,11 +1,13 @@
 import { TelegramContext, LineContext } from 'bottender'
+import { assertsTelegramContext } from '@/lib/bottender-toolkit/utils/assertsTelegramContext'
 
 export const isTelegramContext = (
   context: LineContext | TelegramContext,
 ): context is TelegramContext => {
-  if (context.event.message && 'from' in context.event.message) {
+  try {
+    assertsTelegramContext(context)
     return true
+  } catch (error) {
+    return false
   }
-
-  return false
 }
