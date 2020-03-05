@@ -10,7 +10,7 @@ ow(process.env.TWITCH_CLIENT_ID, ow.string.nonEmpty)
 const CLIENT_ID_KEY = 'Client-Id'
 const AUTHORIZATION_KEY = 'Authorization'
 
-export const axiosAPI = originalAxios.create({
+export const steamAxiosAPI = originalAxios.create({
   baseURL: 'https://api.twitch.tv/helix',
   headers: {
     [CLIENT_ID_KEY]: process.env.TWITCH_CLIENT_ID,
@@ -18,12 +18,12 @@ export const axiosAPI = originalAxios.create({
   responseType: 'json',
 })
 
-axiosAPI.interceptors.request.use(config => {
+steamAxiosAPI.interceptors.request.use(config => {
   config.params = decamelizeKeys(config.params)
   return config
 })
 
-axiosAPI.interceptors.response.use(response => {
+steamAxiosAPI.interceptors.response.use(response => {
   response.data = camelizeKeys(response.data)
 
   const headers = omit(response.config.headers, [

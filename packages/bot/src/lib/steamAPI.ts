@@ -1,4 +1,4 @@
-import { axiosAPI } from '@/lib/twitch/axiosAPI'
+import { axiosAPI } from '@/lib/axiosAPI'
 
 type PackageDatailFailed = {
   success: 2
