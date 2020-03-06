@@ -4,6 +4,7 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import Dotenv from 'dotenv-webpack'
 import globby from 'globby'
 import webpackNodeExternals from 'webpack-node-externals'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
 const configration: Configuration = {
   target: 'node',
@@ -72,6 +73,7 @@ const configration: Configuration = {
             loader: 'ts-loader',
             options: {
               configFile: path.resolve(__dirname, 'tsconfig.src.json'),
+              transpileOnly: true,
             },
           },
         ],
@@ -83,6 +85,16 @@ const configration: Configuration = {
     new Dotenv({
       defaults: false,
       systemvars: true,
+    }),
+    new ForkTsCheckerWebpackPlugin({
+      async: true,
+      checkSyntacticErrors: true,
+      eslint: true,
+      formatter: 'codeframe',
+      ignoreLintWarnings: true,
+      memoryLimit: 4096,
+      reportFiles: ['src/**/*.{ts,tsx}'],
+      silent: false,
     }),
   ],
 }

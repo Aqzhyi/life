@@ -25,7 +25,9 @@
     "target": "ESNext",
     "types": ["node", "jest"],
     "allowJs": true,
-    "noEmit": true
+    "noEmit": true,
+    "sourceMap": true,
+    "noEmitOnError": false
   },
   "exclude": ["**/__tests__", "**/*.{spec,test}.tsx"],
   "include": ["src/**/*"],
