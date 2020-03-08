@@ -2,7 +2,9 @@
 
 # 這個 LINE BOT 機器人
 
-> 不知道可以幹嘛，反正它就出生了
+> 三人行必有我師，這是一個學習用的代碼庫，用來實驗各試各樣的方法
+>
+> A hobby bot & web repository that intent to learn from others, practice, and keep in mind.
 >
 > https://www.notion.so/hilezi/d7ac6acf3ee94029a245be3df3c9f5fe
 
@@ -57,5 +59,5 @@ npm run dev:server
 
 ```sh
 # 部署到 heroku 正式站
-git push heroku master
+npm run deploy:prod
 ```
