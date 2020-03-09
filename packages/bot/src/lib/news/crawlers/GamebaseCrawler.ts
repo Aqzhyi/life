@@ -43,7 +43,11 @@ export class GamebaseCrawler implements Crawler {
           /<script type="application\/ld\+json">(?<items>[\s\S]+?)<\/script>/i.exec(
             htmlText,
           )?.groups?.items || '',
-        ) as PrintedData[]
+        ) as PrintedData[] | null
+
+        if (!items) {
+          return []
+        }
 
         return items.map<NewsDoc>(item => ({
           newsId: getUuidByString(item.headline),
