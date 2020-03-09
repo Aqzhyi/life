@@ -1,24 +1,16 @@
-import {
-  FlexPosition,
-  FlexMargin,
-  FlexHeight,
-  FlexGravity,
-  FlexButtonStyle,
-} from './enums'
-
 export const createButton = (options: {
   action: {
     uri: string
     label: string
   }
   flex?: number
-  position?: FlexPosition | string
-  margin?: FlexMargin | string
-  height?: FlexHeight | string
-  style?: FlexButtonStyle | string
+  position?: 'relative' | 'absolute'
+  margin?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+  height?: 'sm' | 'md'
+  style?: 'link' | 'primary' | 'secondary'
   /** #RRGGBB or #RRGGBBAA */
   color?: string
-  gravity?: FlexGravity | string
+  gravity?: 'top' | 'bottom' | 'center'
 }) => {
   return {
     type: 'button',

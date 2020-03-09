@@ -1,7 +1,5 @@
-import { FlexMargin } from './enums'
-
 export const createSeparator = (options?: {
-  margin?: FlexMargin | string
+  margin?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
   /** #RRGGBB or #RRGGBBAA */
   color?: string
 }) => {

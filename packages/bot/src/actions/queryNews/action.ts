@@ -7,7 +7,6 @@ import { debugAPI } from '@/lib/debugAPI'
 import { NewsDoc } from '@/lib/mongodb/models/news'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 import { createText } from '@/lib/line-flex-toolkit/createText'
-import { FlexSize } from '@/lib/line-flex-toolkit/enums'
 
 export const queryNewsAction: BottenderAction<WithGroupProps<{
   keyword: string
@@ -65,12 +64,12 @@ export const queryNewsAction: BottenderAction<WithGroupProps<{
                 contents: [
                   createText({
                     text: dayjs(item.postedAt).format('@YYYY/MM/DD'),
-                    size: FlexSize.xxs,
+                    size: 'xxs',
                     color: '#cccccc',
                   }),
                   createText({
                     text: item.provider,
-                    size: FlexSize.xxs,
+                    size: 'xxs',
                     color: '#cccccc',
                   }),
                 ],

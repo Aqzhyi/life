@@ -5,12 +5,6 @@ import pSeries from 'p-series'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import { createText } from '@/lib/line-flex-toolkit/createText'
-import {
-  FlexSize,
-  FlexMargin,
-  FlexButtonStyle,
-  FlexHeight,
-} from '@/lib/line-flex-toolkit/enums'
 import { createButton } from '@/lib/line-flex-toolkit/createButton'
 import { steamAPI } from '@/lib/steamAPI'
 import { chain } from 'lodash'
@@ -91,7 +85,7 @@ export const querySteamWishlistAction: BottenderAction<WithGroupProps<{
                           ((subItem.discountPct > 0 &&
                             ` (-${subItem.discountPct}%)`) ||
                             ''),
-                        size: FlexSize.sm,
+                        size: 'sm',
                       }),
                     ])
                     .flat() || []),
@@ -99,8 +93,8 @@ export const querySteamWishlistAction: BottenderAction<WithGroupProps<{
                 footerContents: [
                   createButton({
                     action: { label: '查看 Steam', uri: steamLink },
-                    height: FlexHeight.sm,
-                    style: FlexButtonStyle.primary,
+                    height: 'sm',
+                    style: 'primary',
                   }),
                 ],
               })

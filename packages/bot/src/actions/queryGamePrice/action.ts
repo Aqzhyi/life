@@ -4,12 +4,6 @@ import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createS
 import { fetchGamesPrice } from '@/utils/fetchGamesPrice'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 import { createText } from '@/lib/line-flex-toolkit/createText'
-import {
-  FlexSize,
-  FlexButtonStyle,
-  FlexMargin,
-  FlexHeight,
-} from '@/lib/line-flex-toolkit/enums'
 import { createButton } from '@/lib/line-flex-toolkit/createButton'
 
 export const queryGamePriceAction: BottenderAction<WithGroupProps<{
@@ -50,25 +44,25 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
                     text: `價格 ${item.price.final} 台幣`,
                   }),
                   createText({
-                    size: FlexSize.sm,
+                    size: 'sm',
                     color: '#999999',
                     text: `歷史折扣 ${item.historical.discount}％`,
                   }),
                   createText({
-                    size: FlexSize.sm,
+                    size: 'sm',
                     color: '#999999',
                     text: `歷史價格 ${item.historical.price}美金`,
                   }),
                   createText({
-                    size: FlexSize.sm,
+                    size: 'sm',
                     color: '#cccccc',
                     text: `提供者 IsThereAnyDeal`,
                   }),
                 ],
                 footerContents: [
                   createButton({
-                    style: FlexButtonStyle.primary,
-                    height: FlexHeight.sm,
+                    style: 'primary',
+                    height: 'sm',
                     action: {
                       uri: item.steamLinkUrl,
                       label: '查看',
@@ -88,8 +82,8 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
               ],
               footerContents: [
                 createButton({
-                  style: FlexButtonStyle.primary,
-                  height: FlexHeight.sm,
+                  style: 'primary',
+                  height: 'sm',
                   action: {
                     uri: 'https://es.isthereanydeal.com/',
                     label: '查看',
