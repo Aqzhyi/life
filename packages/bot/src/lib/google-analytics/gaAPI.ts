@@ -5,9 +5,14 @@ import { EventCategory } from '@/lib/google-analytics/EventCategory'
 
 const visitor = ua(process.env.GOOGLE_ANALYTICS_UA_ID)
 
+interface SendParams extends EventParams {
+  ec: EventCategory
+  el?: any
+}
+
 export const gaAPI = {
   EventCategory,
-  send: (event: Omit<EventParams, 'el'> & { el?: any }) => {
+  send: (event: SendParams) => {
     const debug = debugAPI.ga.extend(gaAPI.send.name)
     debug(
       `${event.ec}/${event.ea} ${JSON.stringify(omit(event, ['ec', 'ea']))}`,
