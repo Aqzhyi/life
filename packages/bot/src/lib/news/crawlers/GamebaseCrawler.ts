@@ -1,8 +1,8 @@
 import { Crawler } from '@/lib/news/crawlers/Crawler'
 import { NewsProvider } from '@/lib/news/NewsProvider'
-import fetch from 'node-fetch'
 import getUuidByString from 'uuid-by-string'
 import { NewsDoc } from '@/lib/mongodb/models/news'
+import { axiosAPI } from '@/lib/axiosAPI'
 
 interface PrintedData {
   mainEntityOfPage: {
@@ -34,30 +34,33 @@ export class GamebaseCrawler implements Crawler {
       return []
     }
 
-    return await fetch(
-      encodeURI(`https://www.gamebase.com.tw/news/search/${keyword}`),
-    )
-      .then(res => res.text())
-      .then<NewsDoc[]>(htmlText => {
-        const items = eval(
-          /<script type="application\/ld\+json">(?<items>[\s\S]+?)<\/script>/i.exec(
-            htmlText,
-          )?.groups?.items || '',
-        ) as PrintedData[] | null
+    let htmlText: string
+    try {
+      htmlText = (
+        await axiosAPI.get<string>(
+          `https://www.gamebase.com.tw/news/search/${keyword}`,
+          { timeout: 3000 },
+        )
+      ).data
+    } catch (error) {
+      return []
+    }
 
-        if (!items) {
-          return []
-        }
+    const items =
+      (eval(
+        /<script type="application\/ld\+json">(?<items>[\s\S]+?)<\/script>/i.exec(
+          htmlText,
+        )?.groups?.items || '',
+      ) as PrintedData[] | null) || []
 
-        return items.map<NewsDoc>(item => ({
-          newsId: getUuidByString(item.headline),
-          title: item.headline,
-          coverUrl: item.image.url,
-          linkUrl: item.mainEntityOfPage['@id'],
-          postedAt: new Date(item.datePublished),
-          provider: this.provider,
-          tag: [],
-        }))
-      })
+    return items.map<NewsDoc>(item => ({
+      newsId: getUuidByString(item.headline),
+      title: item.headline,
+      coverUrl: item.image.url,
+      linkUrl: item.mainEntityOfPage['@id'],
+      postedAt: new Date(item.datePublished),
+      provider: this.provider,
+      tag: [],
+    }))
   }
 }
