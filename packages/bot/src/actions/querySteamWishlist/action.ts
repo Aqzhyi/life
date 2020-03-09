@@ -17,10 +17,10 @@ import { chain } from 'lodash'
 import { debugAPI } from '@/lib/debugAPI'
 import { querySteamWishlistGA } from './ga'
 
-export const querySteamWishlist: BottenderAction<WithGroupProps<{
+export const querySteamWishlistAction: BottenderAction<WithGroupProps<{
   wishlistUrl: string
 }>> = async (context, props) => {
-  const log = debugAPI.bot.extend(querySteamWishlist.name)
+  const log = debugAPI.bot.extend(querySteamWishlistAction.name)
 
   querySteamWishlistGA.onQuery()
 

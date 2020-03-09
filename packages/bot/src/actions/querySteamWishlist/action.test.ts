@@ -1,12 +1,12 @@
-import { querySteamWishlist } from './action'
-import { text } from './text'
+import { querySteamWishlistAction } from './action'
+import { querySteamWishlistText } from './text'
 import { createCommandText } from '@/utils/createCommandText'
 import { ContextMock } from '@/lib/bottender-toolkit/classes/ContextMock'
 import '@/lib/steamAPI.mock'
 
-describe(querySteamWishlist.name, () => {
+describe(querySteamWishlistAction.name, () => {
   it('能正確判斷傳入得願望單網址', async done => {
-    const command = createCommandText(text)
+    const command = createCommandText(querySteamWishlistText)
 
     expect(
       command.test(
@@ -28,7 +28,7 @@ describe(querySteamWishlist.name, () => {
       '!https://store.steampowered.com/wishlist/id/hipigg/#sort=order',
     ).lineContext
 
-    await querySteamWishlist(context, {
+    await querySteamWishlistAction(context, {
       match: {
         groups: {
           wishlistUrl:
