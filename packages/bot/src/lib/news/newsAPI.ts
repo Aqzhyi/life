@@ -57,7 +57,12 @@ export const newsAPI = {
       `傳入了 ${items.length} NewsDoc，小計新增了 ${count} 個 NewsDoc`,
     )
   },
-  getList: async (options: { keyword: string }) => {
+  getList: async (options: {
+    /** 關鍵字，用來搜尋 title 和 tags */
+    keyword: string
+    /** 取回長度，預設 1 */
+    length?: number
+  }) => {
     const data1 = await NewsModel.find({
       title: new RegExp(`${options.keyword}`, 'i'),
     })
@@ -78,6 +83,6 @@ export const newsAPI = {
           .getTime(),
     )
 
-    return data.slice(0, 10)
+    return data.slice(0, options.length ?? 10)
   },
 }
