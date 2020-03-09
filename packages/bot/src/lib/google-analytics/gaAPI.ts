@@ -1,10 +1,12 @@
 import ua, { EventParams } from 'universal-analytics'
 import { debugAPI } from '@/lib/debugAPI'
 import { omit } from 'lodash'
+import { EventCategory } from '@/lib/google-analytics/EventCategory'
 
 const visitor = ua(process.env.GOOGLE_ANALYTICS_UA_ID)
 
 export const gaAPI = {
+  EventCategory,
   send: (event: Omit<EventParams, 'el'> & { el?: any }) => {
     const debug = debugAPI.ga.extend(gaAPI.send.name)
     debug(
