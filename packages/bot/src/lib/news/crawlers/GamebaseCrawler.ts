@@ -56,7 +56,7 @@ export class GamebaseCrawler implements Crawler {
           linkUrl: item.mainEntityOfPage['@id'],
           postedAt: new Date(item.datePublished),
           provider: this.provider,
-          tag: [keyword],
+          tag: [],
         }))
       })
   }
