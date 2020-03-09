@@ -5,7 +5,7 @@ type PackageDatailFailed = {
 }
 
 export type PackageDatailData = {
-  [appId: string]: {
+  [subId: string]: {
     success: boolean
     data: {
       name: string
