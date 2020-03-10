@@ -1,6 +1,6 @@
-import { GameID } from '@/lib/twitch/enums/GameID'
+import { TwitchGameId } from '@/enums/TwitchGameId'
 import { i18nAPI } from '@/lib/i18n/i18nAPI'
-import { expectType } from '@/lib/tsd/expectType'
+import { expectType } from '@/utils/expectType'
 
 /**
  * 設定哪些遊戲和其關鍵字
@@ -9,7 +9,10 @@ import { expectType } from '@/lib/tsd/expectType'
  */
 export const GAME_CONFIGS = [
   [
-    { gameId: GameID.minecraft, text: () => i18nAPI.t['game/minecraft']() },
+    {
+      gameId: TwitchGameId.minecraft,
+      text: () => i18nAPI.t['game/minecraft'](),
+    },
     'mc',
     'minecraft',
     '創世神',
@@ -18,14 +21,14 @@ export const GAME_CONFIGS = [
     '麥塊',
   ],
   [
-    { gameId: GameID.starcraft2, text: () => i18nAPI.t['game/sc2']() },
+    { gameId: TwitchGameId.starcraft2, text: () => i18nAPI.t['game/sc2']() },
     'sc',
     'sc2',
     '星海',
   ],
   [
     {
-      gameId: GameID.callOfDutyModernWarfare,
+      gameId: TwitchGameId.callOfDutyModernWarfare,
       text: () => i18nAPI.t['game/cod'](),
     },
     'cod',
@@ -33,38 +36,50 @@ export const GAME_CONFIGS = [
     '現代戰爭',
   ],
   [
-    { gameId: GameID.leagueOfLegends, text: () => i18nAPI.t['game/lol']() },
+    {
+      gameId: TwitchGameId.leagueOfLegends,
+      text: () => i18nAPI.t['game/lol'](),
+    },
     'lol',
     '英雄',
     '英雄聯盟',
   ],
   [
-    { gameId: GameID.warcraft3, text: () => i18nAPI.t['game/wc3']() },
+    { gameId: TwitchGameId.warcraft3, text: () => i18nAPI.t['game/wc3']() },
     'wc',
     'wc3',
     '魔獸',
     '魔獸爭霸',
   ],
   [
-    { gameId: GameID.worldOfWarcraft, text: () => i18nAPI.t['game/wow']() },
+    {
+      gameId: TwitchGameId.worldOfWarcraft,
+      text: () => i18nAPI.t['game/wow'](),
+    },
     '魔獸世界',
     'wow',
   ],
   [
-    { gameId: GameID.overwatch, text: () => i18nAPI.t['game/overwatch']() },
+    {
+      gameId: TwitchGameId.overwatch,
+      text: () => i18nAPI.t['game/overwatch'](),
+    },
     'overwatch',
     'ow',
     '鬥陣',
     '鬥陣特攻',
   ],
   [
-    { gameId: GameID.justChatting, text: () => i18nAPI.t['game/chatting']() },
+    {
+      gameId: TwitchGameId.justChatting,
+      text: () => i18nAPI.t['game/chatting'](),
+    },
     '聊天',
     'chat',
   ],
   [
     {
-      gameId: GameID.counterStrikeGlobalOffensive,
+      gameId: TwitchGameId.counterStrikeGlobalOffensive,
       text: () => i18nAPI.t['game/csgo'](),
     },
     'cs',
@@ -74,7 +89,7 @@ export const GAME_CONFIGS = [
   ],
   [
     {
-      gameId: GameID.Hearthstone,
+      gameId: TwitchGameId.Hearthstone,
       text: () => i18nAPI.t['game/hearthstone'](),
     },
     'hearthstone',
@@ -84,7 +99,7 @@ export const GAME_CONFIGS = [
   ],
   [
     {
-      gameId: GameID.pathOfExile,
+      gameId: TwitchGameId.pathOfExile,
       text: () => i18nAPI.t['game/poe'](),
     },
     'poe',
@@ -92,7 +107,7 @@ export const GAME_CONFIGS = [
   ],
   [
     {
-      gameId: GameID.Dota2,
+      gameId: TwitchGameId.Dota2,
       text: () => i18nAPI.t['game/dota2'](),
     },
     'dota',
@@ -100,7 +115,7 @@ export const GAME_CONFIGS = [
   ],
   [
     {
-      gameId: GameID.terraria,
+      gameId: TwitchGameId.terraria,
       text: () => i18nAPI.t['game/terraria'](),
     },
     'terraria',

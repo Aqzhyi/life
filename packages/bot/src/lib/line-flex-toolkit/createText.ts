@@ -1,26 +1,27 @@
+import {
+  FlexSize,
+  FlexMargin,
+  FlexWeight,
+  FlexTextStyle,
+  FlexDecoration,
+  FlexPosition,
+  FlexAlign,
+  FlexGravity,
+} from '@/lib/line-flex-toolkit/types'
+
 export const createText = (options: {
   flex?: number
-  margin?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+  margin?: FlexMargin
   text: string
-  size?:
-    | 'xxs'
-    | 'xs'
-    | 'sm'
-    | 'md'
-    | 'lg'
-    | 'xl'
-    | 'xxl'
-    | '3xl'
-    | '4xl'
-    | '5xl'
+  size?: FlexSize
   /** #RRGGBB or #RRGGBBAA */
   color?: string
-  weight?: 'regular' | 'bold'
-  style?: 'normal' | 'italic'
-  decoration?: 'none' | 'underline' | 'line-through'
-  position?: 'relative' | 'absolute'
-  align?: 'start' | 'end' | 'center'
-  gravity?: 'top' | 'bottom' | 'center'
+  weight?: FlexWeight
+  style?: FlexTextStyle
+  decoration?: FlexDecoration
+  position?: FlexPosition
+  align?: FlexAlign
+  gravity?: FlexGravity
   wrap?: boolean
   maxLines?: any
   action?: object

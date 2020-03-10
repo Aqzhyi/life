@@ -1,9 +1,8 @@
-import { gaAPI } from '@/lib/google-analytics/gaAPI'
-import { EventCategory } from '@/lib/google-analytics/EventCategory'
+import { gaAPI } from '@/lib/gaAPI'
 import { LineContext, TelegramContext } from 'bottender'
 import { queryTwitchStreamsAction } from '@/actions/queryTwitchStreams/action'
 import { HelixStream } from 'twitch'
-import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
+import { isLineContext } from '@/utils/isLineContext'
 
 export const useQueryTwitchStreamsGA = async (
   context: LineContext | TelegramContext,
@@ -17,7 +16,7 @@ export const useQueryTwitchStreamsGA = async (
   const events = {
     onQuery: async (gameTitle: string) => {
       gaAPI.send({
-        ec: EventCategory.LINEBOT,
+        ec: gaAPI.EventCategory.LINEBOT,
         ea: `直播頻道/${gameTitle}/查詢`,
         el: {
           functionName: queryTwitchStreamsAction.name,
@@ -32,7 +31,7 @@ export const useQueryTwitchStreamsGA = async (
         .map(item => item.userDisplayName)
         .join(',')
       gaAPI.send({
-        ec: EventCategory.LINEBOT,
+        ec: gaAPI.EventCategory.LINEBOT,
         ea: `直播頻道/${gameTitle}/查詢/回應`,
         el: sendUsersName,
         ev: sendUsersName.length,
@@ -40,7 +39,7 @@ export const useQueryTwitchStreamsGA = async (
     },
     onNoResult: async (gameTitle: string) => {
       gaAPI.send({
-        ec: EventCategory.LINEBOT,
+        ec: gaAPI.EventCategory.LINEBOT,
         ea: `直播頻道/${gameTitle}/查詢/無結果`,
         el: gameTitle,
       })
@@ -51,7 +50,7 @@ export const useQueryTwitchStreamsGA = async (
       gameTitle: string
     }) => {
       gaAPI.send({
-        ec: EventCategory.LINEBOT,
+        ec: gaAPI.EventCategory.LINEBOT,
         ea: `直播頻道/${data.gameTitle}/查詢/錯誤`,
         el: {
           ...data,

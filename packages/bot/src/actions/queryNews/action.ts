@@ -2,7 +2,7 @@ import { BottenderAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import { queryNewsGA } from '@/actions/queryNews/ga'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import dayjs from 'dayjs'
-import { newsAPI } from '@/lib/news/newsAPI'
+import { newsModelAPI } from '@/lib/mongodb/models/newsModelAPI'
 import { debugAPI } from '@/lib/debugAPI'
 import { NewsDoc } from '@/lib/mongodb/models/news'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
@@ -26,7 +26,7 @@ export const queryNewsAction: BottenderAction<WithGroupProps<{
 
     queryNewsGA.onQuery(keyword)
     let data: NewsDoc[]
-    data = await newsAPI.getList({ keyword })
+    data = await newsModelAPI.getList({ keyword })
 
     if (
       nocacheOrder ||
@@ -35,12 +35,12 @@ export const queryNewsAction: BottenderAction<WithGroupProps<{
       dayjs(data[0].postedAt).isBefore(dayjs().subtract(1, 'day'))
     ) {
       log('連線到外部更新新聞快取')
-      await newsAPI.crawlAll(keyword)
+      await newsModelAPI.crawlAll(keyword)
     } else {
       log('目前不需要獲取外部新聞資源')
     }
 
-    data = await newsAPI.getList({ keyword })
+    data = await newsModelAPI.getList({ keyword })
     log(
       '取得快取資料',
       data.map(

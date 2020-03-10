@@ -1,5 +1,4 @@
 import { BottenderAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
-import fetch from 'node-fetch'
 import { i18nAPI } from '@/lib/i18n/i18nAPI'
 import pSeries from 'p-series'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
@@ -10,6 +9,7 @@ import { steamAPI } from '@/lib/steamAPI'
 import { chain } from 'lodash'
 import { debugAPI } from '@/lib/debugAPI'
 import { querySteamWishlistGA } from './ga'
+import { axiosAPI } from '@/lib/axiosAPI'
 
 export const querySteamWishlistAction: BottenderAction<WithGroupProps<{
   wishlistUrl: string
@@ -25,7 +25,7 @@ export const querySteamWishlistAction: BottenderAction<WithGroupProps<{
   }
 
   try {
-    const htmlText = await fetch(encodeURI(wishlistUrl)).then(res => res.text())
+    const htmlText = (await axiosAPI.get(wishlistUrl)).data
 
     const profileId = /https:.+?store.steampowered.com.+?wishlist.+?profiles.+[/](?<profileId>\d+).+/i.exec(
       htmlText,
@@ -92,7 +92,11 @@ export const querySteamWishlistAction: BottenderAction<WithGroupProps<{
                 ],
                 footerContents: [
                   createButton({
-                    action: { label: '查看 Steam', uri: steamLink },
+                    action: {
+                      type: 'uri',
+                      label: '查看 Steam',
+                      uri: steamLink,
+                    },
                     height: 'sm',
                     style: 'primary',
                   }),

@@ -1,5 +1,6 @@
 import fetch from 'node-fetch'
 import cheerio from 'cheerio'
+import { axiosAPI } from '@/lib/axiosAPI'
 
 /**
  * 爬蟲爬取遊戲的價格記錄（含歷史折扣與台灣價格）
@@ -12,11 +13,11 @@ export const fetchGamesPrice = async (keyword: string) => {
     title: string
   }
 
-  const steamSearchResult = await fetch(
-    encodeURI(`https://store.steampowered.com/search/results?term=${keyword}`),
-  )
-    .then(res => res.text())
-    .then(htmlText => {
+  const steamSearchResult = await axiosAPI
+    .get<string>(
+      `https://store.steampowered.com/search/results?term=${keyword}`,
+    )
+    .then(({ data: htmlText }) => {
       const $items = cheerio(htmlText).find('#search_resultsRows a')
 
       return ($items
@@ -49,11 +50,9 @@ export const fetchGamesPrice = async (keyword: string) => {
     coverUrl: string
   }
 
-  const isThereAnyDealData = await fetch(
-    encodeURI(`https://isthereanydeal.com/search/?q=${keyword}`),
-  )
-    .then(res => res.text())
-    .then(htmlText => {
+  const isThereAnyDealData = await axiosAPI
+    .get<string>(`https://isthereanydeal.com/search/?q=${keyword}`)
+    .then(({ data: htmlText }) => {
       const items = (cheerio(htmlText)
         .find('.card-container')
         .map((index, element) => {
@@ -103,9 +102,9 @@ export const fetchGamesPrice = async (keyword: string) => {
 
   const steamData = await Promise.all(
     steamSearchResult.map(item =>
-      fetch(encodeURI(`https://store.steampowered.com/app/${item.appId}`))
-        .then(res => res.text())
-        .then(htmlText => {
+      axiosAPI
+        .get<string>(`https://store.steampowered.com/app/${item.appId}`)
+        .then(({ data: htmlText }) => {
           const subId = cheerio(htmlText)
             .find('[name="subid"]')
             .attr('value') as string
@@ -128,13 +127,11 @@ export const fetchGamesPrice = async (keyword: string) => {
       if (!item.subId) {
         return null
       }
-      return fetch(
-        encodeURI(
+      return axiosAPI
+        .get(
           `https://store.steampowered.com/api/packagedetails/?packageids=${item.subId}&cc=tw`,
-        ),
-      )
-        .then(res => res.json())
-        .then(jsonData => {
+        )
+        .then(({ data: jsonData }) => {
           const datum = jsonData[item.subId]?.data
           if (datum) {
             return {

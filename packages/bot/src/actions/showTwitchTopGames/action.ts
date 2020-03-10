@@ -1,10 +1,12 @@
 import { BottenderAction } from '@/lib/bottender-toolkit/types'
-import { twitchAPI } from '@/lib/twitch/twitchAPI'
+import { twitchAPI } from '@/lib/twitchAPI'
 import { createCover } from '@/lib/bottender-toolkit/templates/createCover'
-import { createMessageSendButton } from '@/lib/bottender-toolkit/templates/createMessageSendButton'
 import { showTwitchTopGamesGA } from './ga'
-import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
+import { isLineContext } from '@/utils/isLineContext'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
+import { twitchThumbnailUrlWith } from '@/utils/twitchThumbnailUrlWith'
+import { createText } from '@/lib/line-flex-toolkit/createText'
+import { createButton } from '@/lib/line-flex-toolkit/createButton'
 
 export const showTwitchTopGamesAction: BottenderAction = async (
   context,
@@ -12,7 +14,7 @@ export const showTwitchTopGamesAction: BottenderAction = async (
 ) => {
   try {
     showTwitchTopGamesGA.onQuery()
-    const twitchData = await twitchAPI.getTopGames()
+    const twitchData = (await twitchAPI.helix.games.getTopGames()).data
 
     if (isLineContext(context)) {
       sendFlex(
@@ -24,32 +26,35 @@ export const showTwitchTopGamesAction: BottenderAction = async (
               type: 'bubble',
               size: 'micro',
               hero: createCover({
-                imageUrl: item.coverUrl,
+                imageUrl: twitchThumbnailUrlWith('640x360', item.boxArtUrl),
               }),
               body: {
                 type: 'box',
                 layout: 'vertical',
                 contents: [
-                  {
-                    type: 'text',
+                  createText({
                     text: item.name,
                     size: 'md',
-                  },
-                  {
-                    type: 'text',
+                  }),
+                  createText({
                     text: `api.stream.id ${item.id}`,
                     size: 'xxs',
                     color: '#bbbbbb',
-                  },
+                  }),
                 ],
               },
               footer: {
                 type: 'box',
                 layout: 'vertical',
                 contents: [
-                  createMessageSendButton({
-                    label: '查看',
-                    text: `！直播${item.name}`,
+                  createButton({
+                    style: 'primary',
+                    height: 'sm',
+                    action: {
+                      type: 'message',
+                      label: '查看',
+                      text: `！直播${item.name}`,
+                    },
                   }),
                 ],
               },

@@ -1,5 +1,5 @@
 import mongoose, { Document } from 'mongoose'
-import { NewsProvider } from '@/lib/news/NewsProvider'
+import { NewsProvider } from '@/lib/mongodb/models/news/NewsProvider'
 
 export interface NewsDoc {
   /** 由 npm:uuid-by-string 生產 */

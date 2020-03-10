@@ -5,10 +5,13 @@ import { queryTwitchStreamsCommandBubble } from '@/actions/queryTwitchStreams/co
 import { sayBullshitCommandBubble } from '@/actions/sayBullshit/commandBubble'
 import { queryGamePriceCommandBubble } from '@/actions/queryGamePrice/commandBubble'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
-import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
-import { isTelegramContext } from '@/lib/bottender-toolkit/utils/isTelegramContext'
+import { isLineContext } from '@/utils/isLineContext'
+import { isTelegramContext } from '@/utils/isTelegramContext'
 import { replaceStringTabSpace } from '@/utils/replaceStringTabSpace'
 import { createCommandHintBubble } from '@/lib/bottender-toolkit/templates/createCommandHintBubble'
+import { createButton } from '@/lib/line-flex-toolkit/createButton'
+import { createSeparator } from '@/lib/line-flex-toolkit/createSeparator'
+import { createText } from '@/lib/line-flex-toolkit/createText'
 
 export const sayHiAction: BottenderAction = async (context, props) => {
   const seeLink = {
@@ -18,31 +21,27 @@ export const sayHiAction: BottenderAction = async (context, props) => {
       type: 'box',
       layout: 'vertical',
       contents: [
-        {
-          type: 'text',
+        createText({
           text: '那個機器人',
           weight: 'bold',
           color: '#1DB446',
           size: 'sm',
-        },
-        {
-          type: 'text',
+        }),
+        createText({
           text: '關於',
           weight: 'bold',
           size: 'xxl',
           margin: 'md',
-        },
-        {
-          type: 'text',
+        }),
+        createText({
           text: '如何使用這個機器人',
           size: 'xs',
           color: '#aaaaaa',
           wrap: true,
-        },
-        {
-          type: 'separator',
+        }),
+        createSeparator({
           margin: 'xxl',
-        },
+        }),
       ],
     },
     footer: {
@@ -51,17 +50,16 @@ export const sayHiAction: BottenderAction = async (context, props) => {
       margin: 'xxl',
       spacing: 'sm',
       contents: [
-        {
-          type: 'button',
-          style: 'primary',
+        createButton({
           height: 'sm',
+          style: 'primary',
           action: {
             type: 'uri',
             label: '查看',
             uri:
               'https://www.notion.so/hilezi/d7ac6acf3ee94029a245be3df3c9f5fe',
           },
-        },
+        }),
       ],
     },
   }

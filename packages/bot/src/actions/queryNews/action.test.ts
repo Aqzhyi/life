@@ -1,9 +1,9 @@
 import { queryNewsAction } from './action'
 import { ContextMock } from '@/lib/bottender-toolkit/classes/ContextMock'
-import { newsAPI } from '@/lib/news/newsAPI'
+import { newsModelAPI } from '@/lib/mongodb/models/newsModelAPI'
 
-newsAPI.crawlAll = jest.fn()
-newsAPI.getList = jest.fn().mockResolvedValue([
+newsModelAPI.crawlAll = jest.fn()
+newsModelAPI.getList = jest.fn().mockResolvedValue([
   {
     tag: ['anthem 更新'],
     _id: '5e511c69c5ada18d1bd93ed1',
@@ -20,7 +20,7 @@ describe(queryNewsAction.name, () => {
   it('接受「更新」參數', async done => {
     const context = new ContextMock('新聞魔獸 更新').lineContext
     await queryNewsAction(context, { match: { groups: { keyword: '魔獸' } } })
-    expect(newsAPI.crawlAll).toBeCalledTimes(1)
+    expect(newsModelAPI.crawlAll).toBeCalledTimes(1)
     expect(context.sendFlex).toBeCalledTimes(1)
     done()
   }, 10000)

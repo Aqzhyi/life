@@ -1,5 +1,7 @@
+import { FlexMargin } from '@/lib/line-flex-toolkit/types'
+
 export const createSeparator = (options?: {
-  margin?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
+  margin?: FlexMargin
   /** #RRGGBB or #RRGGBBAA */
   color?: string
 }) => {

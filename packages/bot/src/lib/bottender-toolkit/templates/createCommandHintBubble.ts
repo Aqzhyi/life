@@ -1,6 +1,6 @@
-import { createMessageSendButton } from '@/lib/bottender-toolkit/templates/createMessageSendButton'
 import { LineContext } from 'bottender'
-import { isMultiPeopleMessage } from '@/lib/bottender-toolkit/utils/isMultiPeopleMessage'
+import { isMultiPeopleMessage } from '@/utils/isMultiPeopleMessage'
+import { createButton } from '@/lib/line-flex-toolkit/createButton'
 
 /**
  * 適合用來建立「指令卡」讓使用者直接在私人對話，或群組對話之中按選
@@ -87,11 +87,16 @@ export const createCommandHintBubble = (props: {
       type: 'box',
       layout: 'vertical',
       contents: [
-        createMessageSendButton({
-          label: '使用',
-          text: isMultiPeopleMessage(props.context)
-            ? `！${props.commandText}`
-            : props.commandText,
+        createButton({
+          style: 'primary',
+          height: 'sm',
+          action: {
+            type: 'message',
+            label: '使用',
+            text: isMultiPeopleMessage(props.context)
+              ? `！${props.commandText}`
+              : props.commandText,
+          },
         }),
       ],
     },

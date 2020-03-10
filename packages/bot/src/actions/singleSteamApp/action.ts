@@ -4,7 +4,7 @@ import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
 import { createSmallCardBubble } from '@/lib/bottender-toolkit/templates/createSmallCardBubble'
 import { createText } from '@/lib/line-flex-toolkit/createText'
 import { createButton } from '@/lib/line-flex-toolkit/createButton'
-import { newsAPI } from '@/lib/news/newsAPI'
+import { newsModelAPI } from '@/lib/mongodb/models/newsModelAPI'
 import dayjs from 'dayjs'
 
 export const singleSteamAppAction: BottenderAction<WithGroupProps<{
@@ -21,10 +21,10 @@ export const singleSteamAppAction: BottenderAction<WithGroupProps<{
     const steamAppLink = `https://store.steampowered.com/app/${appId}`
     const coverUrl = `https://steamcdn-a.akamaihd.net/steam/apps/${appId}/header.jpg?t=${new Date().getTime()}`
 
-    await newsAPI.crawlAll(steamSubData.name)
+    await newsModelAPI.crawlAll(steamSubData.name)
 
     const newsBubbles = (
-      await newsAPI.getList({ keyword: steamSubData.name, length: 9 })
+      await newsModelAPI.getList({ keyword: steamSubData.name, length: 9 })
     ).map(newsDatum =>
       createSmallCardBubble({
         coverUrl: newsDatum.coverUrl,
@@ -58,6 +58,7 @@ export const singleSteamAppAction: BottenderAction<WithGroupProps<{
                 style: 'primary',
                 height: 'sm',
                 action: {
+                  type: 'uri',
                   label: '查看 Steam',
                   uri: steamAppLink,
                 },

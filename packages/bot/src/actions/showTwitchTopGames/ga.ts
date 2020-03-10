@@ -1,19 +1,18 @@
-import { gaAPI } from '@/lib/google-analytics/gaAPI'
-import { EventCategory } from '@/lib/google-analytics/EventCategory'
-import { getTopGames } from '@/lib/twitch/twitchAPI/getTopGames'
+import { gaAPI } from '@/lib/gaAPI'
+import { HelixGame } from 'twitch'
 
 export const showTwitchTopGamesGA = {
   onQuery: () => {
     gaAPI.send({
-      ec: EventCategory.LINEBOT,
+      ec: gaAPI.EventCategory.LINEBOT,
       ea: '遊戲/排行/查詢',
       el: '',
       ev: 1,
     })
   },
-  onResponsed: (games: ThenArg<typeof getTopGames>) => {
+  onResponsed: (games: HelixGame[]) => {
     gaAPI.send({
-      ec: EventCategory.LINEBOT,
+      ec: gaAPI.EventCategory.LINEBOT,
       ea: '遊戲/排行/查詢/回應',
       el: games.map(item => item.name).join(', '),
       ev: 0,
@@ -21,7 +20,7 @@ export const showTwitchTopGamesGA = {
   },
   onError: (error: Error) => {
     gaAPI.send({
-      ec: EventCategory.LINEBOT,
+      ec: gaAPI.EventCategory.LINEBOT,
       ea: '遊戲/排行/查詢/錯誤',
       el: `error.message=${error.message}`,
       ev: 0,

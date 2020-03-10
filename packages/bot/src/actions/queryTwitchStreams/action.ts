@@ -2,17 +2,17 @@ import { GAME_KEYWORDS, GameKeyword } from '@/configs/GAME_CONFIGS'
 import { BottenderAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
 import { debugAPI } from '@/lib/debugAPI'
 import { i18nAPI } from '@/lib/i18n/i18nAPI'
-import { GameID } from '@/lib/twitch/enums/GameID'
-import { LanguageParam } from '@/lib/twitch/enums/LanguageParam'
-import { twitchAPI } from '@/lib/twitch/twitchAPI'
-import { twitchGameSelector } from '@/selectors/twitchGameSelector'
+import { TwitchGameId } from '@/enums/TwitchGameId'
+import { TwitchLanguageParam } from '@/enums/TwitchLanguageParam'
+import { twitchAPI } from '@/lib/twitchAPI'
+import { twitchGameSelector } from '@/utils/twitchGameSelector'
 import ow from 'ow'
 import { createStreamInfoBubble } from '@/lib/bottender-toolkit/templates/createCoverBubble'
-import { streamModelSelector } from '@/selectors/streamModelSelector'
+import { streamModelSelector } from '@/utils/streamModelSelector'
 import { useQueryTwitchStreamsGA } from '@/actions/queryTwitchStreams/ga'
 import { sendFlex } from '@/lib/bottender-toolkit/sendFlex'
-import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
-import { isTelegramContext } from '@/lib/bottender-toolkit/utils/isTelegramContext'
+import { isLineContext } from '@/utils/isLineContext'
+import { isTelegramContext } from '@/utils/isTelegramContext'
 import { replaceStringTabSpace } from '@/utils/replaceStringTabSpace'
 
 export const queryTwitchStreamsAction: BottenderAction<WithGroupProps<{
@@ -29,7 +29,7 @@ export const queryTwitchStreamsAction: BottenderAction<WithGroupProps<{
   debugUser(`輸入:${inputKeyword}`)
 
   const game = twitchGameSelector(inputKeyword as GameKeyword)
-  let gameId: GameID | string | undefined = game?.id
+  let gameId: TwitchGameId | string | undefined = game?.id
   let gameTitle: string | undefined = game?.title
 
   debugSystem(`GAME_KEYWORDS:${GAME_KEYWORDS}`)
@@ -69,7 +69,7 @@ export const queryTwitchStreamsAction: BottenderAction<WithGroupProps<{
 
     const { data } = await twitchAPI.helix.streams.getStreams({
       game: gameId,
-      language: LanguageParam.zh,
+      language: TwitchLanguageParam.zh,
     })
 
     const items = data

@@ -1,5 +1,5 @@
 import { queryTwitchStreamsAction } from './action'
-import { createMockAPI } from '@/lib/twitch/twitchAPI.mock'
+import { createMockAPI } from '@/lib/twitchAPI.mock'
 import { ContextMock } from '@/lib/bottender-toolkit/classes/ContextMock'
 
 createMockAPI.helix.games.getGameByName()

@@ -5,8 +5,6 @@ import { queryTwitchStreamsText } from '@/actions/queryTwitchStreams/text'
 import { i18nAPI } from '@/lib/i18n/i18nAPI'
 import { recordUserSayingAction } from '@/actions/recordUserSaying/action'
 import { sayHiAction } from '@/actions/sayHi/action'
-import { createDirectlyText } from '@/utils/createDirectlyText'
-import { queryCalendarEventsAction } from '@/actions/queryCalendarEvents/action'
 import { showTwitchTopGamesAction } from '@/actions/showTwitchTopGames/action'
 import { sayBullshitAction } from '@/actions/sayBullshit/action'
 import { sayBullshitText } from '@/actions/sayBullshit/text'
@@ -78,10 +76,6 @@ export default async function App(context: LineContext): Promise<unknown> {
           text(
             createUniversalText(context, showTwitchTopGamesText),
             showTwitchTopGamesAction as any,
-          ),
-          text(
-            createDirectlyText('(LA|ＬＡ)日曆'),
-            queryCalendarEventsAction as any,
           ),
           text(
             createUniversalText(context, queryTwitchStreamsText),

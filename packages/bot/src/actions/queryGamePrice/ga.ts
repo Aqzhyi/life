@@ -1,10 +1,9 @@
-import { gaAPI } from '@/lib/google-analytics/gaAPI'
-import { EventCategory } from '@/lib/google-analytics/EventCategory'
+import { gaAPI } from '@/lib/gaAPI'
 
 export const queryGamePriceGa = {
   onQuery(keyword: string) {
     gaAPI.send({
-      ec: EventCategory.LINEBOT,
+      ec: gaAPI.EventCategory.LINEBOT,
       ea: `遊戲售價/查詢`,
       el: { keyword },
       ev: 5,
@@ -12,7 +11,7 @@ export const queryGamePriceGa = {
   },
   onResponse(keyword: string) {
     gaAPI.send({
-      ec: EventCategory.LINEBOT,
+      ec: gaAPI.EventCategory.LINEBOT,
       ea: `遊戲售價/查詢/回應`,
       el: { keyword },
       ev: 5,
@@ -20,7 +19,7 @@ export const queryGamePriceGa = {
   },
   onError(keyword: string, error: Error) {
     gaAPI.send({
-      ec: EventCategory.LINEBOT,
+      ec: gaAPI.EventCategory.LINEBOT,
       ea: `遊戲售價/查詢/回應`,
       el: { keyword, errorMessage: error.message },
       ev: 5,

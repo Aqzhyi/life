@@ -5,9 +5,9 @@ import {
   TelegramEvent,
 } from 'bottender'
 import { Action, Client, Props } from 'bottender/dist/types'
-import { expectType } from '../tsd/expectType'
-import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
-import { isTelegramContext } from '@/lib/bottender-toolkit/utils/isTelegramContext'
+import { expectType } from '@/utils/expectType'
+import { isLineContext } from '@/utils/isLineContext'
+import { isTelegramContext } from '@/utils/isTelegramContext'
 
 export type WithGroupProps<OwnMatchProps = {}> = {
   match?: { groups?: Partial<OwnMatchProps> }

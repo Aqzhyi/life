@@ -1,11 +1,10 @@
-import { gaAPI } from '@/lib/google-analytics/gaAPI'
-import { EventCategory } from '@/lib/google-analytics/EventCategory'
+import { gaAPI } from '@/lib/gaAPI'
 import { NewsDoc } from '@/lib/mongodb/models/news'
 
 export const queryNewsGA = {
   onCrawl: (keyword: string) => {
     gaAPI.send({
-      ec: EventCategory.LINEBOT,
+      ec: gaAPI.EventCategory.LINEBOT,
       ea: `${keyword}/新聞/查詢`,
       el: '',
       ev: 0,
@@ -13,7 +12,7 @@ export const queryNewsGA = {
   },
   onQuery: (keyword: string) => {
     gaAPI.send({
-      ec: EventCategory.LINEBOT,
+      ec: gaAPI.EventCategory.LINEBOT,
       ea: `${keyword}/新聞/查詢`,
       el: '',
       ev: 3,
@@ -21,7 +20,7 @@ export const queryNewsGA = {
   },
   onResponsed: (keyword: string, data: NewsDoc[]) => {
     gaAPI.send({
-      ec: EventCategory.LINEBOT,
+      ec: gaAPI.EventCategory.LINEBOT,
       ea: `${keyword}/新聞/查詢/回應`,
       el: `length=${data.length}`,
       ev: 1,
@@ -29,7 +28,7 @@ export const queryNewsGA = {
   },
   onError: (keyword: string, error: Error) => {
     gaAPI.send({
-      ec: EventCategory.LINEBOT,
+      ec: gaAPI.EventCategory.LINEBOT,
       ea: `${keyword}/新聞/查詢/錯誤`,
       el: `error.message=${error.message}`,
       ev: 0,

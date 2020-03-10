@@ -1,8 +1,7 @@
 import { BottenderAction, WithGroupProps } from '@/lib/bottender-toolkit/types'
-import { gaAPI } from '@/lib/google-analytics/gaAPI'
-import { EventCategory } from '@/lib/google-analytics/EventCategory'
-import { isLineContext } from '@/lib/bottender-toolkit/utils/isLineContext'
-import { userModelAPI } from '@/lib/mongodb/models/user'
+import { gaAPI } from '@/lib/gaAPI'
+import { isLineContext } from '@/utils/isLineContext'
+import { userModelAPI } from '@/lib/mongodb/models/userModelAPI'
 
 export const recordUserSayingAction: BottenderAction = async (
   context,
@@ -28,7 +27,7 @@ export const recordUserSayingAction: BottenderAction = async (
 
   context.event.isText &&
     gaAPI.send({
-      ec: EventCategory.LINEBOT,
+      ec: gaAPI.EventCategory.LINEBOT,
       ea: '訊息/發送',
       el: context.event.text,
       ev: 0.01,

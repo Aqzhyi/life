@@ -64,6 +64,7 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
                     style: 'primary',
                     height: 'sm',
                     action: {
+                      type: 'uri',
                       uri: item.steamLinkUrl,
                       label: '查看',
                     },
@@ -85,6 +86,7 @@ export const queryGamePriceAction: BottenderAction<WithGroupProps<{
                   style: 'primary',
                   height: 'sm',
                   action: {
+                    type: 'uri',
                     uri: 'https://es.isthereanydeal.com/',
                     label: '查看',
                   },

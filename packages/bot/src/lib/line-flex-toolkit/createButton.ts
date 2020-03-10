@@ -1,22 +1,27 @@
+import {
+  FlexGravity,
+  FlexHeight,
+  FlexMargin,
+  FlexPosition,
+  FlexStyle,
+} from './types'
+import { LineTypes } from 'bottender'
+
 export const createButton = (options: {
-  action: {
-    uri: string
-    label: string
-  }
+  action: LineTypes.TemplateAction
   flex?: number
-  position?: 'relative' | 'absolute'
-  margin?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl'
-  height?: 'sm' | 'md'
-  style?: 'link' | 'primary' | 'secondary'
+  position?: FlexPosition
+  margin?: FlexMargin
+  height?: FlexHeight
+  style?: FlexStyle
   /** #RRGGBB or #RRGGBBAA */
   color?: string
-  gravity?: 'top' | 'bottom' | 'center'
+  gravity?: FlexGravity
 }) => {
   return {
     type: 'button',
     ...options,
     action: {
-      type: 'uri',
       ...options.action,
     },
   }
