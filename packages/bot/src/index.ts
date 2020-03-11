@@ -20,6 +20,8 @@ import { querySteamWishlistAction } from '@/actions/querySteamWishlist/action'
 import { querySteamWishlistText } from '@/actions/querySteamWishlist/text'
 import { singleSteamAppAction } from '@/actions/singleSteamApp/action'
 import { singleSteamAppText } from '@/actions/singleSteamApp/text'
+import { appDiceCategoryAction } from '@/actions/appDice/categoryAction'
+import { appDiceText } from '@/actions/appDice/text'
 
 export default async function App(context: LineContext): Promise<unknown> {
   await i18nAPI.init()
@@ -53,6 +55,7 @@ export default async function App(context: LineContext): Promise<unknown> {
       platform(
         'line',
         router([
+          text(appDiceText, appDiceCategoryAction as any),
           text(
             new RegExp(singleSteamAppText, 'i'),
             singleSteamAppAction as any,
