@@ -1,12 +1,11 @@
 import { isMultiPeopleMessage } from '@/utils/isMultiPeopleMessage'
-import { ContextSimulator } from 'bottender/test-utils'
+import { ContextMock } from '@/lib/bottender-toolkit/classes/ContextMock'
 
 describe(isMultiPeopleMessage.name, () => {
-  const simulator = new ContextSimulator({ platform: 'line' })
-
   it('LineContext Group 和 Room 將視為多人對話', () => {
-    const contextNative = simulator.createTextContext()
+    const context = new ContextMock('some message').lineContext
     const contextMultiPeopleMessage1 = {
+      sendFlex: jest.fn(),
       event: {
         isMessage: true,
         isText: true,
@@ -16,6 +15,7 @@ describe(isMultiPeopleMessage.name, () => {
       },
     }
     const contextMultiPeopleMessage2 = {
+      sendFlex: jest.fn(),
       event: {
         isMessage: true,
         isText: true,
@@ -25,7 +25,7 @@ describe(isMultiPeopleMessage.name, () => {
       },
     }
 
-    expect(isMultiPeopleMessage(contextNative)).toBe(false)
+    expect(isMultiPeopleMessage(context)).toBe(false)
     expect(isMultiPeopleMessage(contextMultiPeopleMessage1 as any)).toBe(true)
     expect(isMultiPeopleMessage(contextMultiPeopleMessage2 as any)).toBe(true)
   })

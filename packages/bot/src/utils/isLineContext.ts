@@ -1,8 +1,8 @@
-import { LineContext, TelegramContext } from 'bottender'
+import { LineContext, Context } from 'bottender'
 import { assertsLineContext } from '@/utils/assertsLineContext'
 
 export const isLineContext = (
-  context: LineContext | TelegramContext,
+  context: Context<any, any>,
 ): context is LineContext => {
   try {
     assertsLineContext(context)

@@ -1,9 +1,12 @@
-import { LineContext } from 'bottender'
+import { Context } from 'bottender'
+import { isLineContext } from '@/utils/isLineContext'
+import { debugAPI } from '@/lib/debugAPI'
 
-export const isMultiPeopleMessage = (context: LineContext): boolean => {
-  const isMultiPeopleMessage: boolean = ['group', 'room'].includes(
-    context?.event?.source?.type,
-  )
+export const isMultiPeopleMessage = (context: Context<any, any>): boolean => {
+  if (isLineContext(context)) {
+    return ['group', 'room'].includes(context?.event?.source?.type)
+  }
 
-  return isMultiPeopleMessage
+  debugAPI.bot.extend('isMultiPeopleMessage(...) 暫時只支持 LineContext')
+  return false
 }
