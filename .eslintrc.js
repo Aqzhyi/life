@@ -41,15 +41,9 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.ts', '*.tsx'],
+      files: ['**/webpack.config.ts'],
       parserOptions: {
-        project: './tsconfig.src.json',
-      },
-    },
-    {
-      files: ['webpack.config.ts'],
-      parserOptions: {
-        project: './tsconfig.webpack.json',
+        project: 'tsconfig.webpack.json',
       },
     },
     {

@@ -52,10 +52,10 @@ const configration: Configuration = {
     rules: [
       {
         enforce: 'pre',
-        exclude: [/node_modules/, path.join(__dirname, '../app')],
+        exclude: [/node_modules/],
         loader: 'eslint-loader',
         options: {
-          configFile: path.resolve(__dirname, '.eslintrc.js'),
+          configFile: path.resolve(__dirname, '../../.eslintrc.js'),
         },
         test: /\.tsx?$/,
       },
@@ -72,7 +72,7 @@ const configration: Configuration = {
           {
             loader: 'ts-loader',
             options: {
-              configFile: path.resolve(__dirname, 'tsconfig.src.json'),
+              configFile: path.resolve(__dirname, 'tsconfig.json'),
               transpileOnly: true,
             },
           },
